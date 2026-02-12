@@ -1,1796 +1,2872 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi" dir="ltr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AdHabits - Performance Marketing Agency</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #fafafa;
-            --text: #0a0a0a;
-            --muted: #666666;
-            --stroke: #e5e5e5;
-            --card: #ffffff;
-            --accent: #ff6b35;
-            --accent2: #f7931e;
-            --gradient: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-            --gradient-soft: linear-gradient(135deg, rgba(255,107,53,0.1) 0%, rgba(247,147,30,0.1) 100%);
-            --dark-bg: #0f0f0f;
-            --dark-card: #1a1a1a;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        
-        body {
-            background: var(--bg);
-            color: var(--text);
-            font-family: 'Inter', system-ui, sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Preloader */
-        .preloader {
-            position: fixed;
-            inset: 0;
-            background: var(--bg);
-            z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            transition: opacity 0.6s ease, visibility 0.6s ease;
-        }
-        .preloader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-        .preloader-circle {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: pulse-soft 2s ease-in-out infinite;
-        }
-        .preloader-circle img { width: 70%; height: 70%; object-fit: contain; }
-        @keyframes pulse-soft { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
-        .preloader-text {
-            margin-top: 24px;
-            font-size: 20px;
-            font-weight: 700;
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-        }
-
-        /* Navigation */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 0 16px;
-            opacity: 0;
-            transform: translateY(-20px);
-            animation: fadeInDown 0.8s ease forwards;
-            animation-delay: 0.5s;
-        }
-        @keyframes fadeInDown { to { opacity: 1; transform: translateY(0); } }
-        
-        .nav-inner {
-            max-width: 1200px;
-            margin: 0 auto;
-            height: 64px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(0,0,0,0.05);
-            border-radius: 16px;
-            padding: 0 20px;
-            box-shadow: 0 4px 30px rgba(0,0,0,0.08);
-            margin-top: 16px;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 700;
-            font-size: 18px;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .logo {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 2px 10px rgba(255,107,53,0.3);
-            background: #fff;
-        }
-        .logo img { width: 100%; height: 100%; object-fit: contain; }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .nav-links a {
-            color: var(--text);
-            font-weight: 500;
-            font-size: 13px;
-            padding: 8px 14px;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .nav-links a:hover {
-            background: var(--gradient-soft);
-        }
-
-        .nav-links a.btn {
-            background: var(--gradient);
-            color: #fff;
-            font-weight: 600;
-            padding: 10px 18px;
-            margin-left: 6px;
-        }
-
-        .hamb {
-            display: none;
-            cursor: pointer;
-            border: none;
-            background: transparent;
-            padding: 8px;
-            flex-direction: column;
-            gap: 5px;
-        }
-        .hamb span {
-            display: block;
-            width: 24px;
-            height: 2px;
-            background: var(--text);
-            border-radius: 2px;
-        }
-
-        @media (max-width: 900px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 80px;
-                left: 16px;
-                right: 16px;
-                flex-direction: column;
-                background: var(--card);
-                padding: 20px;
-                border-radius: 16px;
-                box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-            }
-            .nav-links.active { display: flex; }
-            .nav-links a { width: 100%; text-align: center; padding: 12px; }
-            .nav-links a.btn { margin-left: 0; margin-top: 8px; }
-            .hamb { display: flex; }
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            padding: 140px 24px 80px;
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
-        }
-
-        .hero-bg::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(255,107,53,0.08) 0%, transparent 70%);
-            border-radius: 50%;
-            animation: float-slow 20s ease-in-out infinite;
-        }
-
-        @keyframes float-slow {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            50% { transform: translate(30px, -30px) scale(1.05); }
-        }
-
-        .hero-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-left {
-            opacity: 0;
-            transform: translateY(40px);
-            animation: fadeInUp 1s ease forwards;
-            animation-delay: 0.8s;
-        }
-
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-
-        .eyebrow {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px 16px;
-            background: var(--gradient-soft);
-            border: 1px solid rgba(255,107,53,0.2);
-            border-radius: 100px;
-            color: var(--accent);
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 24px;
-        }
-
-        h1 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 700;
-            font-size: clamp(36px, 5vw, 64px);
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-            margin-bottom: 20px;
-        }
-
-        .hl2 {
-            background: var(--gradient);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero-subtitle {
-            font-size: 18px;
-            color: var(--muted);
-            margin-bottom: 32px;
-            max-width: 480px;
-            line-height: 1.7;
-        }
-
-        .hero-stats {
-            display: flex;
-            gap: 40px;
-            margin-bottom: 40px;
-            padding: 24px 0;
-            border-top: 1px solid var(--stroke);
-            border-bottom: 1px solid var(--stroke);
-        }
-
-        .hero-stat { display: flex; flex-direction: column; }
-        .hero-stat .num {
-            font-family: 'Poppins', sans-serif;
-            font-size: 32px;
-            font-weight: 700;
-            line-height: 1;
-        }
-        .hero-stat .num::after { content: '+'; color: var(--accent); }
-        .hero-stat .lbl { font-size: 13px; color: var(--muted); margin-top: 4px; }
-
-        .cta-group { display: flex; gap: 16px; flex-wrap: wrap; }
-
-        .btn-primary {
-            background: var(--gradient);
-            color: #fff;
-            padding: 16px 32px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 15px;
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 10px 30px rgba(255,107,53,0.3);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .btn-secondary {
-            background: #fff;
-            color: var(--text);
-            padding: 16px 32px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 15px;
-            border: 1px solid var(--stroke);
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .hero-right {
-            position: relative;
-            opacity: 0;
-            transform: translateX(40px);
-            animation: fadeInLeft 1s ease forwards;
-            animation-delay: 1s;
-        }
-
-        @keyframes fadeInLeft { to { opacity: 1; transform: translateX(0); } }
-
-        .hero-image-wrapper {
-            position: relative;
-            border-radius: 24px;
-            overflow: hidden;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.15);
-        }
-        .hero-image-wrapper img { width: 100%; height: auto; display: block; }
-
-        .floating-badge {
-            position: absolute;
-            background: var(--card);
-            padding: 12px 20px;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 13px;
-            font-weight: 600;
-            animation: float-badge 6s ease-in-out infinite;
-        }
-
-        .floating-badge.badge-1 { top: 20px; right: -20px; }
-        .floating-badge.badge-2 { bottom: 40px; left: -30px; animation-delay: 1s; }
-
-        @keyframes float-badge {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .badge-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--gradient-soft);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-        }
-
-        @media (max-width: 968px) {
-            .hero-content { grid-template-columns: 1fr; text-align: center; }
-            .hero-stats { justify-content: center; }
-            .cta-group { justify-content: center; }
-            .hero-right { order: -1; max-width: 500px; margin: 0 auto; }
-            .floating-badge { display: none; }
-        }
-
-        /* Trust Bar */
-        .trust-section {
-            padding: 60px 0;
-            overflow: hidden;
-            background: linear-gradient(180deg, transparent 0%, rgba(255,107,53,0.02) 50%, transparent 100%);
-        }
-
-        .trust-title {
-            text-align: center;
-            font-size: 14px;
-            color: var(--muted);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 32px;
-        }
-
-        .trust-track {
-            display: flex;
-            gap: 60px;
-            animation: scroll-infinite 30s linear infinite;
-            width: max-content;
-        }
-
-        @keyframes scroll-infinite {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-
-        .trust-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 16px 24px;
-            background: var(--card);
-            border-radius: 12px;
-            border: 1px solid var(--stroke);
-            font-weight: 600;
-            font-size: 14px;
-            white-space: nowrap;
-        }
-
-        /* Section Headers */
-        .section-header {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto 60px;
-        }
-
-        .section-tag {
-            display: inline-block;
-            padding: 8px 16px;
-            background: var(--gradient-soft);
-            color: var(--accent);
-            border-radius: 100px;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 16px;
-        }
-
-        .section-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: clamp(32px, 4vw, 48px);
-            font-weight: 700;
-            margin-bottom: 16px;
-            line-height: 1.2;
-        }
-
-        .section-subtitle {
-            color: var(--muted);
-            font-size: 18px;
-        }
-
-        /* Services Section */
-        .services-section {
-            padding: 100px 24px;
-            background: var(--dark-bg);
-            color: #fff;
-        }
-
-        .services-section .section-title,
-        .services-section .section-subtitle { color: #fff; }
-        .services-section .section-tag {
-            background: rgba(255,107,53,0.2);
-            color: var(--accent);
-        }
-
-        .services-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-
-        .service-card {
-            background: var(--dark-card);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
-            padding: 32px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--gradient);
-            transform: scaleX(0);
-            transition: transform 0.3s ease;
-        }
-
-        .service-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--accent);
-            box-shadow: 0 20px 60px rgba(255,107,53,0.2);
-        }
-
-        .service-card:hover::before { transform: scaleX(1); }
-
-        .service-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--gradient-soft);
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            margin-bottom: 20px;
-        }
-
-        .service-card h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: #fff;
-        }
-
-        .service-card p {
-            color: #999;
-            font-size: 15px;
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-
-        .service-list { list-style: none; }
-        .service-list li {
-            padding: 8px 0;
-            padding-left: 24px;
-            position: relative;
-            color: #ccc;
-            font-size: 14px;
-        }
-        .service-list li::before {
-            content: '→';
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-            font-weight: 700;
-        }
-
-        @media (max-width: 768px) {
-            .services-grid { grid-template-columns: 1fr; }
-        }
-
-        /* Team Section */
-        .team-section {
-            padding: 100px 24px;
-            background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.02) 50%, transparent 100%);
-        }
-
-        .team-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 24px;
-        }
-
-        .team-card {
-            background: var(--card);
-            border: 1px solid var(--stroke);
-            border-radius: 20px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .team-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-            border-color: var(--accent);
-        }
-
-        .team-image {
-            width: 100%;
-            aspect-ratio: 1;
-            overflow: hidden;
-        }
-
-        .team-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .team-card:hover .team-image img { transform: scale(1.1); }
-
-        .team-info { padding: 24px; }
-        .team-info h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-        .team-info .role {
-            color: var(--accent);
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .team-info .bio {
-            color: var(--muted);
-            font-size: 14px;
-            line-height: 1.6;
-        }
-        .team-social {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 16px;
-        }
-        .team-social a {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: var(--gradient-soft);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-        .team-social a:hover {
-            background: var(--gradient);
-            color: #fff;
-        }
-
-        @media (max-width: 968px) {
-            .team-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-        @media (max-width: 480px) {
-            .team-grid { grid-template-columns: 1fr; }
-        }
-
-        /* Portfolio Section */
-        .portfolio-section {
-            padding: 100px 24px;
-            background: var(--bg);
-        }
-
-        .portfolio-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 32px;
-        }
-
-        .portfolio-card {
-            background: var(--card);
-            border-radius: 24px;
-            overflow: hidden;
-            border: 1px solid var(--stroke);
-            transition: all 0.3s ease;
-        }
-
-        .portfolio-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 30px 80px rgba(0,0,0,0.12);
-        }
-
-        .portfolio-image {
-            width: 100%;
-            aspect-ratio: 16/10;
-            overflow: hidden;
-        }
-        .portfolio-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .portfolio-content { padding: 32px; }
-        .portfolio-tag {
-            display: inline-block;
-            padding: 6px 12px;
-            background: var(--gradient-soft);
-            color: var(--accent);
-            border-radius: 100px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .portfolio-content h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-        .portfolio-content p {
-            color: var(--muted);
-            font-size: 15px;
-            line-height: 1.7;
-            margin-bottom: 20px;
-        }
-        .portfolio-stats {
-            display: flex;
-            gap: 32px;
-            padding-top: 20px;
-            border-top: 1px solid var(--stroke);
-        }
-        .portfolio-stat { text-align: center; }
-        .portfolio-stat .num {
-            font-family: 'Poppins', sans-serif;
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--accent);
-        }
-        .portfolio-stat .lbl {
-            font-size: 12px;
-            color: var(--muted);
-        }
-
-        @media (max-width: 768px) {
-            .portfolio-grid { grid-template-columns: 1fr; }
-        }
-
-        /* Process Section */
-        .process-section {
-            padding: 100px 24px;
-            background: linear-gradient(135deg, rgba(255,107,53,0.05) 0%, rgba(247,147,30,0.05) 100%);
-        }
-
-        .process-grid {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            position: relative;
-        }
-
-        .process-grid::before {
-            content: '';
-            position: absolute;
-            top: 40px;
-            left: 10%;
-            right: 10%;
-            height: 2px;
-            background: var(--stroke);
-            z-index: 0;
-        }
-
-        .process-step {
-            flex: 1;
-            text-align: center;
-            position: relative;
-            z-index: 1;
-            padding: 0 20px;
-        }
-
-        .step-number {
-            width: 80px;
-            height: 80px;
-            background: var(--gradient);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Poppins', sans-serif;
-            font-size: 28px;
-            font-weight: 700;
-            color: #fff;
-            margin: 0 auto 20px;
-            box-shadow: 0 10px 30px rgba(255,107,53,0.3);
-        }
-
-        .process-step h3 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        .process-step p {
-            color: var(--muted);
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-        @media (max-width: 768px) {
-            .process-grid { flex-direction: column; gap: 40px; }
-            .process-grid::before { display: none; }
-        }
-
-        /* Testimonials */
-        .testimonials-section {
-            padding: 100px 24px;
-            overflow: hidden;
-        }
-
-        .testimonials-track {
-            display: flex;
-            gap: 24px;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            padding: 20px 0;
-            scrollbar-width: none;
-        }
-        .testimonials-track::-webkit-scrollbar { display: none; }
-
-        .testimonial-card {
-            flex: 0 0 380px;
-            scroll-snap-align: start;
-            background: var(--card);
-            border-radius: 20px;
-            padding: 32px;
-            border: 1px solid var(--stroke);
-        }
-
-        .testimonial-header {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-        .testimonial-avatar {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            overflow: hidden;
-        }
-        .testimonial-avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .testimonial-meta h4 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 16px;
-            font-weight: 600;
-        }
-        .testimonial-meta span {
-            color: var(--muted);
-            font-size: 14px;
-        }
-        .testimonial-stars {
-            color: #fbbf24;
-            margin-bottom: 16px;
-            font-size: 18px;
-        }
-        .testimonial-text {
-            color: var(--text);
-            font-size: 15px;
-            line-height: 1.8;
-            font-style: italic;
-        }
-
-        /* CTA Section */
-        .cta-section {
-            padding: 100px 24px;
-            background: var(--gradient);
-            text-align: center;
-            color: #fff;
-        }
-        .cta-section h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: clamp(32px, 4vw, 48px);
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-        .cta-section p {
-            font-size: 18px;
-            opacity: 0.95;
-            max-width: 600px;
-            margin: 0 auto 32px;
-        }
-        .cta-section .btn-primary {
-            background: #fff;
-            color: var(--accent);
-            font-size: 16px;
-            padding: 18px 40px;
-        }
-
-        /* Contact Section */
-        .contact-section {
-            padding: 100px 24px;
-            background: var(--bg);
-        }
-
-        .contact-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .contact-info h2 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 36px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-        .contact-info > p {
-            color: var(--muted);
-            font-size: 18px;
-            margin-bottom: 40px;
-        }
-        .contact-details {
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-        }
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-        }
-        .contact-icon-box {
-            width: 50px;
-            height: 50px;
-            background: var(--gradient-soft);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            flex-shrink: 0;
-        }
-        .contact-item h4 {
-            font-family: 'Poppins', sans-serif;
-            font-size: 16px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-        .contact-item p {
-            color: var(--muted);
-            font-size: 15px;
-        }
-
-        .contact-form-wrapper {
-            background: var(--card);
-            padding: 40px;
-            border-radius: 24px;
-            border: 1px solid var(--stroke);
-            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
-        }
-
-        .form-group { margin-bottom: 20px; }
-        .form-group label {
-            display: block;
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 14px 16px;
-            border: 2px solid var(--stroke);
-            border-radius: 12px;
-            font-size: 15px;
-            font-family: 'Inter', sans-serif;
-            transition: all 0.3s ease;
-        }
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--accent);
-            box-shadow: 0 0 0 4px rgba(255,107,53,0.1);
-        }
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-        .submit-btn {
-            width: 100%;
-            background: var(--gradient);
-            color: #fff;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 16px;
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        @media (max-width: 768px) {
-            .contact-grid { grid-template-columns: 1fr; }
-            .form-row { grid-template-columns: 1fr; }
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark-bg);
-            color: #fff;
-            padding: 80px 24px 40px;
-        }
-        .footer-grid {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 60px;
-            margin-bottom: 60px;
-        }
-        .footer-brand { max-width: 300px; }
-        .footer-brand .logo-text {
-            font-family: 'Poppins', sans-serif;
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .footer-brand p {
-            color: #999;
-            font-size: 15px;
-            line-height: 1.8;
-            margin-bottom: 20px;
-        }
-        .footer-column h4 {
-            font-size: 14px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 20px;
-            color: #fff;
-        }
-        .footer-column a {
-            display: block;
-            color: #999;
-            margin-bottom: 12px;
-            font-size: 15px;
-            transition: color 0.3s ease;
-            text-decoration: none;
-        }
-        .footer-column a:hover { color: var(--accent); }
-        .footer-bottom {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding-top: 40px;
-            border-top: 1px solid #333;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-            color: #666;
-            font-size: 14px;
-        }
-
-        @media (max-width: 768px) {
-            .footer-grid { grid-template-columns: 1fr; gap: 40px; }
-        }
-
-        /* Back to Top */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--gradient);
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(255,107,53,0.3);
-            z-index: 999;
-        }
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        /* Scroll Reveal */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease;
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="description" content="AdHabits — Professional Meta Ads Management for Affiliate Marketers. Scale from ₹30k to ₹3-5 Lakh/month." />
+  <meta name="keywords" content="meta ads, affiliate marketing, Facebook ads, lead generation, scale business" />
+  <meta name="author" content="AdHabits" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="AdHabits — Scale Your Affiliate Business to ₹3-5 Lakh/Month" />
+  <meta property="og:description" content="Done-For-You Meta Ads & Lead Machine for Serious Affiliate Marketers Only. ₹16L+ Ad Spend Managed." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://adhabits.in" />
+  <meta property="og:image" content="https://i.postimg.cc/3rVMTKYG/adhabits-logo.png" />
+
+  <!-- Preconnect -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://connect.facebook.net" />
+  <link rel="preconnect" href="https://superprofile.bio" />
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="https://i.postimg.cc/3rVMTKYG/adhabits-logo.png" type="image/png" />
+
+  <title>AdHabits — Scale Your Affiliate Business to ₹3-5 Lakh/Month</title>
+
+  <style>
+    :root {
+      --bg: #fafafa;
+      --text: #0a0a0a;
+      --muted: #666666;
+      --stroke: #e5e5e5;
+      --card: #ffffff;
+      --accent: #ff6b35;
+      --accent2: #f7931e;
+      --success: #22c55e;
+      --error: #ef4444;
+      --shadow: rgba(0, 0, 0, 0.08);
+      --shadow-lg: rgba(0, 0, 0, 0.15);
+      --gradient: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+      --gradient-soft: linear-gradient(135deg, rgba(255,107,53,0.1) 0%, rgba(247,147,30,0.1) 100%);
+      --dark-bg: #0a0a0a;
+      --dark-card: #1a1a1a;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 140px;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* BUTTON EFFECTS WITH SHAKE/VIBRATE */
+    .btn-primary, .btn-secondary, .submit-btn, .nav-links a.btn {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* Shimmer overlay */
+    .btn-primary::before, .btn-secondary::before, .submit-btn::before, .nav-links a.btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.6) 50%, transparent 100%);
+      transform: skewX(-25deg);
+      animation: shimmer 3s infinite;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .btn-secondary::before {
+      background: linear-gradient(120deg, transparent 0%, rgba(255,107,53,0.3) 50%, transparent 100%);
+      animation: shimmer 3s infinite 0.5s;
+    }
+
+    @keyframes shimmer {
+      0% { left: -100%; }
+      20% { left: 200%; }
+      100% { left: 200%; }
+    }
+
+    /* VIBRATE/SHAKE ANIMATION */
+    .btn-primary:hover, .nav-links a.btn:hover, .submit-btn:hover {
+      animation: vibrate 0.3s ease-in-out infinite;
+      transform: translateY(-3px);
+      box-shadow: 0 20px 40px rgba(255,107,53,0.4);
+    }
+
+    .btn-secondary:hover {
+      animation: gentle-shake 0.4s ease-in-out;
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    @keyframes vibrate {
+      0%, 100% { transform: translateY(-3px) translateX(0); }
+      20% { transform: translateY(-3px) translateX(-2px) rotate(-1deg); }
+      40% { transform: translateY(-3px) translateX(2px) rotate(1deg); }
+      60% { transform: translateY(-3px) translateX(-1px) rotate(-0.5deg); }
+      80% { transform: translateY(-3px) translateX(1px) rotate(0.5deg); }
+    }
+
+    @keyframes gentle-shake {
+      0%, 100% { transform: translateY(-2px) rotate(0deg); }
+      25% { transform: translateY(-2px) rotate(-1deg); }
+      75% { transform: translateY(-2px) rotate(1deg); }
+    }
+
+    .btn-primary:active, .btn-secondary:active, .submit-btn:active {
+      transform: scale(0.95) !important;
+      animation: none;
+    }
+
+    /* Preloader */
+    .preloader {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+
+    .preloader.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .preloader-circle {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+      box-shadow: inset -10px -10px 20px rgba(0,0,0,0.05), inset 10px 10px 20px rgba(255,255,255,0.8), 0 10px 40px rgba(0,0,0,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulse-soft 2s ease-in-out infinite;
+    }
+
+    .preloader-circle img {
+      width: 70%;
+      height: 70%;
+      object-fit: contain;
+    }
+
+    @keyframes pulse-soft {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .preloader-text {
+      margin-top: 24px;
+      font-size: 20px;
+      font-weight: 700;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeIn 0.5s ease forwards 0.2s;
+    }
+
+    .preloader-progress {
+      position: absolute;
+      bottom: -40px;
+      font-size: 14px;
+      color: var(--muted);
+      font-variant-numeric: tabular-nums;
+      opacity: 0.8;
+    }
+    
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    /* WELCOME MESSAGE AT TOP */
+    .welcome-message {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--gradient);
+      color: #fff;
+      text-align: center;
+      padding: 16px;
+      font-weight: 600;
+      font-size: 14px;
+      z-index: 9998;
+      transform: translateY(-100%);
+      animation: slideDownWelcome 0.6s ease forwards, slideUpWelcome 0.6s ease forwards 1.6s;
+    }
+
+    @keyframes slideDownWelcome {
+      to { transform: translateY(0); }
+    }
+
+    @keyframes slideUpWelcome {
+      to { transform: translateY(-100%); }
+    }
+
+    /* URGENCY BAR */
+    .urgency-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--gradient);
+      color: #fff;
+      text-align: center;
+      padding: 10px 12px;
+      font-weight: 600;
+      font-size: 12px;
+      z-index: 1001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      backdrop-filter: blur(10px);
+      transform: translateY(-100%);
+      animation: slideDown 0.6s ease forwards;
+      animation-delay: 2.2s;
+      flex-wrap: wrap;
+      line-height: 1.4;
+    }
+
+    @keyframes slideDown {
+      to { transform: translateY(0); }
+    }
+
+    .timer-display {
+      background: rgba(0,0,0,0.2);
+      color: #fff;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-family: 'Inter', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 480px) {
+      .urgency-bar {
+        font-size: 11px;
+        padding: 8px 10px;
+        gap: 6px;
+      }
+      .timer-display {
+        font-size: 12px;
+        padding: 3px 8px;
+      }
+    }
+
+    /* NAVIGATION */
+    .nav {
+      position: fixed;
+      top: 56px;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 0 16px;
+      opacity: 0;
+      transform: translateY(-20px);
+      animation: fadeInDown 0.8s ease forwards;
+      animation-delay: 2.4s;
+    }
+
+    @keyframes fadeInDown {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(0,0,0,0.05);
+      border-radius: 16px;
+      padding: 0 20px;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+      transition: all 0.3s ease;
+    }
+
+    .nav.scrolled .nav-inner {
+      box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+      border-color: rgba(0,0,0,0.08);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      font-size: 18px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(255,107,53,0.3);
+      flex-shrink: 0;
+      background: #fff;
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-links a {
+      color: var(--text);
+      font-weight: 500;
+      font-size: 13px;
+      padding: 8px 14px;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+    }
+
+    .nav-links a::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--gradient-soft);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: 10px;
+    }
+
+    .nav-links a:hover::before { opacity: 1; }
+    .nav-links a span { position: relative; z-index: 1; }
+
+    .nav-links a.btn {
+      background: var(--gradient);
+      color: #fff;
+      font-weight: 600;
+      padding: 10px 18px;
+      margin-left: 6px;
+    }
+
+    .nav-links a.btn::before { display: none; }
+
+    .hamb {
+      display: none;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      padding: 8px;
+      flex-direction: column;
+      gap: 5px;
+      z-index: 1002;
+    }
+
+    .hamb span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    /* MOBILE NAVIGATION FIXES */
+    @media (max-width: 900px) {
+      .nav { top: 68px; }
+      .nav-inner { height: 60px; padding: 0 16px; }
+      .brand { font-size: 16px; }
+      .logo { width: 34px; height: 34px; }
+      
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 70px;
+        left: 16px;
+        right: 16px;
+        flex-direction: column;
+        background: var(--card);
+        padding: 20px;
+        border-radius: 16px;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        gap: 4px;
+      }
+      .nav-links.active { display: flex; }
+      .nav-links a { width: 100%; text-align: center; padding: 12px; }
+      .nav-links a.btn { margin-left: 0; margin-top: 8px; }
+      .hamb { display: flex; }
+    }
+
+    @media (max-width: 480px) {
+      .nav { top: 72px; padding: 0 12px; }
+      .nav-inner { border-radius: 12px; height: 56px; }
+      .logo { width: 32px; height: 32px; }
+      .brand span { font-size: 15px; }
+    }
+
+    /* Hero Section - NEW HIGH-TICKET VERSION */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      padding: 160px 24px 80px;
+      position: relative;
+      overflow: hidden;
+      background: var(--dark-bg);
+      color: #fff;
+    }
+
+    @media (max-width: 900px) {
+      .hero { padding-top: 180px; }
+    }
+
+    @media (max-width: 480px) {
+      .hero { padding: 170px 16px 60px; }
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(255,107,53,0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(247,147,30,0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(255,107,53,0.05) 0%, transparent 40%);
+    }
+
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(255,107,53,0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: float-slow 20s ease-in-out infinite;
+    }
+
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(247,147,30,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      animation: float-slow 25s ease-in-out infinite reverse;
+    }
+
+    @keyframes float-slow {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -30px) scale(1.05); }
+      66% { transform: translate(-20px, 20px) scale(0.95); }
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-left {
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeInUp 1s ease forwards;
+      animation-delay: 2.6s;
+    }
+
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Pre-headline styling */
+    .pre-headline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: rgba(255,107,53,0.2);
+      border: 1px solid rgba(255,107,53,0.4);
+      border-radius: 100px;
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .pre-headline::before {
+      content: '⚡';
+      font-size: 14px;
+    }
+
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 800;
+      font-size: clamp(32px, 4.5vw, 56px);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+      color: #fff;
+    }
+
+    .hl2 {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      position: relative;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 32px;
+      max-width: 540px;
+      line-height: 1.7;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 40px;
+      padding: 24px 0;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .hero-stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-stat .num {
+      font-family: 'Poppins', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .hero-stat .num::after {
+      content: '+';
+      color: var(--accent);
+    }
+
+    .hero-stat .lbl {
+      font-size: 13px;
+      color: rgba(255,255,255,0.6);
+      margin-top: 4px;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: var(--gradient);
+      color: #fff;
+      padding: 18px 36px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 10px 30px rgba(255,107,53,0.3);
+      text-decoration: none;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: #fff;
+      padding: 18px 36px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 16px;
+      border: 2px solid rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      background: rgba(255,107,53,0.1);
+    }
+
+    .hero-right {
+      position: relative;
+      opacity: 0;
+      transform: translateX(40px);
+      animation: fadeInLeft 1s ease forwards;
+      animation-delay: 2.8s;
+    }
+
+    @keyframes fadeInLeft {
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .hero-card {
+      background: var(--dark-card);
+      border-radius: 24px;
+      padding: 32px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      border: 1px solid rgba(255,255,255,0.1);
+      position: relative;
+    }
+
+    .video-wrapper {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #000;
+      aspect-ratio: 16/9;
+      margin-bottom: 24px;
+    }
+
+    .video-wrapper iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .floating-badge {
+      position: absolute;
+      background: var(--dark-card);
+      padding: 12px 20px;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13px;
+      font-weight: 600;
+      animation: float-badge 6s ease-in-out infinite;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff;
+    }
+
+    .floating-badge.badge-1 {
+      top: -20px;
+      right: -20px;
+    }
+
+    .floating-badge.badge-2 {
+      bottom: 40px;
+      left: -30px;
+      animation-delay: 1s;
+    }
+
+    @keyframes float-badge {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .badge-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--gradient-soft);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .badge-text span:first-child {
+      color: var(--accent);
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .badge-text span:last-child {
+      color: rgba(255,255,255,0.6);
+      font-size: 11px;
+    }
+
+    @media (max-width: 968px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+      .hero-stats { justify-content: center; }
+      .cta-group { justify-content: center; }
+      .hero-right { order: -1; }
+      .floating-badge { display: none; }
+    }
+
+    /* Section Headers */
+    .section-header {
+      text-align: center;
+      max-width: 700px;
+      margin: 0 auto 60px;
+    }
+
+    .section-tag {
+      display: inline-block;
+      padding: 8px 16px;
+      background: var(--gradient-soft);
+      color: var(--accent);
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .section-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .section-subtitle {
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    /* 6 Silent Killers Section */
+    .killers-section {
+      padding: 100px 24px;
+      background: #fff;
+    }
+
+    .killers-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .killer-card {
+      background: var(--bg);
+      border: 2px solid var(--stroke);
+      border-radius: 20px;
+      padding: 32px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .killer-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--gradient);
+      transform: scaleY(0);
+      transition: transform 0.3s ease;
+    }
+
+    .killer-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      border-color: var(--accent);
+    }
+
+    .killer-card:hover::before {
+      transform: scaleY(1);
+    }
+
+    .killer-number {
+      font-family: 'Poppins', sans-serif;
+      font-size: 48px;
+      font-weight: 800;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      opacity: 0.3;
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .killer-card h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .killer-card p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 968px) {
+      .killers-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 640px) {
+      .killers-grid { grid-template-columns: 1fr; }
+    }
+
+    /* The Offer Section */
+    .offer-section {
+      padding: 100px 24px;
+      background: var(--dark-bg);
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .offer-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,107,53,0.5), transparent);
+    }
+
+    .offer-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .offer-content h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 700;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+
+    .offer-content > p {
+      color: rgba(255,255,255,0.7);
+      font-size: 18px;
+      line-height: 1.8;
+      margin-bottom: 40px;
+    }
+
+    .offer-features {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .offer-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .offer-feature-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--gradient-soft);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .offer-feature h4 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .offer-feature p {
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .offer-image-wrapper {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+    }
+
+    .offer-image-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .roi-badge {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      background: var(--gradient);
+      padding: 24px 32px;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(255,107,53,0.4);
+      text-align: center;
+    }
+
+    .roi-badge .number {
+      font-family: 'Poppins', sans-serif;
+      font-size: 36px;
+      font-weight: 800;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .roi-badge .label {
+      font-size: 14px;
+      color: rgba(255,255,255,0.9);
+      margin-top: 4px;
+    }
+
+    @media (max-width: 968px) {
+      .offer-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      .offer-image-wrapper { order: -1; }
+      .roi-badge { right: 20px; }
+    }
+
+    /* Qualification Section */
+    .qualification-section {
+      padding: 100px 24px;
+      background: linear-gradient(135deg, #fff5f2 0%, #fff 100%);
+    }
+
+    .qualification-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .qualification-box {
+      background: #fff;
+      border: 2px solid var(--stroke);
+      border-radius: 24px;
+      padding: 48px;
+      margin-top: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    }
+
+    .qualification-box h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 32px;
+      color: var(--text);
+    }
+
+    .qualification-list {
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .qualification-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px;
+      background: var(--bg);
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .qualification-item.yes {
+      border-left: 4px solid var(--success);
+    }
+
+    .qualification-item.no {
+      border-left: 4px solid var(--error);
+      opacity: 0.7;
+    }
+
+    .qualification-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .qualification-item.yes .qualification-icon {
+      background: rgba(34,197,94,0.1);
+      color: var(--success);
+    }
+
+    .qualification-item.no .qualification-icon {
+      background: rgba(239,68,68,0.1);
+      color: var(--error);
+    }
+
+    /* Authority Section */
+    .authority-section {
+      padding: 100px 24px;
+      background: #fff;
+    }
+
+    .authority-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .authority-image {
+      position: relative;
+    }
+
+    .authority-image-wrapper {
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.15);
+      position: relative;
+    }
+
+    .authority-image-wrapper img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .stats-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+      padding: 40px 32px 32px;
+      color: #fff;
+    }
+
+    .stats-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-item .num {
+      font-family: 'Poppins', sans-serif;
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .stat-item .lbl {
+      font-size: 13px;
+      color: rgba(255,255,255,0.8);
+      margin-top: 4px;
+    }
+
+    .authority-content h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(32px, 4vw, 48px);
+      font-weight: 700;
+      margin-bottom: 24px;
+      line-height: 1.2;
+    }
+
+    .authority-content > p {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    .case-study {
+      background: var(--bg);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 32px;
+      border: 1px solid var(--stroke);
+    }
+
+    .case-study-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .case-study h4 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .case-study p {
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .case-metrics {
+      display: flex;
+      gap: 24px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--stroke);
+    }
+
+    .case-metric {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .case-metric .val {
+      font-family: 'Poppins', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .case-metric .lab {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 968px) {
+      .authority-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+
+    /* Trust Bar */
+    .trust-section {
+      padding: 60px 0;
+      overflow: hidden;
+      background: linear-gradient(180deg, transparent 0%, rgba(255,107,53,0.02) 50%, transparent 100%);
+    }
+
+    .trust-title {
+      text-align: center;
+      font-size: 14px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 32px;
+    }
+
+    .trust-track {
+      display: flex;
+      gap: 60px;
+      animation: scroll-infinite 30s linear infinite;
+      width: max-content;
+    }
+
+    @keyframes scroll-infinite {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 24px;
+      background: var(--card);
+      border-radius: 12px;
+      border: 1px solid var(--stroke);
+      font-weight: 600;
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    /* Mid CTA Section */
+    .mid-cta-section {
+      padding: 80px 24px;
+      background: var(--gradient-soft);
+      border-top: 1px solid rgba(255,107,53,0.1);
+      border-bottom: 1px solid rgba(255,107,53,0.1);
+    }
+
+    .mid-cta-content {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .mid-cta-content h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .mid-cta-content p {
+      color: var(--muted);
+      font-size: 18px;
+      margin-bottom: 32px;
+    }
+
+    .mid-cta-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* Testimonials Section */
+    .testimonials-section {
+      padding: 100px 24px;
+      overflow: hidden;
+      background: #fff;
+    }
+
+    .testimonials-track {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 20px 0;
+      scrollbar-width: none;
+    }
+
+    .testimonials-track::-webkit-scrollbar { display: none; }
+
+    .testimonial-card {
+      flex: 0 0 320px;
+      scroll-snap-align: start;
+      background: var(--bg);
+      border-radius: 20px;
+      padding: 24px;
+      border: 1px solid var(--stroke);
+    }
+
+    .testimonial-image {
+      aspect-ratio: 9/16;
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 16px;
+      background: #f5f5f5;
+    }
+
+    .testimonial-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .testimonial-name {
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .testimonial-platform {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* FORM POPUP MODAL */
+    .form-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(10px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .form-modal.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .form-modal-content {
+      background: var(--card);
+      border-radius: 24px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.3);
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.3s ease;
+      position: relative;
+    }
+
+    .form-modal.active .form-modal-content {
+      transform: scale(1) translateY(0);
+    }
+
+    .form-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: #f5f5f5;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      z-index: 10;
+      transition: all 0.3s ease;
+    }
+
+    .form-close:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .form-container {
+      padding: 40px;
+    }
+
+    .form-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .form-header h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(24px, 4vw, 32px);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .form-header p {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .price-highlight {
+      text-align: center;
+      margin: 20px 0 30px;
+      padding: 20px;
+      background: var(--gradient-soft);
+      border-radius: 12px;
+      border: 2px dashed var(--accent);
+    }
+
+    .price-highlight .current {
+      font-family: 'Poppins', sans-serif;
+      font-size: 42px;
+      font-weight: 800;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .price-highlight .original {
+      font-size: 24px;
+      color: var(--muted);
+      text-decoration: line-through;
+      margin-left: 12px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 0;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text);
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--stroke);
+      border-radius: 10px;
+      font-size: 15px;
+      background: var(--card);
+      transition: all 0.3s ease;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(255,107,53,0.1);
+    }
+
+    .form-group input::placeholder { color: #999; }
+
+    .submit-btn {
+      width: 100%;
+      background: var(--gradient);
+      color: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      box-shadow: 0 10px 30px rgba(255,107,53,0.3);
+      margin-top: 8px;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.6) 50%, transparent 100%);
+      transform: skewX(-25deg);
+      animation: shimmer 3s infinite;
+    }
+
+    .form-security {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--muted);
+      flex-wrap: wrap;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      .form-container { padding: 30px 20px; }
+      .form-grid { grid-template-columns: 1fr; gap: 16px; }
+      .price-highlight .current { font-size: 32px; }
+      .submit-btn { font-size: 16px; padding: 18px; }
+    }
+
+    /* FAQ SECTION - ACCORDION STYLE */
+    .faq-section {
+      padding: 100px 24px;
+      max-width: 800px;
+      margin: 0 auto;
+      background: #fff;
+    }
+
+    .faq-item {
+      background: var(--bg);
+      border: 1px solid var(--stroke);
+      border-radius: 16px;
+      margin-bottom: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+
+    .faq-item:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    }
+
+    .faq-item.active {
+      border-color: var(--accent);
+      box-shadow: 0 8px 30px rgba(255,107,53,0.1);
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: none;
+      border: none;
+      font-size: 17px;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      color: var(--text);
+      transition: color 0.3s ease;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .faq-question:hover { color: var(--accent); }
+    .faq-item.active .faq-question { color: var(--accent); }
+
+    .faq-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--gradient-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+      margin-left: 16px;
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .faq-icon::before {
+      content: '';
+      position: absolute;
+      width: 12px;
+      height: 2px;
+      background: var(--accent);
+      transition: all 0.3s ease;
+    }
+
+    .faq-icon::after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      height: 12px;
+      background: var(--accent);
+      transition: all 0.3s ease;
+    }
+
+    .faq-item.active .faq-icon {
+      background: var(--gradient);
+      transform: rotate(45deg);
+    }
+
+    .faq-item.active .faq-icon::before,
+    .faq-item.active .faq-icon::after { background: #fff; }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
+    }
+
+    .faq-answer p {
+      color: var(--muted);
+      line-height: 1.8;
+      padding: 0 24px 24px 24px;
+      font-size: 15px;
+    }
+
+    .faq-item.active .faq-answer { 
+      max-height: 500px; 
+    }
+
+    /* Footer */
+    footer {
+      background: #0a0a0a;
+      color: #fff;
+      padding: 80px 24px 40px;
+    }
+
+    .footer-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+
+    .footer-brand { max-width: 300px; }
+
+    .footer-brand .logo-text {
+      font-family: 'Poppins', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-brand p {
+      color: #999;
+      font-size: 15px;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .footer-address {
+      color: #666;
+      font-size: 13px;
+      line-height: 1.6;
+      padding-top: 20px;
+      border-top: 1px solid #333;
+    }
+
+    .footer-column h4 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .footer-column a {
+      display: block;
+      color: #999;
+      margin-bottom: 12px;
+      font-size: 15px;
+      transition: color 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .footer-column a:hover { color: var(--accent); }
+
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-top: 40px;
+      border-top: 1px solid #333;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 20px;
+      color: #666;
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    /* Policy Modals */
+    .policy-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(10px);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .policy-modal.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .policy-content {
+      background: var(--card);
+      border-radius: 24px;
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 40px 100px rgba(0,0,0,0.3);
+      transform: scale(0.9) translateY(20px);
+      transition: transform 0.3s ease;
+    }
+
+    .policy-modal.active .policy-content {
+      transform: scale(1) translateY(0);
+    }
+
+    .policy-header {
+      position: sticky;
+      top: 0;
+      background: var(--card);
+      padding: 24px 32px;
+      border-bottom: 1px solid var(--stroke);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .policy-close {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: #f5f5f5;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .policy-body { padding: 32px; }
+
+    .policy-section { margin-bottom: 32px; }
+
+    .policy-section h3 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .policy-section p, .policy-section li {
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 12px;
+      font-size: 15px;
+    }
+
+    .policy-section ul { margin-left: 24px; margin-bottom: 16px; }
+
+    .policy-date {
+      color: var(--muted);
+      font-size: 14px;
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--stroke);
+    }
+
+    /* Scroll Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Back to Top */
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--gradient);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(20px);
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 30px rgba(255,107,53,0.3);
+      z-index: 999;
+      overflow: hidden;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .back-to-top::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%);
+      transform: skewX(-25deg);
+      animation: shimmer 3s infinite;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,0.3);
+      border-radius: 50%;
+      border-top-color: #fff;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Urgency Badge */
+    .urgency-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(239,68,68,0.1);
+      color: var(--error);
+      padding: 8px 16px;
+      border-radius: 100px;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 20px;
+      border: 1px solid rgba(239,68,68,0.2);
+    }
+
+    .urgency-badge::before {
+      content: '🔥';
+    }
+
+    /* Highlight box */
+    .highlight-box {
+      background: var(--gradient-soft);
+      border-left: 4px solid var(--accent);
+      padding: 20px 24px;
+      border-radius: 0 12px 12px 0;
+      margin: 24px 0;
+    }
+
+    .highlight-box p {
+      color: var(--text);
+      font-weight: 500;
+      margin: 0;
+    }
+  </style>
+
+  <!-- Meta Pixels -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
+    (window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    
+    fbq('init', '1615358806544488');
+    fbq('init', '1255041905596153');
+    fbq('track', 'PageView');
+  </script>
 </head>
+
 <body>
-    <!-- Preloader -->
-    <div class="preloader" id="preloader">
-        <div class="preloader-circle">
-            <img src="https://i.postimg.cc/3rVMTKYG/adhabits-logo.png" alt="AdHabits" />
+  <!-- Welcome Message - Shows for 1 second at top -->
+  <div class="welcome-message" id="welcomeMsg">
+    👋 Welcome Serious Affiliate! This is For High Earners Only
+  </div>
+
+  <!-- Preloader -->
+  <div class="preloader" id="preloader">
+    <div class="preloader-circle">
+      <img src="https://i.postimg.cc/3rVMTKYG/adhabits-logo.png" alt="AdHabits" />
+    </div>
+    <div class="preloader-text">Loading Premium Experience</div>
+    <div class="preloader-progress" id="preloaderProgress">0%</div>
+  </div>
+
+  <!-- Urgency Bar -->
+  <div class="urgency-bar" id="urgencyBar">
+    <span>⚡ Only 3 Spots Left This Week:</span>
+    <span style="text-decoration: line-through; opacity: 0.9;">Strategy Call ₹2,999</span>
+    <span style="font-weight: 800;">₹49 Only</span>
+    <span class="timer-display" id="countdown">02:59:59</span>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="logo">
+          <img src="https://i.postimg.cc/3rVMTKYG/adhabits-logo.png" alt="AdHabits" />
         </div>
-        <div class="preloader-text">Performance Marketing Agency</div>
+        <span>AdHabits</span>
+      </div>
+      <div class="nav-links" id="navLinks">
+        <a href="#problem"><span>Problems</span></a>
+        <a href="#solution"><span>Solution</span></a>
+        <a href="#authority"><span>Results</span></a>
+        <a href="#faq"><span>FAQ</span></a>
+        <a href="#" class="btn" onclick="openFormModal(); return false;">Book Call ₹49</a>
+      </div>
+      <button class="hamb" id="hamb" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section - High Ticket Version -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-left">
+        <div class="pre-headline">Attention: Affiliate Marketers</div>
+        <h1>Main Aapke Affiliate Business ko Scale Karunga <span class="hl2">₹3 Lakh - ₹5 Lakh</span> Tak. Simple.</h1>
+        <p class="hero-subtitle">Ek aisa Done-For-You Lead Machine setup karwayein jo aapko daily 30-50 high-quality leads de, taaki aap ad manager par nahi, balki apni closing aur team building par focus kar sakein.</p>
+        
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="num" data-count="16">0</span>
+            <span class="lbl">Lakhs+ Ad Spend</span>
+          </div>
+          <div class="hero-stat">
+            <span class="num" data-count="290">0</span>
+            <span class="lbl">Affiliates Scaled</span>
+          </div>
+          <div class="hero-stat">
+            <span class="num" data-count="10">0</span>
+            <span class="lbl">X Average ROI</span>
+          </div>
+        </div>
+
+        <div class="cta-group">
+          <button class="btn-primary" onclick="openFormModal()">
+            <span>🔥</span>
+            Book Strategy Call - ₹49 Only
+          </button>
+          <button class="btn-secondary" onclick="openFormModal()">
+            <span>📞</span>
+            WhatsApp Pe Message Karein
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-card">
+          <div class="video-wrapper">
+            <iframe src="https://www.youtube.com/embed/22S_KlKYzP8?rel=0&modestbranding=1" title="AdHabits Intro" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="floating-badge badge-1">
+            <div class="badge-icon">🏆</div>
+            <div class="badge-text">
+              <span>290+</span>
+              <span>Clients Scaled</span>
+            </div>
+          </div>
+          <div class="floating-badge badge-2">
+            <div class="badge-icon">⭐</div>
+            <div class="badge-text">
+              <span>4.9/5</span>
+              <span>Rating</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Bar -->
+  <section class="trust-section">
+    <div class="trust-title">Trusted by top affiliates from leading platforms</div>
+    <div class="trust-track" id="trustTrack">
+      <div class="trust-item">IDP</div>
+      <div class="trust-item">MillionaireTrack</div>
+      <div class="trust-item">Starteazy</div>
+      <div class="trust-item">Bizgurukul</div>
+      <div class="trust-item">LeadsGuru</div>
+      <div class="trust-item">GyaanGrowth</div>
+      <div class="trust-item">RichIND</div>
+      <div class="trust-item">Forever</div>
+    </div>
+  </section>
+
+  <!-- 6 Silent Killers Section -->
+  <section class="killers-section" id="problem">
+    <div class="section-header reveal">
+      <div class="section-tag">The Reality Check</div>
+      <h2 class="section-title">6 Silent Killers Jo Aapke Business Ko <span style="color: var(--accent)">Rok Rahe Hain</span></h2>
+      <p class="section-subtitle">Agar inme se koi bhi problem aapko familiar lage, toh aap sahi jagah hain...</p>
     </div>
 
-    <!-- Navigation -->
-    <nav class="nav" id="nav">
-        <div class="nav-inner">
-            <div class="brand">
-                <div class="logo">
-                    <img src="https://i.postimg.cc/3rVMTKYG/adhabits-logo.png" alt="AdHabits" />
-                </div>
-                <span>AdHabits</span>
-            </div>
-            <div class="nav-links" id="navLinks">
-                <a href="#services">Services</a>
-                <a href="#team">Team</a>
-                <a href="#portfolio">Case Studies</a>
-                <a href="#process">Process</a>
-                <a href="#testimonials">Testimonials</a>
-                <a href="#contact">Contact</a>
-                <a href="#contact" class="btn">Get Free Audit</a>
-            </div>
-            <button class="hamb" id="hamb" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+    <div class="killers-grid">
+      <div class="killer-card reveal">
+        <div class="killer-number">01</div>
+        <h3>Low-Quality Leads</h3>
+        <p>Junk leads jo sirf "Hi" bolti hain aur gayab ho jati hain. Aapka time waste ho raha hai unqualified logon par.</p>
+      </div>
+      <div class="killer-card reveal">
+        <div class="killer-number">02</div>
+        <h3>Ad Account Bans</h3>
+        <p>Roz-roz naya ad account banana aur policy se darna. Aapka business ad accounts banane mein chala ja raha hai.</p>
+      </div>
+      <div class="killer-card reveal">
+        <div class="killer-number">03</div>
+        <h3>No Scaling System</h3>
+        <p>Pata hi nahi ki budget ₹500 se ₹5000 kaise le jayein bina ROI bigade. Growth random hai, systematic nahi.</p>
+      </div>
+      <div class="killer-card reveal">
+        <div class="killer-number">04</div>
+        <h3>Manual Work</h3>
+        <p>Sara din ad manager dekhne mein nikal jata hai, content kab banayein? Aap technician ban gaye hain, CEO nahi.</p>
+      </div>
+      <div class="killer-card reveal">
+        <div class="killer-number">05</div>
+        <h3>High CPL</h3>
+        <p>Lead mehngi ho rahi hai aur conversion kam. Paisa lag raha hai par result nahi aa raha hai.</p>
+      </div>
+      <div class="killer-card reveal">
+        <div class="killer-number">06</div>
+        <h3>Trust Gap</h3>
+        <p>Audience ko trust nahi hota ki aap unhe kama kar de sakte hain. Aapki positioning weak hai.</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-bg"></div>
-        <div class="hero-content">
-            <div class="hero-left">
-                <div class="eyebrow">Performance Marketing Experts</div>
-                <h1>Scale Your Business with <span class="hl2">Data-Driven</span> Marketing</h1>
-                <p class="hero-subtitle">We are a full-service performance marketing agency specializing in Meta Ads, Google Ads, and Affiliate Marketing. ROI-focused strategies that deliver measurable results.</p>
-                
-                <div class="hero-stats">
-                    <div class="hero-stat">
-                        <span class="num" data-count="50">0</span>
-                        <span class="lbl">Lakhs+ Ad Spend</span>
-                    </div>
-                    <div class="hero-stat">
-                        <span class="num" data-count="290">0</span>
-                        <span class="lbl">Clients Served</span>
-                    </div>
-                    <div class="hero-stat">
-                        <span class="num" data-count="300">0</span>
-                        <span class="lbl">% Average ROAS</span>
-                    </div>
-                </div>
-
-                <div class="cta-group">
-                    <a href="#contact" class="btn-primary">Get Free Strategy Audit</a>
-                    <a href="#portfolio" class="btn-secondary">View Case Studies</a>
-                </div>
-            </div>
-
-            <div class="hero-right">
-                <div class="hero-image-wrapper">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop" alt="Dashboard" />
-                </div>
-                <div class="floating-badge badge-1">
-                    <div class="badge-icon">📈</div>
-                    <div>
-                        <div style="font-size: 18px; font-weight: 700;">300%</div>
-                        <div style="font-size: 11px; color: #666;">Avg. ROAS</div>
-                    </div>
-                </div>
-                <div class="floating-badge badge-2">
-                    <div class="badge-icon">🏆</div>
-                    <div>
-                        <div style="font-size: 18px; font-weight: 700;">Top 3%</div>
-                        <div style="font-size: 11px; color: #666;">Agency Rating</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Trust Bar -->
-    <section class="trust-section">
-        <div class="trust-title">Trusted by Industry Leaders</div>
-        <div class="trust-track" id="trustTrack">
-            <div class="trust-item">IDP</div>
-            <div class="trust-item">MillionaireTrack</div>
-            <div class="trust-item">Starteazy</div>
-            <div class="trust-item">Bizgurukul</div>
-            <div class="trust-item">LeadsGuru</div>
-            <div class="trust-item">GyaanGrowth</div>
-            <div class="trust-item">RichIND</div>
-            <div class="trust-item">Forever</div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="services-section" id="services">
-        <div class="section-header reveal">
-            <div class="section-tag">Our Expertise</div>
-            <h2 class="section-title">Performance Marketing Services</h2>
-            <p class="section-subtitle">Full-funnel marketing solutions designed to maximize your ROI</p>
-        </div>
-
-        <div class="services-grid">
-            <div class="service-card reveal">
-                <div class="service-icon">🎯</div>
-                <h3>Meta Ads Management</h3>
-                <p>Strategic Facebook & Instagram advertising campaigns optimized for conversions and scale.</p>
-                <ul class="service-list">
-                    <li>Campaign Strategy & Setup</li>
-                    <li>Advanced Audience Targeting</li>
-                    <li>Creative Testing & Optimization</li>
-                    <li>Retargeting Funnels</li>
-                    <li>Performance Analytics</li>
-                </ul>
-            </div>
-
-            <div class="service-card reveal">
-                <div class="service-icon">🔍</div>
-                <h3>Google Ads Management</h3>
-                <p>High-intent search and display campaigns that capture customers at every stage.</p>
-                <ul class="service-list">
-                    <li>Search Campaign Optimization</li>
-                    <li>Display Network Advertising</li>
-                    <li>YouTube Video Ads</li>
-                    <li>Shopping Campaigns</li>
-                    <li>Keyword Research & Bidding</li>
-                </ul>
-            </div>
-
-            <div class="service-card reveal">
-                <div class="service-icon">💰</div>
-                <h3>Affiliate Marketing</h3>
-                <p>End-to-end affiliate program management for sustainable revenue growth.</p>
-                <ul class="service-list">
-                    <li>Affiliate Recruitment</li>
-                    <li>Commission Structure Design</li>
-                    <li>Performance Tracking</li>
-                    <li>Affiliate Training & Support</li>
-                    <li>Fraud Prevention</li>
-                </ul>
-            </div>
-
-            <div class="service-card reveal">
-                <div class="service-icon">📊</div>
-                <h3>Conversion Rate Optimization</h3>
-                <p>Data-driven optimization to turn more visitors into paying customers.</p>
-                <ul class="service-list">
-                    <li>Landing Page Optimization</li>
-                    <li>A/B Testing</li>
-                    <li>User Behavior Analysis</li>
-                    <li>Sales Funnel Design</li>
-                    <li>Heatmap Analysis</li>
-                </ul>
-            </div>
-
-            <div class="service-card reveal">
-                <div class="service-icon">📱</div>
-                <h3>Social Media Marketing</h3>
-                <p>Organic and paid social strategies to build brand authority and engagement.</p>
-                <ul class="service-list">
-                    <li>Content Strategy</li>
-                    <li>Community Management</li>
-                    <li>Influencer Collaborations</li>
-                    <li>Social Listening</li>
-                    <li>Analytics & Reporting</li>
-                </ul>
-            </div>
-
-            <div class="service-card reveal">
-                <div class="service-icon">🚀</div>
-                <h3>Growth Hacking</h3>
-                <p>Rapid experimentation and innovative tactics to accelerate business growth.</p>
-                <ul class="service-list">
-                    <li>Viral Marketing Campaigns</li>
-                    <li>Referral Program Design</li>
-                    <li>Marketing Automation</li>
-                    <li>Customer Acquisition</li>
-                    <li>Retention Strategies</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <!-- Team Section -->
-    <section class="team-section" id="team">
-        <div class="section-header reveal">
-            <div class="section-tag">Our Team</div>
-            <h2 class="section-title">Meet The Experts</h2>
-            <p class="section-subtitle">Passionate marketers dedicated to your success</p>
-        </div>
-
-        <div class="team-grid">
-            <div class="team-card reveal">
-                <div class="team-image">
-                    <img src="https://i.postimg.cc/cC2f5c0G/IMG-5862-2.avif" alt="Hifzur Rahman" />
-                </div>
-                <div class="team-info">
-                    <h3>Hifzur Rahman</h3>
-                    <div class="role">Founder & CEO</div>
-                    <p class="bio">Performance marketing expert with 3+ years of experience managing ₹50L+ ad spend and scaling 290+ affiliate businesses.</p>
-                    <div class="team-social">
-                        <a href="#">in</a>
-                        <a href="#">X</a>
-                        <a href="#">📷</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="team-card reveal">
-                <div class="team-image">
-                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&fit=crop" alt="Priya Sharma" />
-                </div>
-                <div class="team-info">
-                    <h3>Priya Sharma</h3>
-                    <div class="role">Head of Strategy</div>
-                    <p class="bio">Former Google Ads specialist with expertise in PPC campaigns, keyword optimization, and conversion tracking.</p>
-                    <div class="team-social">
-                        <a href="#">in</a>
-                        <a href="#">X</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="team-card reveal">
-                <div class="team-image">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop" alt="Amit Patel" />
-                </div>
-                <div class="team-info">
-                    <h3>Amit Patel</h3>
-                    <div class="role">Creative Director</div>
-                    <p class="bio">Award-winning designer specializing in high-converting ad creatives, landing pages, and brand identity.</p>
-                    <div class="team-social">
-                        <a href="#">in</a>
-                        <a href="#">Be</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="team-card reveal">
-                <div class="team-image">
-                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&fit=crop" alt="Sneha Gupta" />
-                </div>
-                <div class="team-info">
-                    <h3>Sneha Gupta</h3>
-                    <div class="role">Affiliate Manager</div>
-                    <p class="bio">Expert in affiliate program management, partner recruitment, and performance-based marketing strategies.</p>
-                    <div class="team-social">
-                        <a href="#">in</a>
-                        <a href="#">📷</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Portfolio/Case Studies Section -->
-    <section class="portfolio-section" id="portfolio">
-        <div class="section-header reveal">
-            <div class="section-tag">Case Studies</div>
-            <h2 class="section-title">Proven Results</h2>
-            <p class="section-subtitle">Real campaigns, real results, real growth</p>
-        </div>
-
-        <div class="portfolio-grid">
-            <div class="portfolio-card reveal">
-                <div class="portfolio-image">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=500&fit=crop" alt="E-commerce" />
-                </div>
-                <div class="portfolio-content">
-                    <span class="portfolio-tag">E-commerce</span>
-                    <h3>3X ROAS for Fashion Brand</h3>
-                    <p>Scaled an online fashion store from ₹50K to ₹5L monthly revenue using strategic Meta Ads targeting.</p>
-                    <div class="portfolio-stats">
-                        <div class="portfolio-stat">
-                            <div class="num">3X</div>
-                            <div class="lbl">ROAS</div>
-                        </div>
-                        <div class="portfolio-stat">
-                            <div class="num">500%</div>
-                            <div class="lbl">Growth</div>
-                        </div>
-                        <div class="portfolio-stat">
-                            <div class="num">-40%</div>
-                            <div class="lbl">CPA</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="portfolio-card reveal">
-                <div class="portfolio-image">
-                    <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=500&fit=crop" alt="Affiliate" />
-                </div>
-                <div class="portfolio-content">
-                    <span class="portfolio-tag">Affiliate Marketing</span>
-                    <h3>Top Performer Campaign</h3>
-                    <p>Helped 60+ affiliates achieve top performer status through optimized funnels and creative testing.</p>
-                    <div class="portfolio-stats">
-                        <div class="portfolio-stat">
-                            <div class="num">60+</div>
-                            <div class="lbl">Top Performers</div>
-                        </div>
-                        <div class="portfolio-stat">
-                            <div class="num">290</div>
-                            <div class="lbl">Affiliates</div>
-                        </div>
-                        <div class="portfolio-stat">
-                            <div class="num">₹50L</div>
-                            <div class="lbl">Ad Spend</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="portfolio-card reveal">
-                <div class="portfolio-image">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=500&fit=crop" alt="Lead Gen" />
-                </div>
-                <div class="portfolio-content">
-                    <span class="portfolio-tag">Lead Generation</span>
-                    <h3>B2B Lead Gen Machine</h3>
-                    <p>Built automated lead generation system generating 500+ qualified leads monthly at 60% lower CPL.</p>
-                    <div class="portfolio-stats">
-                        <div class="portfolio-stat">
-                            <div class="num">500+</div>
-                            <div class="lbl">Leads/Month</div>
-                        </div>
-                        <div class="portfolio-stat">
-                            <div class="num">-60%</div>
-                            <div class="lbl">CPL</div>
-                        </div>
-                        <div class="portfolio-stat">
-                            <div class="num">25%</div>
-                            <div class="lbl">Conversion</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="portfolio-card reveal">
-                <div class="portfolio-image">
-                    <img src="https://images.unsplash.com/photo-1533750349088-cd871a92f312?w=800&h=500&fit=crop" alt="Brand" />
-                </div>
-                <div class="portfolio-content">
-                    <span class="portfolio-tag">Brand Awareness</span>
-                    <h3>Viral Brand Launch</h3>
-                    <p>Launched a new D2C brand achieving 1M+ impressions in 30 days through strategic influencer collabs.</p>
-                    <div class="portfolio-stats">
-                        <div class="portfolio-stat">
-                            <div class="num">1M+</div>
-                            <div class="lbl">Impressions</div>
-                        </div>
-                        <div class="portfolio-stat">
-                            <div class="num">50K</div>
-                            <div class="lbl">Followers</div>
-                        </div>
-                        <div class="portfolio-stat">
-                            <div class="num">8.5%</div>
-                            <div class="lbl">Engagement</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Process Section -->
-    <section class="process-section" id="process">
-        <div class="section-header reveal">
-            <div class="section-tag">How We Work</div>
-            <h2 class="section-title">Our Proven Process</h2>
-            <p class="section-subtitle">Systematic approach to deliver consistent results</p>
-        </div>
-
-        <div class="process-grid reveal">
-            <div class="process-step">
-                <div class="step-number">01</div>
-                <h3>Audit & Strategy</h3>
-                <p>Deep dive into your business, competitors, and market to create a winning strategy.</p>
-            </div>
-            <div class="process-step">
-                <div class="step-number">02</div>
-                <h3>Setup & Launch</h3>
-                <p>Build high-converting campaigns with precise targeting and compelling creatives.</p>
-            </div>
-            <div class="process-step">
-                <div class="step-number">03</div>
-                <h3>Optimize & Scale</h3>
-                <p>Continuous testing and optimization to improve ROAS and scale profitably.</p>
-            </div>
-            <div class="process-step">
-                <div class="step-number">04</div>
-                <h3>Report & Grow</h3>
-                <p>Transparent reporting and strategic recommendations for sustained growth.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="testimonials-section" id="testimonials">
-        <div class="section-header reveal">
-            <div class="section-tag">Testimonials</div>
-            <h2 class="section-title">What Clients Say</h2>
-            <p class="section-subtitle">Real feedback from real results</p>
-        </div>
-
-        <div class="testimonials-track">
-            <div class="testimonial-card reveal">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Client" />
-                    </div>
-                    <div class="testimonial-meta">
-                        <h4>Rajesh Kumar</h4>
-                        <span>CEO, TechStart</span>
-                    </div>
-                </div>
-                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                <p class="testimonial-text">"AdHabits transformed our digital presence completely. Our ROAS improved from 1.5X to 4X within 2 months. Highly recommended!"</p>
-            </div>
-
-            <div class="testimonial-card reveal">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Client" />
-                    </div>
-                    <div class="testimonial-meta">
-                        <h4>Priya Malhotra</h4>
-                        <span>Marketing Head, D2C Brand</span>
-                    </div>
-                </div>
-                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                <p class="testimonial-text">"The team's expertise in Meta Ads is unmatched. They helped us scale from ₹1L to ₹10L monthly spend while maintaining profitability."</p>
-            </div>
-
-            <div class="testimonial-card reveal">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar">
-                        <img src="https://randomuser.me/api/portraits/men/86.jpg" alt="Client" />
-                    </div>
-                    <div class="testimonial-meta">
-                        <h4>Amit Singh</h4>
-                        <span>Affiliate Marketer</span>
-                    </div>
-                </div>
-                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                <p class="testimonial-text">"Best investment I made for my affiliate business. Rahman and team know exactly how to optimize campaigns for maximum conversions."</p>
-            </div>
-
-            <div class="testimonial-card reveal">
-                <div class="testimonial-header">
-                    <div class="testimonial-avatar">
-                        <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Client" />
-                    </div>
-                    <div class="testimonial-meta">
-                        <h4>Sneha Patel</h4>
-                        <span>Founder, StyleHub</span>
-                    </div>
-                </div>
-                <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                <p class="testimonial-text">"Professional, data-driven, and results-oriented. They don't just run ads; they build growth systems. Our revenue doubled in 3 months!"</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="cta-section">
-        <div class="reveal">
-            <h2>Ready to Scale Your Business?</h2>
-            <p>Get a free strategy audit worth ₹4999. Limited slots available.</p>
-            <a href="#contact" class="btn-primary">Get Free Audit Now</a>
-        </div>
-    </section>
-
-    <!-- Contact Section -->
-    <section class="contact-section" id="contact">
-        <div class="contact-grid">
-            <div class="contact-info reveal">
-                <div class="section-tag">Get In Touch</div>
-                <h2>Let's Discuss Your Project</h2>
-                <p>Ready to take your marketing to the next level? Fill out the form and we'll get back to you within 24 hours.</p>
-                
-                <div class="contact-details">
-                    <div class="contact-item">
-                        <div class="contact-icon-box">📧</div>
-                        <div>
-                            <h4>Email Us</h4>
-                            <p>adhabits5@gmail.com</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon-box">📱</div>
-                        <div>
-                            <h4>Call Us</h4>
-                            <p>+91 72580 55245</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon-box">📍</div>
-                        <div>
-                            <h4>Visit Us</h4>
-                            <p>Motihari, Bihar, India</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="contact-form-wrapper reveal">
-                <form id="contactForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="name">Full Name *</label>
-                            <input type="text" id="name" name="name" required placeholder="John Doe">
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email Address *</label>
-                            <input type="email" id="email" name="email" required placeholder="john@example.com">
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="phone">Phone Number *</label>
-                            <input type="tel" id="phone" name="phone" required placeholder="+91 98765 43210">
-                        </div>
-                        <div class="form-group">
-                            <label for="company">Company Name</label>
-                            <input type="text" id="company" name="company" placeholder="Your Company">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="service">Service Interested In *</label>
-                        <select id="service" name="service" required>
-                            <option value="">Select a Service</option>
-                            <option value="meta-ads">Meta Ads Management</option>
-                            <option value="google-ads">Google Ads Management</option>
-                            <option value="affiliate">Affiliate Marketing</option>
-                            <option value="cro">Conversion Rate Optimization</option>
-                            <option value="social-media">Social Media Marketing</option>
-                            <option value="growth">Growth Hacking</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Your Message</label>
-                        <textarea id="message" name="message" rows="4" placeholder="Tell us about your project..."></textarea>
-                    </div>
-                    <button type="submit" class="submit-btn">Send Message</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="footer-grid">
-            <div class="footer-brand">
-                <div class="logo-text">
-                    <img src="https://i.postimg.cc/3rVMTKYG/adhabits-logo.png" alt="" width="32" height="32" style="border-radius: 8px;">
-                    AdHabits
-                </div>
-                <p>Performance marketing agency specializing in Meta Ads, Google Ads, and Affiliate Marketing. We deliver measurable ROI for businesses of all sizes.</p>
-            </div>
-            <div class="footer-column">
-                <h4>Services</h4>
-                <a href="#services">Meta Ads</a>
-                <a href="#services">Google Ads</a>
-                <a href="#services">Affiliate Marketing</a>
-                <a href="#services">CRO</a>
-                <a href="#services">Growth Hacking</a>
-            </div>
-            <div class="footer-column">
-                <h4>Company</h4>
-                <a href="#team">About Us</a>
-                <a href="#portfolio">Case Studies</a>
-                <a href="#process">Our Process</a>
-                <a href="#testimonials">Testimonials</a>
-                <a href="#contact">Contact</a>
-            </div>
-            <div class="footer-column">
-                <h4>Legal</h4>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-                <a href="#">Refund Policy</a>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>© 2025 AdHabits. All rights reserved.</p>
-            <p>Designed with ❤️ in India</p>
-        </div>
-    </footer>
-
-    <!-- Back to Top -->
-    <button class="back-to-top" id="backToTop" onclick="scrollToTop()">↑</button>
-
-    <script>
-        // Preloader
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('preloader').classList.add('hidden');
-            }, 1500);
-        });
-
-        // Mobile Menu
-        const hamb = document.getElementById('hamb');
-        const navLinks = document.getElementById('navLinks');
+  <!-- The Offer Section -->
+  <section class="offer-section" id="solution">
+    <div class="offer-grid">
+      <div class="offer-content reveal">
+        <div class="section-tag" style="background: rgba(255,107,53,0.2); color: var(--accent);">The Solution</div>
+        <h2>"AdHabits Affiliate Accelerator" — <span class="hl2">Aapka Lead Machine</span></h2>
+        <p>Ek complete Done-For-You system jo aapke affiliate business ko ₹30k se ₹3-5 Lakh/month tak le ja sakta hai. No theory, only execution.</p>
         
-        hamb.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
+        <div class="offer-features">
+          <div class="offer-feature">
+            <div class="offer-feature-icon">🎯</div>
+            <div>
+              <h4>DFY Meta Ads Management</h4>
+              <p>Hum aapke ads manage karenge taaki aapka time bache. Aap bas leads ko close karein.</p>
+            </div>
+          </div>
+          <div class="offer-feature">
+            <div class="offer-feature-icon">🚀</div>
+            <div>
+              <h4>Custom Funnel Building</h4>
+              <p>Sirf WhatsApp nahi, ek landing page jo lead ko "Pre-warm" kare aur conversion 3x kare.</p>
+            </div>
+          </div>
+          <div class="offer-feature">
+            <div class="offer-feature-icon">✍️</div>
+            <div>
+              <h4>Copywriting & Creative Support</h4>
+              <p>Viral reel scripts aur ad copies jo conversion layein. Aapko sochna nahi padega kya post karna hai.</p>
+            </div>
+          </div>
+          <div class="offer-feature">
+            <div class="offer-feature-icon">📊</div>
+            <div>
+              <h4>Sales Tracking & Optimization</h4>
+              <p>Har lead ka track record taaki aapka ROI 5x-10x ho sake. Data-driven decisions, guesswork nahi.</p>
+            </div>
+          </div>
+        </div>
 
-        navLinks.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                navLinks.classList.remove('active');
-            });
-        });
+        <button class="btn-primary" onclick="openFormModal()">
+          <span>⚡</span>
+          ₹49 Mein Strategy Call Book Karein
+        </button>
+      </div>
+      <div class="offer-image reveal">
+        <div class="offer-image-wrapper">
+          <img src="https://i.postimg.cc/cC2f5c0G/IMG-5862-2.avif" alt="Rahman - Meta Ads Expert" />
+          <div class="roi-badge">
+            <div class="number">8.7x</div>
+            <div class="label">Average ROI</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // Trust Bar Infinite Scroll
-        const trustTrack = document.getElementById('trustTrack');
-        const trustItems = trustTrack.innerHTML;
-        trustTrack.innerHTML = trustItems + trustItems + trustItems;
+  <!-- Qualification Section -->
+  <section class="qualification-section">
+    <div class="qualification-content reveal">
+      <div class="section-tag">Important Notice</div>
+      <h2 class="section-title">Ye Service <span style="color: var(--accent)">Sabke Liye Nahi Hai</span></h2>
+      <p class="section-subtitle">Hum sirf serious affiliates ke saath kaam karte hain jo actually scale karna chahte hain.</p>
+      
+      <div class="qualification-box">
+        <h3>Kya Aap Is Profile Mein Fit Hote Hain?</h3>
+        <div class="qualification-list">
+          <div class="qualification-item yes">
+            <div class="qualification-icon">✓</div>
+            <span>Aapka monthly income minimum ₹30k+ hona chahiye (proof required)</span>
+          </div>
+          <div class="qualification-item yes">
+            <div class="qualification-icon">✓</div>
+            <span>Aapke paas ad budget invest karne ke liye funds hone chahiye (minimum ₹10k/month)</span>
+          </div>
+          <div class="qualification-item yes">
+            <div class="qualification-icon">✓</div>
+            <span>Aap serious hain apna personal brand banane ke liye, not just "quick money"</span>
+          </div>
+          <div class="qualification-item no">
+            <div class="qualification-icon">✕</div>
+            <span>Ye "Get Rich Quick" scheme dhoondne walon ke liye nahi hai</span>
+          </div>
+          <div class="qualification-item no">
+            <div class="qualification-icon">✕</div>
+            <span>Agar aap sirf "try" karna chahte hain bina commitment ke, toh ye aapke liye nahi hai</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-        // Number Counter Animation
-        const counters = document.querySelectorAll('[data-count]');
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const target = parseInt(entry.target.dataset.count);
-                    const step = target / 100;
-                    let current = 0;
-                    
-                    const updateCounter = () => {
-                        current += step;
-                        if (current < target) {
-                            entry.target.textContent = Math.floor(current);
-                            requestAnimationFrame(updateCounter);
-                        } else {
-                            entry.target.textContent = target;
-                        }
-                    };
-                    updateCounter();
-                    counterObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
+  <!-- Authority Section -->
+  <section class="authority-section" id="authority">
+    <div class="authority-grid">
+      <div class="authority-image reveal">
+        <div class="authority-image-wrapper">
+          <img src="https://i.postimg.cc/cC2f5c0G/IMG-5862-2.avif" alt="Hifzur Rahman - Meta Ads Expert" />
+          <div class="stats-overlay">
+            <div class="stats-row">
+              <div class="stat-item">
+                <div class="num" data-count="16">0</div>
+                <div class="lbl">Lakhs Managed</div>
+              </div>
+              <div class="stat-item">
+                <div class="num" data-count="290">0</div>
+                <div class="lbl">Clients Served</div>
+              </div>
+              <div class="stat-item">
+                <div class="num" data-count="3">0</div>
+                <div class="lbl">Years Experience</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="authority-content reveal">
+        <div class="section-tag">Your Expert</div>
+        <h2>Meet <span style="color: var(--accent);">Hifzur Rahman</span></h2>
+        <p>Hey! I'm Rahman from Motihari, Bihar. 3+ saal se main affiliate marketers ki help kar raha hoon Meta ads se scale karne mein. Mere clients regularly ₹3-5 Lakh/month earn karte hain.</p>
         
-        counters.forEach(counter => counterObserver.observe(counter));
+        <div class="case-study">
+          <div class="case-study-label">Recent Case Study</div>
+          <h4>Kaise Maine ₹7,491 Spend Karke ₹65,000 Ka Profit Generate Karwaya</h4>
+          <p>Ek IDP affiliate ki help ki jo ₹30k/month pe stuck tha. Humne unka funnel optimize kiya, ad creatives change kiye, aur targeting improve ki.</p>
+          <div class="case-metrics">
+            <div class="case-metric">
+              <span class="val">₹7,491</span>
+              <span class="lab">Ad Spend</span>
+            </div>
+            <div class="case-metric">
+              <span class="val">₹65,000</span>
+              <span class="lab">Revenue</span>
+            </div>
+            <div class="case-metric">
+              <span class="val">8.7x</span>
+              <span class="lab">ROI</span>
+            </div>
+          </div>
+        </div>
 
-        // Scroll Reveal
-        const reveals = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    revealObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
+        <button class="btn-primary" onclick="openFormModal()" style="background: var(--gradient); color: #fff;">
+          <span>💬</span>
+          Mujhse Direct Baat Karein - ₹49 Only
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="mid-cta-section">
+    <div class="mid-cta-content reveal">
+      <div class="urgency-badge">Only 3 Spots Left This Week</div>
+      <h2>🚀 Ready to Scale from ₹30k to ₹3-5 Lakh/Month?</h2>
+      <p>Strategy call sirf ₹49 mein — agar call ke baad lagta hai ki hum aapki help nahi kar sakte, toh 100% refund. No questions asked.</p>
+      <div class="mid-cta-buttons">
+        <button class="btn-primary" onclick="openFormModal()">
+          <span>🔥</span>
+          Book My Strategy Call Now
+        </button>
+        <button class="btn-secondary" onclick="openPolicyModal('refund')">
+          <span>🛡️</span>
+          Refund Policy Dekhein
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="testimonials-section">
+    <div class="section-header reveal">
+      <div class="section-tag">Success Stories</div>
+      <h2 class="section-title">Client <span style="color: var(--accent)">Results</span></h2>
+      <p class="section-subtitle">Real WhatsApp screenshots from affiliates who scaled with us</p>
+    </div>
+
+    <div class="testimonials-track" id="testimonialsTrack">
+      <div class="testimonial-card">
+        <div class="testimonial-image">
+          <img src="https://i.postimg.cc/PJtN2tcP/nasreen-mam-finel.jpg" alt="Nasreen's Result" loading="lazy" />
+        </div>
+        <div class="testimonial-name">Nasreen</div>
+        <div class="testimonial-platform">IDP Affiliate</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-image">
+          <img src="https://i.postimg.cc/G3qpbnVx/Rukkaya-appi-finel.jpg" alt="Rukkaya's Result" loading="lazy" />
+        </div>
+        <div class="testimonial-name">Rukkaya</div>
+        <div class="testimonial-platform">IDP Affiliate</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-image">
+          <img src="https://i.postimg.cc/LXSzFFwM/Farheen-mam.jpg" alt="Farheen's Result" loading="lazy" />
+        </div>
+        <div class="testimonial-name">Farheen</div>
+        <div class="testimonial-platform">IDP Affiliate</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-image">
+          <img src="https://i.postimg.cc/vBDGBcp7/Firdous-finel.jpg" alt="Firdous's Result" loading="lazy" />
+        </div>
+        <div class="testimonial-name">Firdous</div>
+        <div class="testimonial-platform">IDP Affiliate</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-image">
+          <img src="https://i.postimg.cc/CxF50LL7/Ahemadi-mam-finel.jpg" alt="Ahemadi's Result" loading="lazy" />
+        </div>
+        <div class="testimonial-name">Ahemadi</div>
+        <div class="testimonial-platform">IDP Affiliate</div>
+      </div>
+      <div class="testimonial-card">
+        <div class="testimonial-image">
+          <img src="https://i.postimg.cc/nhcF5R0w/balvinder-finel.jpg" alt="Balvinder's Result" loading="lazy" />
+        </div>
+        <div class="testimonial-name">Balvinder</div>
+        <div class="testimonial-platform">IDP Affiliate</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION - ACCORDION STYLE -->
+  <section class="faq-section" id="faq">
+    <div class="section-header reveal" style="margin-bottom: 40px;">
+      <div class="section-tag">FAQ</div>
+      <h2 class="section-title">Common Questions</h2>
+      <p class="section-subtitle">Aapke man mein jo sawaal hain, unke jawab yahan hain</p>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>₹49 ki strategy call mein exactly kya milega?</span>
+        <div class="faq-icon"></div>
+      </button>
+      <div class="faq-answer">
+        <p>30-minute one-on-one call mein main aapka current funnel review karunga, aapke target audience ko analyze karunga, aur ek custom roadmap dunga ki kaise aap ₹30k se ₹3-5L tak ja sakte hain. Agar aapko lagta hai value nahi milli, full refund.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Mera platform IDP/Bizgurukul/etc hai, kya ye kaam karega?</span>
+        <div class="faq-icon"></div>
+      </button>
+      <div class="faq-answer">
+        <p>Bilkul! Humne IDP, Bizgurukul, MillionaireTrack, LeadsGuru, GyaanGrowth, RichIND, Forever, Starteazy — sab par kaam kiya hai. Strategy platform-specific hoti hai.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Kitna ad budget chahiye hoga?</span>
+        <div class="faq-icon"></div>
+      </button>
+      <div class="faq-answer">
+        <p>Start karne ke liye minimum ₹10,000/month recommended hai. Lekin agar aapke paas abhi kam budget hai, toh bhi call book karein — main aapko batata hoon ki budget badhane ka best way kya hai.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Results kitne time mein aayenge?</span>
+        <div class="faq-icon"></div>
+      </button>
+      <div class="faq-answer">
+        <p>Usually 7-10 days mein aapko quality leads aana start ho jaati hain. Lekin ₹3-5L/month tak pahunchne mein typically 2-3 months lagte hain depending on your current level.</p>
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <button class="faq-question" onclick="toggleFaq(this)">
+        <span>Kya aap ad creatives bhi banate hain?</span>
+        <div class="faq-icon"></div>
+      </button>
+      <div class="faq-answer">
+        <p>Haan! Complete package mein ad copy, creative direction, aur reel scripts bhi include hain. Aapko sirf record karna hai, baaki sab hum sambhalenge.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORM POPUP MODAL -->
+  <div class="form-modal" id="formModal" onclick="closeFormModalOnOverlay(event)">
+    <div class="form-modal-content">
+      <button class="form-close" onclick="closeFormModal()" aria-label="Close">×</button>
+      <div class="form-container">
+        <div class="form-header">
+          <div class="section-tag">Limited Time Offer</div>
+          <h2>Book Your Strategy Call</h2>
+          <p>Fill in your details below. Call ke baad payment link milega.</p>
+        </div>
+
+        <div class="price-highlight">
+          <span class="current">₹49</span>
+          <span class="original">₹2,999</span>
+          <div style="font-size: 14px; color: var(--muted); margin-top: 8px;">100% Refund Guarantee</div>
+        </div>
+
+        <form id="leadForm" onsubmit="handleFormSubmit(event)">
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="platform">Select Your Platform *</label>
+              <select id="platform" name="platform" required>
+                <option value="">Choose Platform</option>
+                <option value="IDP">IDP</option>
+                <option value="Bizgurukul">Bizgurukul</option>
+                <option value="LeadsGuru">LeadsGuru</option>
+                <option value="MillionaireTrack">MillionaireTrack</option>
+                <option value="GyaanGrowth">GyaanGrowth</option>
+                <option value="RichIND">RichIND</option>
+                <option value="Forever">Forever</option>
+                <option value="Starteazy">Starteazy</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
+              <label for="name">Your Name *</label>
+              <input type="text" id="name" name="name" placeholder="Enter your full name" required />
+            </div>
+            
+            <div class="form-group">
+              <label for="phone">Phone Number *</label>
+              <input type="tel" id="phone" name="phone" placeholder="10-digit mobile number" pattern="[0-9]{10}" maxlength="10" required />
+            </div>
+
+            <div class="form-group">
+              <label for="income">Current Monthly Income *</label>
+              <select id="income" name="income" required>
+                <option value="">Select Range</option>
+                <option value="below30k">Below ₹30k</option>
+                <option value="30k-50k">₹30k - ₹50k</option>
+                <option value="50k-1L">₹50k - ₹1 Lakh</option>
+                <option value="above1L">Above ₹1 Lakh</option>
+              </select>
+            </div>
+
+            <input type="hidden" name="plan" value="Strategy Call ₹49" />
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span>🔒</span>
+            Book My Call Now - ₹49 Only
+          </button>
+          
+          <div class="form-security">
+            <span>🔒</span>
+            <span>Secured Payment • 100% Refund Guarantee • Instant WhatsApp Access</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="logo-text">
+          <img src="https://i.postimg.cc/3rVMTKYG/adhabits-logo.png" alt="" width="32" height="32" style="border-radius: 8px;" />
+          AdHabits
+        </div>
+        <p>Professional Meta Ads management for serious affiliate marketers. Scale from ₹30k to ₹3-5 Lakh/month with our Done-For-You system.</p>
         
-        reveals.forEach(el => revealObserver.observe(el));
+        <div class="footer-address">
+          <strong>Registered Address:</strong>
+          S/O Abdul Bari, Banjaraha, Zama Masjid,<br>
+          Motihari, Bihar, India - PIN 845304<br><br>
+          <strong>Proprietor:</strong> Hifzur Rahman<br>
+          <strong>Phone:</strong> 7258055245<br>
+          <strong>Email:</strong> adhabits5@gmail.com<br>
+          <strong>Hours:</strong> Mon-Sat, 9 AM - 6 PM IST
+        </div>
+      </div>
+      <div class="footer-column">
+        <h4>Services</h4>
+        <a href="#solution">Meta Ads Management</a>
+        <a href="#solution">Funnel Building</a>
+        <a href="#solution">Creative Support</a>
+        <a href="#" onclick="openFormModal(); return false;">Strategy Call</a>
+      </div>
+      <div class="footer-column">
+        <h4>Company</h4>
+        <a href="#authority">About Rahman</a>
+        <a href="#problem">Problems We Solve</a>
+        <a href="#solution">Our Solution</a>
+        <a href="#faq">FAQ</a>
+      </div>
+      <div class="footer-column">
+        <h4>Legal</h4>
+        <a onclick="openPolicyModal('privacy')">Privacy Policy</a>
+        <a onclick="openPolicyModal('terms')">Terms & Conditions</a>
+        <a onclick="openPolicyModal('refund')">Refund Policy</a>
+        <a href="https://instagram.com/adhabits.in" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 AdHabits. All rights reserved. | GSTIN: Not Applicable (Below Threshold)</p>
+    </div>
+  </footer>
 
-        // Back to Top
-        const backToTop = document.getElementById('backToTop');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 500) {
-                backToTop.classList.add('visible');
+  <!-- Back to Top -->
+  <button class="back-to-top" id="backToTop" onclick="scrollToTop()" aria-label="Back to top">↑</button>
+
+  <!-- Policy Modals -->
+  <div class="policy-modal" id="privacyModal" onclick="closePolicyModalOnOverlay(event, 'privacy')">
+    <div class="policy-content">
+      <div class="policy-header">
+        <h2>Privacy Policy</h2>
+        <button class="policy-close" onclick="closePolicyModal('privacy')" aria-label="Close">×</button>
+      </div>
+      <div class="policy-body">
+        <div class="policy-date">Last updated: January 31, 2025</div>
+        <div class="policy-section">
+          <h3>1. Information We Collect</h3>
+          <p>We collect information you provide directly to us, such as when you fill out our contact form, make a payment, or communicate with us via WhatsApp or email.</p>
+        </div>
+        <div class="policy-section">
+          <h3>2. How We Use Your Information</h3>
+          <p>We use the information we collect to provide, maintain, and improve our services, to communicate with you, and to personalize your experience.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="policy-modal" id="termsModal" onclick="closePolicyModalOnOverlay(event, 'terms')">
+    <div class="policy-content">
+      <div class="policy-header">
+        <h2>Terms & Conditions</h2>
+        <button class="policy-close" onclick="closePolicyModal('terms')" aria-label="Close">×</button>
+      </div>
+      <div class="policy-body">
+        <div class="policy-date">Last updated: January 31, 2025</div>
+        <div class="policy-section">
+          <h3>1. Acceptance of Terms</h3>
+          <p>By accessing and using AdHabits services, you agree to be bound by these Terms & Conditions.</p>
+        </div>
+        <div class="policy-section">
+          <h3>2. Services Description</h3>
+          <p>AdHabits provides Meta Ads management services for affiliate marketers. We do not guarantee specific results as they depend on various factors including market conditions and ad spend.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="policy-modal" id="refundModal" onclick="closePolicyModalOnOverlay(event, 'refund')">
+    <div class="policy-content">
+      <div class="policy-header">
+        <h2>Refund & Cancellation Policy</h2>
+        <button class="policy-close" onclick="closePolicyModal('refund')" aria-label="Close">×</button>
+      </div>
+      <div class="policy-body">
+        <div class="policy-date">Last updated: January 31, 2025</div>
+        <div class="policy-section">
+          <h3>1. Strategy Call Fee (₹49) Refund Policy</h3>
+          <p><strong>100% Money-Back Guarantee:</strong> If after the strategy call you feel you didn't get value, or if we determine we can't help you scale, we offer a 24-hour, no-questions-asked refund.</p>
+        </div>
+        <div class="policy-section">
+          <h3>2. How to Request Refund</h3>
+          <p>Simply message us on WhatsApp with your payment ID within 24 hours of the call. The refund will be processed instantly to your original payment method.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ====== CONFIG ======
+    const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbxs6lxCF59dxkUzjmmc_Ix6f7J7sFiHi7XMTIwc9RDXtKXy8rPK-ijsngfKj4Hs5EkgqA/exec';
+    const PAYMENT_LINK = 'https://superprofile.bio/vp/adhabits';
+    
+    // Preloader
+    let progress = 0;
+    const preloader = document.getElementById('preloader');
+    const progressEl = document.getElementById('preloaderProgress');
+    
+    const loadInterval = setInterval(() => {
+      progress += Math.random() * 30; 
+      if (progress >= 100) {
+        progress = 100;
+        clearInterval(loadInterval);
+        setTimeout(() => {
+          preloader.classList.add('hidden');
+        }, 400);
+      }
+      progressEl.textContent = Math.floor(progress) + '%';
+    }, 100);
+
+    // Welcome message hide after 1 second
+    setTimeout(() => {
+      const welcomeMsg = document.getElementById('welcomeMsg');
+      if (welcomeMsg) {
+        welcomeMsg.style.display = 'none';
+      }
+    }, 1600);
+
+    // Countdown Timer
+    function startTimer() {
+      let time = 3 * 60 * 60;
+      const display = document.getElementById('countdown');
+      
+      setInterval(() => {
+        const hrs = Math.floor(time / 3600);
+        const mins = Math.floor((time % 3600) / 60);
+        const secs = time % 60;
+        display.textContent = 
+          String(hrs).padStart(2,'0') + ':' +
+          String(mins).padStart(2,'0') + ':' +
+          String(secs).padStart(2,'0');
+        if (time > 0) time--;
+      }, 1000);
+    }
+    setTimeout(startTimer, 2200);
+
+    // Navigation Scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 100) {
+        nav.classList.add('scrolled');
+      } else {
+        nav.classList.remove('scrolled');
+      }
+    });
+
+    // Mobile Menu
+    const hamb = document.getElementById('hamb');
+    const navLinks = document.getElementById('navLinks');
+    
+    hamb.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+
+    // Trust Bar Infinite Scroll
+    const trustTrack = document.getElementById('trustTrack');
+    const trustItems = trustTrack.innerHTML;
+    trustTrack.innerHTML = trustItems + trustItems + trustItems;
+
+    // Number Counter Animation
+    const counters = document.querySelectorAll('[data-count]');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const target = parseInt(entry.target.dataset.count);
+          const step = target / 100;
+          let current = 0;
+          
+          const updateCounter = () => {
+            current += step;
+            if (current < target) {
+              entry.target.textContent = Math.floor(current);
+              requestAnimationFrame(updateCounter);
             } else {
-                backToTop.classList.remove('visible');
+              entry.target.textContent = target;
             }
-        });
-
-        function scrollToTop() {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+          };
+          updateCounter();
+          counterObserver.unobserve(entry.target);
         }
+      });
+    }, { threshold: 0.5 });
+    
+    counters.forEach(counter => counterObserver.observe(counter));
 
-        // Form Submission
-        document.getElementById('contactForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            alert('Thank you for your message! We will get back to you within 24 hours.');
-            e.target.reset();
+    // Scroll Reveal
+    const reveals = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    
+    reveals.forEach(el => revealObserver.observe(el));
+
+    // FORM MODAL FUNCTIONS
+    function openFormModal() {
+      document.getElementById('formModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+      
+      // Track
+      if (typeof fbq !== 'undefined') {
+        fbq('track', 'InitiateCheckout');
+      }
+    }
+
+    function closeFormModal() {
+      document.getElementById('formModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function closeFormModalOnOverlay(e) {
+      if (e.target === e.currentTarget) {
+        closeFormModal();
+      }
+    }
+
+    // FAQ TOGGLE - ACCORDION STYLE
+    function toggleFaq(btn) {
+      const faqItem = btn.parentElement;
+      const allFaqItems = document.querySelectorAll('.faq-item');
+      
+      // Close all other FAQ items
+      allFaqItems.forEach(item => {
+        if (item !== faqItem && item.classList.contains('active')) {
+          item.classList.remove('active');
+        }
+      });
+      
+      // Toggle current item
+      faqItem.classList.toggle('active');
+    }
+
+    // Policy Modals
+    function openPolicyModal(type) {
+      document.getElementById(type + 'Modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePolicyModal(type) {
+      document.getElementById(type + 'Modal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function closePolicyModalOnOverlay(e, type) {
+      if (e.target === e.currentTarget) {
+        closePolicyModal(type);
+      }
+    }
+
+    // ====== FORM SUBMIT - GOOGLE SHEETS + PAYMENT + PIXEL ======
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+      
+      const submitBtn = document.getElementById('submitBtn');
+      const platform = document.getElementById('platform').value;
+      const name = document.getElementById('name').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const income = document.getElementById('income').value;
+      
+      // Validation
+      if (!platform || !name || !phone || !income) {
+        alert('Please fill all required fields');
+        return;
+      }
+      
+      if (phone.length !== 10) {
+        alert('Please enter valid 10-digit phone number');
+        return;
+      }
+      
+      // Show loading
+      submitBtn.innerHTML = '<span class="spinner"></span> Processing...';
+      submitBtn.disabled = true;
+      
+      // Prepare data
+      const formData = {
+        platform: platform,
+        name: name,
+        phone: phone,
+        income: income,
+        plan: 'Strategy Call ₹49',
+        timestamp: new Date().toLocaleString('en-IN')
+      };
+      
+      try {
+        // 1. TRACK FACEBOOK PIXEL EVENTS (Lead + Contact)
+        if (typeof fbq !== 'undefined') {
+          // Lead event
+          fbq('track', 'Lead', {
+            content_name: 'Strategy Call Form',
+            content_category: 'Affiliate Marketing',
+            value: 49.00,
+            currency: 'INR',
+            platform: platform,
+            phone: phone,
+            income: income
+          });
+          
+          // Contact event
+          fbq('track', 'Contact', {
+            content_name: 'WhatsApp Strategy Call',
+            content_category: 'Affiliate Marketing',
+            platform: platform
+          });
+        }
+        
+        // 2. SEND DATA TO GOOGLE SHEETS (using no-cors mode)
+        const params = new URLSearchParams();
+        params.append('platform', formData.platform);
+        params.append('name', formData.name);
+        params.append('phone', formData.phone);
+        params.append('income', formData.income);
+        params.append('plan', formData.plan);
+        
+        fetch(GOOGLE_SHEET_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+          },
+          body: params.toString()
+        }).catch(err => {
+          console.log('Sheet update attempted');
         });
-    </script>
+        
+        // 3. REDIRECT TO PAYMENT PAGE (immediately)
+        setTimeout(() => {
+          window.location.href = PAYMENT_LINK;
+        }, 500);
+        
+      } catch (error) {
+        console.error('Error:', error);
+        window.location.href = PAYMENT_LINK;
+      }
+    }
+
+    // Back to Top
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Smooth scroll for nav links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href !== '#') {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
+
+    // Close modals on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeFormModal();
+        closePolicyModal('privacy');
+        closePolicyModal('terms');
+        closePolicyModal('refund');
+      }
+    });
+
+    // Phone validation
+    document.getElementById('phone').addEventListener('input', function(e) {
+      this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
+    });
+  </script>
 </body>
 </html>
