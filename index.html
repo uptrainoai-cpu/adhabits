@@ -1,2872 +1,1508 @@
 <!DOCTYPE html>
-<html lang="hi" dir="ltr">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="description" content="AdHabits — Professional Meta Ads Management for Affiliate Marketers. Scale from ₹30k to ₹3-5 Lakh/month." />
-  <meta name="keywords" content="meta ads, affiliate marketing, Facebook ads, lead generation, scale business" />
-  <meta name="author" content="AdHabits" />
-  <meta name="robots" content="index, follow" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="AdHabits — Scale Your Affiliate Business to ₹3-5 Lakh/Month" />
-  <meta property="og:description" content="Done-For-You Meta Ads & Lead Machine for Serious Affiliate Marketers Only. ₹16L+ Ad Spend Managed." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://adhabits.in" />
-  <meta property="og:image" content="https://i.postimg.cc/3rVMTKYG/adhabits-logo.png" />
-
-  <!-- Preconnect -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preconnect" href="https://connect.facebook.net" />
-  <link rel="preconnect" href="https://superprofile.bio" />
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
-  <!-- Favicon -->
-  <link rel="icon" href="https://i.postimg.cc/3rVMTKYG/adhabits-logo.png" type="image/png" />
-
-  <title>AdHabits — Scale Your Affiliate Business to ₹3-5 Lakh/Month</title>
-
-  <style>
-    :root {
-      --bg: #fafafa;
-      --text: #0a0a0a;
-      --muted: #666666;
-      --stroke: #e5e5e5;
-      --card: #ffffff;
-      --accent: #ff6b35;
-      --accent2: #f7931e;
-      --success: #22c55e;
-      --error: #ef4444;
-      --shadow: rgba(0, 0, 0, 0.08);
-      --shadow-lg: rgba(0, 0, 0, 0.15);
-      --gradient: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
-      --gradient-soft: linear-gradient(135deg, rgba(255,107,53,0.1) 0%, rgba(247,147,30,0.1) 100%);
-      --dark-bg: #0a0a0a;
-      --dark-card: #1a1a1a;
-    }
-
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 140px;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      line-height: 1.6;
-      overflow-x: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    /* BUTTON EFFECTS WITH SHAKE/VIBRATE */
-    .btn-primary, .btn-secondary, .submit-btn, .nav-links a.btn {
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s ease;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    /* Shimmer overlay */
-    .btn-primary::before, .btn-secondary::before, .submit-btn::before, .nav-links a.btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 50%;
-      height: 100%;
-      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.6) 50%, transparent 100%);
-      transform: skewX(-25deg);
-      animation: shimmer 3s infinite;
-      pointer-events: none;
-      z-index: 1;
-    }
-
-    .btn-secondary::before {
-      background: linear-gradient(120deg, transparent 0%, rgba(255,107,53,0.3) 50%, transparent 100%);
-      animation: shimmer 3s infinite 0.5s;
-    }
-
-    @keyframes shimmer {
-      0% { left: -100%; }
-      20% { left: 200%; }
-      100% { left: 200%; }
-    }
-
-    /* VIBRATE/SHAKE ANIMATION */
-    .btn-primary:hover, .nav-links a.btn:hover, .submit-btn:hover {
-      animation: vibrate 0.3s ease-in-out infinite;
-      transform: translateY(-3px);
-      box-shadow: 0 20px 40px rgba(255,107,53,0.4);
-    }
-
-    .btn-secondary:hover {
-      animation: gentle-shake 0.4s ease-in-out;
-      border-color: var(--accent);
-      color: var(--accent);
-      transform: translateY(-2px);
-    }
-
-    @keyframes vibrate {
-      0%, 100% { transform: translateY(-3px) translateX(0); }
-      20% { transform: translateY(-3px) translateX(-2px) rotate(-1deg); }
-      40% { transform: translateY(-3px) translateX(2px) rotate(1deg); }
-      60% { transform: translateY(-3px) translateX(-1px) rotate(-0.5deg); }
-      80% { transform: translateY(-3px) translateX(1px) rotate(0.5deg); }
-    }
-
-    @keyframes gentle-shake {
-      0%, 100% { transform: translateY(-2px) rotate(0deg); }
-      25% { transform: translateY(-2px) rotate(-1deg); }
-      75% { transform: translateY(-2px) rotate(1deg); }
-    }
-
-    .btn-primary:active, .btn-secondary:active, .submit-btn:active {
-      transform: scale(0.95) !important;
-      animation: none;
-    }
-
-    /* Preloader */
-    .preloader {
-      position: fixed;
-      inset: 0;
-      background: var(--bg);
-      z-index: 9999;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      transition: opacity 0.6s ease, visibility 0.6s ease;
-    }
-
-    .preloader.hidden {
-      opacity: 0;
-      visibility: hidden;
-      pointer-events: none;
-    }
-
-    .preloader-circle {
-      width: 120px;
-      height: 120px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
-      box-shadow: inset -10px -10px 20px rgba(0,0,0,0.05), inset 10px 10px 20px rgba(255,255,255,0.8), 0 10px 40px rgba(0,0,0,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      animation: pulse-soft 2s ease-in-out infinite;
-    }
-
-    .preloader-circle img {
-      width: 70%;
-      height: 70%;
-      object-fit: contain;
-    }
-
-    @keyframes pulse-soft {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-    }
-
-    .preloader-text {
-      margin-top: 24px;
-      font-size: 20px;
-      font-weight: 700;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      opacity: 0;
-      animation: fadeIn 0.5s ease forwards 0.2s;
-    }
-
-    .preloader-progress {
-      position: absolute;
-      bottom: -40px;
-      font-size: 14px;
-      color: var(--muted);
-      font-variant-numeric: tabular-nums;
-      opacity: 0.8;
-    }
-    
-    @keyframes fadeIn { to { opacity: 1; } }
-
-    /* WELCOME MESSAGE AT TOP */
-    .welcome-message {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: var(--gradient);
-      color: #fff;
-      text-align: center;
-      padding: 16px;
-      font-weight: 600;
-      font-size: 14px;
-      z-index: 9998;
-      transform: translateY(-100%);
-      animation: slideDownWelcome 0.6s ease forwards, slideUpWelcome 0.6s ease forwards 1.6s;
-    }
-
-    @keyframes slideDownWelcome {
-      to { transform: translateY(0); }
-    }
-
-    @keyframes slideUpWelcome {
-      to { transform: translateY(-100%); }
-    }
-
-    /* URGENCY BAR */
-    .urgency-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: var(--gradient);
-      color: #fff;
-      text-align: center;
-      padding: 10px 12px;
-      font-weight: 600;
-      font-size: 12px;
-      z-index: 1001;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      backdrop-filter: blur(10px);
-      transform: translateY(-100%);
-      animation: slideDown 0.6s ease forwards;
-      animation-delay: 2.2s;
-      flex-wrap: wrap;
-      line-height: 1.4;
-    }
-
-    @keyframes slideDown {
-      to { transform: translateY(0); }
-    }
-
-    .timer-display {
-      background: rgba(0,0,0,0.2);
-      color: #fff;
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-family: 'Inter', monospace;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-
-    @media (max-width: 480px) {
-      .urgency-bar {
-        font-size: 11px;
-        padding: 8px 10px;
-        gap: 6px;
-      }
-      .timer-display {
-        font-size: 12px;
-        padding: 3px 8px;
-      }
-    }
-
-    /* NAVIGATION */
-    .nav {
-      position: fixed;
-      top: 56px;
-      left: 0;
-      right: 0;
-      z-index: 1000;
-      padding: 0 16px;
-      opacity: 0;
-      transform: translateY(-20px);
-      animation: fadeInDown 0.8s ease forwards;
-      animation-delay: 2.4s;
-    }
-
-    @keyframes fadeInDown {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .nav-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(20px) saturate(180%);
-      border: 1px solid rgba(0,0,0,0.05);
-      border-radius: 16px;
-      padding: 0 20px;
-      box-shadow: 0 4px 30px rgba(0,0,0,0.08);
-      transition: all 0.3s ease;
-    }
-
-    .nav.scrolled .nav-inner {
-      box-shadow: 0 8px 40px rgba(0,0,0,0.12);
-      border-color: rgba(0,0,0,0.08);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 700;
-      font-size: 18px;
-      font-family: 'Poppins', sans-serif;
-    }
-
-    .logo {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 2px 10px rgba(255,107,53,0.3);
-      flex-shrink: 0;
-      background: #fff;
-    }
-
-    .logo img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      display: block;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .nav-links a {
-      color: var(--text);
-      font-weight: 500;
-      font-size: 13px;
-      padding: 8px 14px;
-      border-radius: 10px;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-      text-decoration: none;
-    }
-
-    .nav-links a::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: var(--gradient-soft);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-      border-radius: 10px;
-    }
-
-    .nav-links a:hover::before { opacity: 1; }
-    .nav-links a span { position: relative; z-index: 1; }
-
-    .nav-links a.btn {
-      background: var(--gradient);
-      color: #fff;
-      font-weight: 600;
-      padding: 10px 18px;
-      margin-left: 6px;
-    }
-
-    .nav-links a.btn::before { display: none; }
-
-    .hamb {
-      display: none;
-      cursor: pointer;
-      border: none;
-      background: transparent;
-      padding: 8px;
-      flex-direction: column;
-      gap: 5px;
-      z-index: 1002;
-    }
-
-    .hamb span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--text);
-      border-radius: 2px;
-      transition: all 0.3s ease;
-    }
-
-    /* MOBILE NAVIGATION FIXES */
-    @media (max-width: 900px) {
-      .nav { top: 68px; }
-      .nav-inner { height: 60px; padding: 0 16px; }
-      .brand { font-size: 16px; }
-      .logo { width: 34px; height: 34px; }
-      
-      .nav-links {
-        display: none;
-        position: absolute;
-        top: 70px;
-        left: 16px;
-        right: 16px;
-        flex-direction: column;
-        background: var(--card);
-        padding: 20px;
-        border-radius: 16px;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-        gap: 4px;
-      }
-      .nav-links.active { display: flex; }
-      .nav-links a { width: 100%; text-align: center; padding: 12px; }
-      .nav-links a.btn { margin-left: 0; margin-top: 8px; }
-      .hamb { display: flex; }
-    }
-
-    @media (max-width: 480px) {
-      .nav { top: 72px; padding: 0 12px; }
-      .nav-inner { border-radius: 12px; height: 56px; }
-      .logo { width: 32px; height: 32px; }
-      .brand span { font-size: 15px; }
-    }
-
-    /* Hero Section - NEW HIGH-TICKET VERSION */
-    .hero {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      padding: 160px 24px 80px;
-      position: relative;
-      overflow: hidden;
-      background: var(--dark-bg);
-      color: #fff;
-    }
-
-    @media (max-width: 900px) {
-      .hero { padding-top: 180px; }
-    }
-
-    @media (max-width: 480px) {
-      .hero { padding: 170px 16px 60px; }
-    }
-
-    .hero-bg {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      background: 
-        radial-gradient(circle at 20% 50%, rgba(255,107,53,0.15) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(247,147,30,0.1) 0%, transparent 50%),
-        radial-gradient(circle at 40% 20%, rgba(255,107,53,0.05) 0%, transparent 40%);
-    }
-
-    .hero-bg::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      right: -20%;
-      width: 800px;
-      height: 800px;
-      background: radial-gradient(circle, rgba(255,107,53,0.1) 0%, transparent 70%);
-      border-radius: 50%;
-      animation: float-slow 20s ease-in-out infinite;
-    }
-
-    .hero-bg::after {
-      content: '';
-      position: absolute;
-      bottom: -30%;
-      left: -10%;
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(247,147,30,0.08) 0%, transparent 70%);
-      border-radius: 50%;
-      animation: float-slow 25s ease-in-out infinite reverse;
-    }
-
-    @keyframes float-slow {
-      0%, 100% { transform: translate(0, 0) scale(1); }
-      33% { transform: translate(30px, -30px) scale(1.05); }
-      66% { transform: translate(-20px, 20px) scale(0.95); }
-    }
-
-    .hero-content {
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 60px;
-      align-items: center;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-left {
-      opacity: 0;
-      transform: translateY(40px);
-      animation: fadeInUp 1s ease forwards;
-      animation-delay: 2.6s;
-    }
-
-    @keyframes fadeInUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Pre-headline styling */
-    .pre-headline {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 10px 20px;
-      background: rgba(255,107,53,0.2);
-      border: 1px solid rgba(255,107,53,0.4);
-      border-radius: 100px;
-      color: var(--accent);
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 24px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .pre-headline::before {
-      content: '⚡';
-      font-size: 14px;
-    }
-
-    h1 {
-      font-family: 'Poppins', sans-serif;
-      font-weight: 800;
-      font-size: clamp(32px, 4.5vw, 56px);
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      margin-bottom: 24px;
-      color: #fff;
-    }
-
-    .hl2 {
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      position: relative;
-    }
-
-    .hero-subtitle {
-      font-size: 18px;
-      color: rgba(255,255,255,0.7);
-      margin-bottom: 32px;
-      max-width: 540px;
-      line-height: 1.7;
-    }
-
-    .hero-stats {
-      display: flex;
-      gap: 40px;
-      margin-bottom: 40px;
-      padding: 24px 0;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .hero-stat {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .hero-stat .num {
-      font-family: 'Poppins', sans-serif;
-      font-size: 32px;
-      font-weight: 700;
-      color: #fff;
-      line-height: 1;
-    }
-
-    .hero-stat .num::after {
-      content: '+';
-      color: var(--accent);
-    }
-
-    .hero-stat .lbl {
-      font-size: 13px;
-      color: rgba(255,255,255,0.6);
-      margin-top: 4px;
-    }
-
-    .cta-group {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-
-    .btn-primary {
-      background: var(--gradient);
-      color: #fff;
-      padding: 18px 36px;
-      border-radius: 12px;
-      font-weight: 700;
-      font-size: 16px;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 10px 30px rgba(255,107,53,0.3);
-      text-decoration: none;
-    }
-
-    .btn-secondary {
-      background: transparent;
-      color: #fff;
-      padding: 18px 36px;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 16px;
-      border: 2px solid rgba(255,255,255,0.3);
-      cursor: pointer;
-      transition: all 0.3s ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      text-decoration: none;
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--accent);
-      background: rgba(255,107,53,0.1);
-    }
-
-    .hero-right {
-      position: relative;
-      opacity: 0;
-      transform: translateX(40px);
-      animation: fadeInLeft 1s ease forwards;
-      animation-delay: 2.8s;
-    }
-
-    @keyframes fadeInLeft {
-      to { opacity: 1; transform: translateX(0); }
-    }
-
-    .hero-card {
-      background: var(--dark-card);
-      border-radius: 24px;
-      padding: 32px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-      border: 1px solid rgba(255,255,255,0.1);
-      position: relative;
-    }
-
-    .video-wrapper {
-      position: relative;
-      border-radius: 16px;
-      overflow: hidden;
-      background: #000;
-      aspect-ratio: 16/9;
-      margin-bottom: 24px;
-    }
-
-    .video-wrapper iframe {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    .floating-badge {
-      position: absolute;
-      background: var(--dark-card);
-      padding: 12px 20px;
-      border-radius: 12px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 13px;
-      font-weight: 600;
-      animation: float-badge 6s ease-in-out infinite;
-      border: 1px solid rgba(255,255,255,0.1);
-      color: #fff;
-    }
-
-    .floating-badge.badge-1 {
-      top: -20px;
-      right: -20px;
-    }
-
-    .floating-badge.badge-2 {
-      bottom: 40px;
-      left: -30px;
-      animation-delay: 1s;
-    }
-
-    @keyframes float-badge {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-    }
-
-    .badge-icon {
-      width: 40px;
-      height: 40px;
-      background: var(--gradient-soft);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-    }
-
-    .badge-text span:first-child {
-      color: var(--accent);
-      font-size: 18px;
-      font-weight: 700;
-    }
-
-    .badge-text span:last-child {
-      color: rgba(255,255,255,0.6);
-      font-size: 11px;
-    }
-
-    @media (max-width: 968px) {
-      .hero-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-      }
-      .hero-stats { justify-content: center; }
-      .cta-group { justify-content: center; }
-      .hero-right { order: -1; }
-      .floating-badge { display: none; }
-    }
-
-    /* Section Headers */
-    .section-header {
-      text-align: center;
-      max-width: 700px;
-      margin: 0 auto 60px;
-    }
-
-    .section-tag {
-      display: inline-block;
-      padding: 8px 16px;
-      background: var(--gradient-soft);
-      color: var(--accent);
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 16px;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .section-title {
-      font-family: 'Poppins', sans-serif;
-      font-size: clamp(28px, 4vw, 44px);
-      font-weight: 700;
-      margin-bottom: 16px;
-      line-height: 1.2;
-    }
-
-    .section-subtitle {
-      color: var(--muted);
-      font-size: 18px;
-    }
-
-    /* 6 Silent Killers Section */
-    .killers-section {
-      padding: 100px 24px;
-      background: #fff;
-    }
-
-    .killers-grid {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .killer-card {
-      background: var(--bg);
-      border: 2px solid var(--stroke);
-      border-radius: 20px;
-      padding: 32px;
-      transition: all 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .killer-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 4px;
-      height: 100%;
-      background: var(--gradient);
-      transform: scaleY(0);
-      transition: transform 0.3s ease;
-    }
-
-    .killer-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-      border-color: var(--accent);
-    }
-
-    .killer-card:hover::before {
-      transform: scaleY(1);
-    }
-
-    .killer-number {
-      font-family: 'Poppins', sans-serif;
-      font-size: 48px;
-      font-weight: 800;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      opacity: 0.3;
-      line-height: 1;
-      margin-bottom: 16px;
-    }
-
-    .killer-card h3 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 12px;
-      color: var(--text);
-    }
-
-    .killer-card p {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.7;
-    }
-
-    @media (max-width: 968px) {
-      .killers-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (max-width: 640px) {
-      .killers-grid { grid-template-columns: 1fr; }
-    }
-
-    /* The Offer Section */
-    .offer-section {
-      padding: 100px 24px;
-      background: var(--dark-bg);
-      color: #fff;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .offer-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(255,107,53,0.5), transparent);
-    }
-
-    .offer-grid {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-
-    .offer-content h2 {
-      font-family: 'Poppins', sans-serif;
-      font-size: clamp(32px, 4vw, 48px);
-      font-weight: 700;
-      margin-bottom: 24px;
-      line-height: 1.2;
-    }
-
-    .offer-content > p {
-      color: rgba(255,255,255,0.7);
-      font-size: 18px;
-      line-height: 1.8;
-      margin-bottom: 40px;
-    }
-
-    .offer-features {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      margin-bottom: 40px;
-    }
-
-    .offer-feature {
-      display: flex;
-      align-items: flex-start;
-      gap: 16px;
-      padding: 20px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .offer-feature-icon {
-      width: 48px;
-      height: 48px;
-      background: var(--gradient-soft);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      flex-shrink: 0;
-    }
-
-    .offer-feature h4 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 4px;
-    }
-
-    .offer-feature p {
-      color: rgba(255,255,255,0.6);
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    .offer-image-wrapper {
-      position: relative;
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.4);
-    }
-
-    .offer-image-wrapper img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .roi-badge {
-      position: absolute;
-      bottom: -20px;
-      right: -20px;
-      background: var(--gradient);
-      padding: 24px 32px;
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(255,107,53,0.4);
-      text-align: center;
-    }
-
-    .roi-badge .number {
-      font-family: 'Poppins', sans-serif;
-      font-size: 36px;
-      font-weight: 800;
-      color: #fff;
-      line-height: 1;
-    }
-
-    .roi-badge .label {
-      font-size: 14px;
-      color: rgba(255,255,255,0.9);
-      margin-top: 4px;
-    }
-
-    @media (max-width: 968px) {
-      .offer-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-      .offer-image-wrapper { order: -1; }
-      .roi-badge { right: 20px; }
-    }
-
-    /* Qualification Section */
-    .qualification-section {
-      padding: 100px 24px;
-      background: linear-gradient(135deg, #fff5f2 0%, #fff 100%);
-    }
-
-    .qualification-content {
-      max-width: 800px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .qualification-box {
-      background: #fff;
-      border: 2px solid var(--stroke);
-      border-radius: 24px;
-      padding: 48px;
-      margin-top: 40px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
-    }
-
-    .qualification-box h3 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 32px;
-      color: var(--text);
-    }
-
-    .qualification-list {
-      text-align: left;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .qualification-item {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      padding: 20px;
-      background: var(--bg);
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 500;
-    }
-
-    .qualification-item.yes {
-      border-left: 4px solid var(--success);
-    }
-
-    .qualification-item.no {
-      border-left: 4px solid var(--error);
-      opacity: 0.7;
-    }
-
-    .qualification-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-
-    .qualification-item.yes .qualification-icon {
-      background: rgba(34,197,94,0.1);
-      color: var(--success);
-    }
-
-    .qualification-item.no .qualification-icon {
-      background: rgba(239,68,68,0.1);
-      color: var(--error);
-    }
-
-    /* Authority Section */
-    .authority-section {
-      padding: 100px 24px;
-      background: #fff;
-    }
-
-    .authority-grid {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-    }
-
-    .authority-image {
-      position: relative;
-    }
-
-    .authority-image-wrapper {
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 30px 80px rgba(0,0,0,0.15);
-      position: relative;
-    }
-
-    .authority-image-wrapper img {
-      width: 100%;
-      height: auto;
-      display: block;
-    }
-
-    .stats-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-      padding: 40px 32px 32px;
-      color: #fff;
-    }
-
-    .stats-row {
-      display: flex;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    .stat-item {
-      text-align: center;
-    }
-
-    .stat-item .num {
-      font-family: 'Poppins', sans-serif;
-      font-size: 32px;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .stat-item .lbl {
-      font-size: 13px;
-      color: rgba(255,255,255,0.8);
-      margin-top: 4px;
-    }
-
-    .authority-content h2 {
-      font-family: 'Poppins', sans-serif;
-      font-size: clamp(32px, 4vw, 48px);
-      font-weight: 700;
-      margin-bottom: 24px;
-      line-height: 1.2;
-    }
-
-    .authority-content > p {
-      color: var(--muted);
-      font-size: 18px;
-      line-height: 1.8;
-      margin-bottom: 32px;
-    }
-
-    .case-study {
-      background: var(--bg);
-      border-radius: 16px;
-      padding: 24px;
-      margin-bottom: 32px;
-      border: 1px solid var(--stroke);
-    }
-
-    .case-study-label {
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--accent);
-      margin-bottom: 12px;
-    }
-
-    .case-study h4 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-
-    .case-study p {
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.6;
-    }
-
-    .case-metrics {
-      display: flex;
-      gap: 24px;
-      margin-top: 16px;
-      padding-top: 16px;
-      border-top: 1px solid var(--stroke);
-    }
-
-    .case-metric {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .case-metric .val {
-      font-family: 'Poppins', sans-serif;
-      font-size: 24px;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .case-metric .lab {
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    @media (max-width: 968px) {
-      .authority-grid {
-        grid-template-columns: 1fr;
-        gap: 40px;
-      }
-    }
-
-    /* Trust Bar */
-    .trust-section {
-      padding: 60px 0;
-      overflow: hidden;
-      background: linear-gradient(180deg, transparent 0%, rgba(255,107,53,0.02) 50%, transparent 100%);
-    }
-
-    .trust-title {
-      text-align: center;
-      font-size: 14px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      margin-bottom: 32px;
-    }
-
-    .trust-track {
-      display: flex;
-      gap: 60px;
-      animation: scroll-infinite 30s linear infinite;
-      width: max-content;
-    }
-
-    @keyframes scroll-infinite {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
-    .trust-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 16px 24px;
-      background: var(--card);
-      border-radius: 12px;
-      border: 1px solid var(--stroke);
-      font-weight: 600;
-      font-size: 14px;
-      white-space: nowrap;
-    }
-
-    /* Mid CTA Section */
-    .mid-cta-section {
-      padding: 80px 24px;
-      background: var(--gradient-soft);
-      border-top: 1px solid rgba(255,107,53,0.1);
-      border-bottom: 1px solid rgba(255,107,53,0.1);
-    }
-
-    .mid-cta-content {
-      max-width: 800px;
-      margin: 0 auto;
-      text-align: center;
-    }
-
-    .mid-cta-content h2 {
-      font-family: 'Poppins', sans-serif;
-      font-size: clamp(24px, 3vw, 36px);
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-
-    .mid-cta-content p {
-      color: var(--muted);
-      font-size: 18px;
-      margin-bottom: 32px;
-    }
-
-    .mid-cta-buttons {
-      display: flex;
-      gap: 16px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    /* Testimonials Section */
-    .testimonials-section {
-      padding: 100px 24px;
-      overflow: hidden;
-      background: #fff;
-    }
-
-    .testimonials-track {
-      display: flex;
-      gap: 24px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      padding: 20px 0;
-      scrollbar-width: none;
-    }
-
-    .testimonials-track::-webkit-scrollbar { display: none; }
-
-    .testimonial-card {
-      flex: 0 0 320px;
-      scroll-snap-align: start;
-      background: var(--bg);
-      border-radius: 20px;
-      padding: 24px;
-      border: 1px solid var(--stroke);
-    }
-
-    .testimonial-image {
-      aspect-ratio: 9/16;
-      border-radius: 12px;
-      overflow: hidden;
-      margin-bottom: 16px;
-      background: #f5f5f5;
-    }
-
-    .testimonial-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .testimonial-name {
-      font-weight: 600;
-      font-size: 16px;
-      margin-bottom: 4px;
-    }
-
-    .testimonial-platform {
-      font-size: 13px;
-      color: var(--muted);
-    }
-
-    /* FORM POPUP MODAL */
-    .form-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(10px);
-      z-index: 9999;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .form-modal.active {
-      display: flex;
-      opacity: 1;
-    }
-
-    .form-modal-content {
-      background: var(--card);
-      border-radius: 24px;
-      max-width: 600px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 40px 100px rgba(0,0,0,0.3);
-      transform: scale(0.9) translateY(20px);
-      transition: transform 0.3s ease;
-      position: relative;
-    }
-
-    .form-modal.active .form-modal-content {
-      transform: scale(1) translateY(0);
-    }
-
-    .form-close {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: none;
-      background: #f5f5f5;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      z-index: 10;
-      transition: all 0.3s ease;
-    }
-
-    .form-close:hover {
-      background: var(--accent);
-      color: #fff;
-    }
-
-    .form-container {
-      padding: 40px;
-    }
-
-    .form-header {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .form-header h2 {
-      font-family: 'Poppins', sans-serif;
-      font-size: clamp(24px, 4vw, 32px);
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .form-header p {
-      color: var(--muted);
-      font-size: 16px;
-    }
-
-    .price-highlight {
-      text-align: center;
-      margin: 20px 0 30px;
-      padding: 20px;
-      background: var(--gradient-soft);
-      border-radius: 12px;
-      border: 2px dashed var(--accent);
-    }
-
-    .price-highlight .current {
-      font-family: 'Poppins', sans-serif;
-      font-size: 42px;
-      font-weight: 800;
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .price-highlight .original {
-      font-size: 24px;
-      color: var(--muted);
-      text-decoration: line-through;
-      margin-left: 12px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-bottom: 20px;
-    }
-
-    .form-group {
-      margin-bottom: 0;
-    }
-
-    .form-group label {
-      display: block;
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: var(--text);
-    }
-
-    .form-group input,
-    .form-group select {
-      width: 100%;
-      padding: 14px 16px;
-      border: 2px solid var(--stroke);
-      border-radius: 10px;
-      font-size: 15px;
-      background: var(--card);
-      transition: all 0.3s ease;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .form-group input:focus,
-    .form-group select:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 4px rgba(255,107,53,0.1);
-    }
-
-    .form-group input::placeholder { color: #999; }
-
-    .submit-btn {
-      width: 100%;
-      background: var(--gradient);
-      color: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      font-size: 18px;
-      font-weight: 700;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      box-shadow: 0 10px 30px rgba(255,107,53,0.3);
-      margin-top: 8px;
-      position: relative;
-      overflow: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .submit-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 50%;
-      height: 100%;
-      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.6) 50%, transparent 100%);
-      transform: skewX(-25deg);
-      animation: shimmer 3s infinite;
-    }
-
-    .form-security {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      margin-top: 16px;
-      font-size: 13px;
-      color: var(--muted);
-      flex-wrap: wrap;
-      text-align: center;
-    }
-
-    @media (max-width: 600px) {
-      .form-container { padding: 30px 20px; }
-      .form-grid { grid-template-columns: 1fr; gap: 16px; }
-      .price-highlight .current { font-size: 32px; }
-      .submit-btn { font-size: 16px; padding: 18px; }
-    }
-
-    /* FAQ SECTION - ACCORDION STYLE */
-    .faq-section {
-      padding: 100px 24px;
-      max-width: 800px;
-      margin: 0 auto;
-      background: #fff;
-    }
-
-    .faq-item {
-      background: var(--bg);
-      border: 1px solid var(--stroke);
-      border-radius: 16px;
-      margin-bottom: 16px;
-      overflow: hidden;
-      transition: all 0.3s ease;
-    }
-
-    .faq-item:hover {
-      border-color: var(--accent);
-      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-    }
-
-    .faq-item.active {
-      border-color: var(--accent);
-      box-shadow: 0 8px 30px rgba(255,107,53,0.1);
-    }
-
-    .faq-question {
-      width: 100%;
-      padding: 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: none;
-      border: none;
-      font-size: 17px;
-      font-weight: 600;
-      text-align: left;
-      cursor: pointer;
-      color: var(--text);
-      transition: color 0.3s ease;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .faq-question:hover { color: var(--accent); }
-    .faq-item.active .faq-question { color: var(--accent); }
-
-    .faq-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--gradient-soft);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.3s ease;
-      flex-shrink: 0;
-      margin-left: 16px;
-      position: relative;
-      flex-shrink: 0;
-    }
-
-    .faq-icon::before {
-      content: '';
-      position: absolute;
-      width: 12px;
-      height: 2px;
-      background: var(--accent);
-      transition: all 0.3s ease;
-    }
-
-    .faq-icon::after {
-      content: '';
-      position: absolute;
-      width: 2px;
-      height: 12px;
-      background: var(--accent);
-      transition: all 0.3s ease;
-    }
-
-    .faq-item.active .faq-icon {
-      background: var(--gradient);
-      transform: rotate(45deg);
-    }
-
-    .faq-item.active .faq-icon::before,
-    .faq-item.active .faq-icon::after { background: #fff; }
-
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), padding 0.4s ease;
-    }
-
-    .faq-answer p {
-      color: var(--muted);
-      line-height: 1.8;
-      padding: 0 24px 24px 24px;
-      font-size: 15px;
-    }
-
-    .faq-item.active .faq-answer { 
-      max-height: 500px; 
-    }
-
-    /* Footer */
-    footer {
-      background: #0a0a0a;
-      color: #fff;
-      padding: 80px 24px 40px;
-    }
-
-    .footer-grid {
-      max-width: 1200px;
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 60px;
-      margin-bottom: 60px;
-    }
-
-    .footer-brand { max-width: 300px; }
-
-    .footer-brand .logo-text {
-      font-family: 'Poppins', sans-serif;
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 16px;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .footer-brand p {
-      color: #999;
-      font-size: 15px;
-      line-height: 1.8;
-      margin-bottom: 20px;
-    }
-
-    .footer-address {
-      color: #666;
-      font-size: 13px;
-      line-height: 1.6;
-      padding-top: 20px;
-      border-top: 1px solid #333;
-    }
-
-    .footer-column h4 {
-      font-size: 14px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      margin-bottom: 20px;
-      color: #fff;
-    }
-
-    .footer-column a {
-      display: block;
-      color: #999;
-      margin-bottom: 12px;
-      font-size: 15px;
-      transition: color 0.3s ease;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .footer-column a:hover { color: var(--accent); }
-
-    .footer-bottom {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding-top: 40px;
-      border-top: 1px solid #333;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 20px;
-      color: #666;
-      font-size: 14px;
-    }
-
-    @media (max-width: 768px) {
-      .footer-grid { grid-template-columns: 1fr; gap: 40px; }
-    }
-
-    /* Policy Modals */
-    .policy-modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.8);
-      backdrop-filter: blur(10px);
-      z-index: 9999;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .policy-modal.active {
-      display: flex;
-      opacity: 1;
-    }
-
-    .policy-content {
-      background: var(--card);
-      border-radius: 24px;
-      max-width: 900px;
-      width: 100%;
-      max-height: 90vh;
-      overflow-y: auto;
-      box-shadow: 0 40px 100px rgba(0,0,0,0.3);
-      transform: scale(0.9) translateY(20px);
-      transition: transform 0.3s ease;
-    }
-
-    .policy-modal.active .policy-content {
-      transform: scale(1) translateY(0);
-    }
-
-    .policy-header {
-      position: sticky;
-      top: 0;
-      background: var(--card);
-      padding: 24px 32px;
-      border-bottom: 1px solid var(--stroke);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 10;
-    }
-
-    .policy-close {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: none;
-      background: #f5f5f5;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-    }
-
-    .policy-body { padding: 32px; }
-
-    .policy-section { margin-bottom: 32px; }
-
-    .policy-section h3 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--accent);
-      margin-bottom: 12px;
-    }
-
-    .policy-section p, .policy-section li {
-      color: var(--muted);
-      line-height: 1.8;
-      margin-bottom: 12px;
-      font-size: 15px;
-    }
-
-    .policy-section ul { margin-left: 24px; margin-bottom: 16px; }
-
-    .policy-date {
-      color: var(--muted);
-      font-size: 14px;
-      margin-bottom: 24px;
-      padding-bottom: 24px;
-      border-bottom: 1px solid var(--stroke);
-    }
-
-    /* Scroll Reveal */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease;
-    }
-
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Back to Top */
-    .back-to-top {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: var(--gradient);
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      opacity: 0;
-      visibility: hidden;
-      transform: translateY(20px);
-      transition: all 0.3s ease;
-      box-shadow: 0 10px 30px rgba(255,107,53,0.3);
-      z-index: 999;
-      overflow: hidden;
-    }
-
-    .back-to-top.visible {
-      opacity: 1;
-      visibility: visible;
-      transform: translateY(0);
-    }
-
-    .back-to-top::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 50%;
-      height: 100%;
-      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.5) 50%, transparent 100%);
-      transform: skewX(-25deg);
-      animation: shimmer 3s infinite;
-    }
-
-    .spinner {
-      display: inline-block;
-      width: 20px;
-      height: 20px;
-      border: 3px solid rgba(255,255,255,0.3);
-      border-radius: 50%;
-      border-top-color: #fff;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* Urgency Badge */
-    .urgency-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: rgba(239,68,68,0.1);
-      color: var(--error);
-      padding: 8px 16px;
-      border-radius: 100px;
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 20px;
-      border: 1px solid rgba(239,68,68,0.2);
-    }
-
-    .urgency-badge::before {
-      content: '🔥';
-    }
-
-    /* Highlight box */
-    .highlight-box {
-      background: var(--gradient-soft);
-      border-left: 4px solid var(--accent);
-      padding: 20px 24px;
-      border-radius: 0 12px 12px 0;
-      margin: 24px 0;
-    }
-
-    .highlight-box p {
-      color: var(--text);
-      font-weight: 500;
-      margin: 0;
-    }
-  </style>
-
-  <!-- Meta Pixels -->
-  <script>
-    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}
-    (window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
-    
-    fbq('init', '1615358806544488');
-    fbq('init', '1255041905596153');
-    fbq('track', 'PageView');
-  </script>
-</head>
-
-<body>
-  <!-- Welcome Message - Shows for 1 second at top -->
-  <div class="welcome-message" id="welcomeMsg">
-    👋 Welcome Serious Affiliate! This is For High Earners Only
-  </div>
-
-  <!-- Preloader -->
-  <div class="preloader" id="preloader">
-    <div class="preloader-circle">
-      <img src="https://i.postimg.cc/3rVMTKYG/adhabits-logo.png" alt="AdHabits" />
-    </div>
-    <div class="preloader-text">Loading Premium Experience</div>
-    <div class="preloader-progress" id="preloaderProgress">0%</div>
-  </div>
-
-  <!-- Urgency Bar -->
-  <div class="urgency-bar" id="urgencyBar">
-    <span>⚡ Only 3 Spots Left This Week:</span>
-    <span style="text-decoration: line-through; opacity: 0.9;">Strategy Call ₹2,999</span>
-    <span style="font-weight: 800;">₹49 Only</span>
-    <span class="timer-display" id="countdown">02:59:59</span>
-  </div>
-
-  <!-- Navigation -->
-  <nav class="nav" id="nav">
-    <div class="nav-inner">
-      <div class="brand">
-        <div class="logo">
-          <img src="https://i.postimg.cc/3rVMTKYG/adhabits-logo.png" alt="AdHabits" />
-        </div>
-        <span>AdHabits</span>
-      </div>
-      <div class="nav-links" id="navLinks">
-        <a href="#problem"><span>Problems</span></a>
-        <a href="#solution"><span>Solution</span></a>
-        <a href="#authority"><span>Results</span></a>
-        <a href="#faq"><span>FAQ</span></a>
-        <a href="#" class="btn" onclick="openFormModal(); return false;">Book Call ₹49</a>
-      </div>
-      <button class="hamb" id="hamb" aria-label="Menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-    </div>
-  </nav>
-
-  <!-- Hero Section - High Ticket Version -->
-  <section class="hero">
-    <div class="hero-bg"></div>
-    <div class="hero-content">
-      <div class="hero-left">
-        <div class="pre-headline">Attention: Affiliate Marketers</div>
-        <h1>Main Aapke Affiliate Business ko Scale Karunga <span class="hl2">₹3 Lakh - ₹5 Lakh</span> Tak. Simple.</h1>
-        <p class="hero-subtitle">Ek aisa Done-For-You Lead Machine setup karwayein jo aapko daily 30-50 high-quality leads de, taaki aap ad manager par nahi, balki apni closing aur team building par focus kar sakein.</p>
-        
-        <div class="hero-stats">
-          <div class="hero-stat">
-            <span class="num" data-count="16">0</span>
-            <span class="lbl">Lakhs+ Ad Spend</span>
-          </div>
-          <div class="hero-stat">
-            <span class="num" data-count="290">0</span>
-            <span class="lbl">Affiliates Scaled</span>
-          </div>
-          <div class="hero-stat">
-            <span class="num" data-count="10">0</span>
-            <span class="lbl">X Average ROI</span>
-          </div>
-        </div>
-
-        <div class="cta-group">
-          <button class="btn-primary" onclick="openFormModal()">
-            <span>🔥</span>
-            Book Strategy Call - ₹49 Only
-          </button>
-          <button class="btn-secondary" onclick="openFormModal()">
-            <span>📞</span>
-            WhatsApp Pe Message Karein
-          </button>
-        </div>
-      </div>
-
-      <div class="hero-right">
-        <div class="hero-card">
-          <div class="video-wrapper">
-            <iframe src="https://www.youtube.com/embed/22S_KlKYzP8?rel=0&modestbranding=1" title="AdHabits Intro" allowfullscreen loading="lazy"></iframe>
-          </div>
-          <div class="floating-badge badge-1">
-            <div class="badge-icon">🏆</div>
-            <div class="badge-text">
-              <span>290+</span>
-              <span>Clients Scaled</span>
-            </div>
-          </div>
-          <div class="floating-badge badge-2">
-            <div class="badge-icon">⭐</div>
-            <div class="badge-text">
-              <span>4.9/5</span>
-              <span>Rating</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Trust Bar -->
-  <section class="trust-section">
-    <div class="trust-title">Trusted by top affiliates from leading platforms</div>
-    <div class="trust-track" id="trustTrack">
-      <div class="trust-item">IDP</div>
-      <div class="trust-item">MillionaireTrack</div>
-      <div class="trust-item">Starteazy</div>
-      <div class="trust-item">Bizgurukul</div>
-      <div class="trust-item">LeadsGuru</div>
-      <div class="trust-item">GyaanGrowth</div>
-      <div class="trust-item">RichIND</div>
-      <div class="trust-item">Forever</div>
-    </div>
-  </section>
-
-  <!-- 6 Silent Killers Section -->
-  <section class="killers-section" id="problem">
-    <div class="section-header reveal">
-      <div class="section-tag">The Reality Check</div>
-      <h2 class="section-title">6 Silent Killers Jo Aapke Business Ko <span style="color: var(--accent)">Rok Rahe Hain</span></h2>
-      <p class="section-subtitle">Agar inme se koi bhi problem aapko familiar lage, toh aap sahi jagah hain...</p>
-    </div>
-
-    <div class="killers-grid">
-      <div class="killer-card reveal">
-        <div class="killer-number">01</div>
-        <h3>Low-Quality Leads</h3>
-        <p>Junk leads jo sirf "Hi" bolti hain aur gayab ho jati hain. Aapka time waste ho raha hai unqualified logon par.</p>
-      </div>
-      <div class="killer-card reveal">
-        <div class="killer-number">02</div>
-        <h3>Ad Account Bans</h3>
-        <p>Roz-roz naya ad account banana aur policy se darna. Aapka business ad accounts banane mein chala ja raha hai.</p>
-      </div>
-      <div class="killer-card reveal">
-        <div class="killer-number">03</div>
-        <h3>No Scaling System</h3>
-        <p>Pata hi nahi ki budget ₹500 se ₹5000 kaise le jayein bina ROI bigade. Growth random hai, systematic nahi.</p>
-      </div>
-      <div class="killer-card reveal">
-        <div class="killer-number">04</div>
-        <h3>Manual Work</h3>
-        <p>Sara din ad manager dekhne mein nikal jata hai, content kab banayein? Aap technician ban gaye hain, CEO nahi.</p>
-      </div>
-      <div class="killer-card reveal">
-        <div class="killer-number">05</div>
-        <h3>High CPL</h3>
-        <p>Lead mehngi ho rahi hai aur conversion kam. Paisa lag raha hai par result nahi aa raha hai.</p>
-      </div>
-      <div class="killer-card reveal">
-        <div class="killer-number">06</div>
-        <h3>Trust Gap</h3>
-        <p>Audience ko trust nahi hota ki aap unhe kama kar de sakte hain. Aapki positioning weak hai.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- The Offer Section -->
-  <section class="offer-section" id="solution">
-    <div class="offer-grid">
-      <div class="offer-content reveal">
-        <div class="section-tag" style="background: rgba(255,107,53,0.2); color: var(--accent);">The Solution</div>
-        <h2>"AdHabits Affiliate Accelerator" — <span class="hl2">Aapka Lead Machine</span></h2>
-        <p>Ek complete Done-For-You system jo aapke affiliate business ko ₹30k se ₹3-5 Lakh/month tak le ja sakta hai. No theory, only execution.</p>
-        
-        <div class="offer-features">
-          <div class="offer-feature">
-            <div class="offer-feature-icon">🎯</div>
-            <div>
-              <h4>DFY Meta Ads Management</h4>
-              <p>Hum aapke ads manage karenge taaki aapka time bache. Aap bas leads ko close karein.</p>
-            </div>
-          </div>
-          <div class="offer-feature">
-            <div class="offer-feature-icon">🚀</div>
-            <div>
-              <h4>Custom Funnel Building</h4>
-              <p>Sirf WhatsApp nahi, ek landing page jo lead ko "Pre-warm" kare aur conversion 3x kare.</p>
-            </div>
-          </div>
-          <div class="offer-feature">
-            <div class="offer-feature-icon">✍️</div>
-            <div>
-              <h4>Copywriting & Creative Support</h4>
-              <p>Viral reel scripts aur ad copies jo conversion layein. Aapko sochna nahi padega kya post karna hai.</p>
-            </div>
-          </div>
-          <div class="offer-feature">
-            <div class="offer-feature-icon">📊</div>
-            <div>
-              <h4>Sales Tracking & Optimization</h4>
-              <p>Har lead ka track record taaki aapka ROI 5x-10x ho sake. Data-driven decisions, guesswork nahi.</p>
-            </div>
-          </div>
-        </div>
-
-        <button class="btn-primary" onclick="openFormModal()">
-          <span>⚡</span>
-          ₹49 Mein Strategy Call Book Karein
-        </button>
-      </div>
-      <div class="offer-image reveal">
-        <div class="offer-image-wrapper">
-          <img src="https://i.postimg.cc/cC2f5c0G/IMG-5862-2.avif" alt="Rahman - Meta Ads Expert" />
-          <div class="roi-badge">
-            <div class="number">8.7x</div>
-            <div class="label">Average ROI</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Qualification Section -->
-  <section class="qualification-section">
-    <div class="qualification-content reveal">
-      <div class="section-tag">Important Notice</div>
-      <h2 class="section-title">Ye Service <span style="color: var(--accent)">Sabke Liye Nahi Hai</span></h2>
-      <p class="section-subtitle">Hum sirf serious affiliates ke saath kaam karte hain jo actually scale karna chahte hain.</p>
-      
-      <div class="qualification-box">
-        <h3>Kya Aap Is Profile Mein Fit Hote Hain?</h3>
-        <div class="qualification-list">
-          <div class="qualification-item yes">
-            <div class="qualification-icon">✓</div>
-            <span>Aapka monthly income minimum ₹30k+ hona chahiye (proof required)</span>
-          </div>
-          <div class="qualification-item yes">
-            <div class="qualification-icon">✓</div>
-            <span>Aapke paas ad budget invest karne ke liye funds hone chahiye (minimum ₹10k/month)</span>
-          </div>
-          <div class="qualification-item yes">
-            <div class="qualification-icon">✓</div>
-            <span>Aap serious hain apna personal brand banane ke liye, not just "quick money"</span>
-          </div>
-          <div class="qualification-item no">
-            <div class="qualification-icon">✕</div>
-            <span>Ye "Get Rich Quick" scheme dhoondne walon ke liye nahi hai</span>
-          </div>
-          <div class="qualification-item no">
-            <div class="qualification-icon">✕</div>
-            <span>Agar aap sirf "try" karna chahte hain bina commitment ke, toh ye aapke liye nahi hai</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Authority Section -->
-  <section class="authority-section" id="authority">
-    <div class="authority-grid">
-      <div class="authority-image reveal">
-        <div class="authority-image-wrapper">
-          <img src="https://i.postimg.cc/cC2f5c0G/IMG-5862-2.avif" alt="Hifzur Rahman - Meta Ads Expert" />
-          <div class="stats-overlay">
-            <div class="stats-row">
-              <div class="stat-item">
-                <div class="num" data-count="16">0</div>
-                <div class="lbl">Lakhs Managed</div>
-              </div>
-              <div class="stat-item">
-                <div class="num" data-count="290">0</div>
-                <div class="lbl">Clients Served</div>
-              </div>
-              <div class="stat-item">
-                <div class="num" data-count="3">0</div>
-                <div class="lbl">Years Experience</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="authority-content reveal">
-        <div class="section-tag">Your Expert</div>
-        <h2>Meet <span style="color: var(--accent);">Hifzur Rahman</span></h2>
-        <p>Hey! I'm Rahman from Motihari, Bihar. 3+ saal se main affiliate marketers ki help kar raha hoon Meta ads se scale karne mein. Mere clients regularly ₹3-5 Lakh/month earn karte hain.</p>
-        
-        <div class="case-study">
-          <div class="case-study-label">Recent Case Study</div>
-          <h4>Kaise Maine ₹7,491 Spend Karke ₹65,000 Ka Profit Generate Karwaya</h4>
-          <p>Ek IDP affiliate ki help ki jo ₹30k/month pe stuck tha. Humne unka funnel optimize kiya, ad creatives change kiye, aur targeting improve ki.</p>
-          <div class="case-metrics">
-            <div class="case-metric">
-              <span class="val">₹7,491</span>
-              <span class="lab">Ad Spend</span>
-            </div>
-            <div class="case-metric">
-              <span class="val">₹65,000</span>
-              <span class="lab">Revenue</span>
-            </div>
-            <div class="case-metric">
-              <span class="val">8.7x</span>
-              <span class="lab">ROI</span>
-            </div>
-          </div>
-        </div>
-
-        <button class="btn-primary" onclick="openFormModal()" style="background: var(--gradient); color: #fff;">
-          <span>💬</span>
-          Mujhse Direct Baat Karein - ₹49 Only
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA Section -->
-  <section class="mid-cta-section">
-    <div class="mid-cta-content reveal">
-      <div class="urgency-badge">Only 3 Spots Left This Week</div>
-      <h2>🚀 Ready to Scale from ₹30k to ₹3-5 Lakh/Month?</h2>
-      <p>Strategy call sirf ₹49 mein — agar call ke baad lagta hai ki hum aapki help nahi kar sakte, toh 100% refund. No questions asked.</p>
-      <div class="mid-cta-buttons">
-        <button class="btn-primary" onclick="openFormModal()">
-          <span>🔥</span>
-          Book My Strategy Call Now
-        </button>
-        <button class="btn-secondary" onclick="openPolicyModal('refund')">
-          <span>🛡️</span>
-          Refund Policy Dekhein
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonials Section -->
-  <section class="testimonials-section">
-    <div class="section-header reveal">
-      <div class="section-tag">Success Stories</div>
-      <h2 class="section-title">Client <span style="color: var(--accent)">Results</span></h2>
-      <p class="section-subtitle">Real WhatsApp screenshots from affiliates who scaled with us</p>
-    </div>
-
-    <div class="testimonials-track" id="testimonialsTrack">
-      <div class="testimonial-card">
-        <div class="testimonial-image">
-          <img src="https://i.postimg.cc/PJtN2tcP/nasreen-mam-finel.jpg" alt="Nasreen's Result" loading="lazy" />
-        </div>
-        <div class="testimonial-name">Nasreen</div>
-        <div class="testimonial-platform">IDP Affiliate</div>
-      </div>
-      <div class="testimonial-card">
-        <div class="testimonial-image">
-          <img src="https://i.postimg.cc/G3qpbnVx/Rukkaya-appi-finel.jpg" alt="Rukkaya's Result" loading="lazy" />
-        </div>
-        <div class="testimonial-name">Rukkaya</div>
-        <div class="testimonial-platform">IDP Affiliate</div>
-      </div>
-      <div class="testimonial-card">
-        <div class="testimonial-image">
-          <img src="https://i.postimg.cc/LXSzFFwM/Farheen-mam.jpg" alt="Farheen's Result" loading="lazy" />
-        </div>
-        <div class="testimonial-name">Farheen</div>
-        <div class="testimonial-platform">IDP Affiliate</div>
-      </div>
-      <div class="testimonial-card">
-        <div class="testimonial-image">
-          <img src="https://i.postimg.cc/vBDGBcp7/Firdous-finel.jpg" alt="Firdous's Result" loading="lazy" />
-        </div>
-        <div class="testimonial-name">Firdous</div>
-        <div class="testimonial-platform">IDP Affiliate</div>
-      </div>
-      <div class="testimonial-card">
-        <div class="testimonial-image">
-          <img src="https://i.postimg.cc/CxF50LL7/Ahemadi-mam-finel.jpg" alt="Ahemadi's Result" loading="lazy" />
-        </div>
-        <div class="testimonial-name">Ahemadi</div>
-        <div class="testimonial-platform">IDP Affiliate</div>
-      </div>
-      <div class="testimonial-card">
-        <div class="testimonial-image">
-          <img src="https://i.postimg.cc/nhcF5R0w/balvinder-finel.jpg" alt="Balvinder's Result" loading="lazy" />
-        </div>
-        <div class="testimonial-name">Balvinder</div>
-        <div class="testimonial-platform">IDP Affiliate</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ SECTION - ACCORDION STYLE -->
-  <section class="faq-section" id="faq">
-    <div class="section-header reveal" style="margin-bottom: 40px;">
-      <div class="section-tag">FAQ</div>
-      <h2 class="section-title">Common Questions</h2>
-      <p class="section-subtitle">Aapke man mein jo sawaal hain, unke jawab yahan hain</p>
-    </div>
-
-    <div class="faq-item reveal">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        <span>₹49 ki strategy call mein exactly kya milega?</span>
-        <div class="faq-icon"></div>
-      </button>
-      <div class="faq-answer">
-        <p>30-minute one-on-one call mein main aapka current funnel review karunga, aapke target audience ko analyze karunga, aur ek custom roadmap dunga ki kaise aap ₹30k se ₹3-5L tak ja sakte hain. Agar aapko lagta hai value nahi milli, full refund.</p>
-      </div>
-    </div>
-
-    <div class="faq-item reveal">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        <span>Mera platform IDP/Bizgurukul/etc hai, kya ye kaam karega?</span>
-        <div class="faq-icon"></div>
-      </button>
-      <div class="faq-answer">
-        <p>Bilkul! Humne IDP, Bizgurukul, MillionaireTrack, LeadsGuru, GyaanGrowth, RichIND, Forever, Starteazy — sab par kaam kiya hai. Strategy platform-specific hoti hai.</p>
-      </div>
-    </div>
-
-    <div class="faq-item reveal">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        <span>Kitna ad budget chahiye hoga?</span>
-        <div class="faq-icon"></div>
-      </button>
-      <div class="faq-answer">
-        <p>Start karne ke liye minimum ₹10,000/month recommended hai. Lekin agar aapke paas abhi kam budget hai, toh bhi call book karein — main aapko batata hoon ki budget badhane ka best way kya hai.</p>
-      </div>
-    </div>
-
-    <div class="faq-item reveal">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        <span>Results kitne time mein aayenge?</span>
-        <div class="faq-icon"></div>
-      </button>
-      <div class="faq-answer">
-        <p>Usually 7-10 days mein aapko quality leads aana start ho jaati hain. Lekin ₹3-5L/month tak pahunchne mein typically 2-3 months lagte hain depending on your current level.</p>
-      </div>
-    </div>
-
-    <div class="faq-item reveal">
-      <button class="faq-question" onclick="toggleFaq(this)">
-        <span>Kya aap ad creatives bhi banate hain?</span>
-        <div class="faq-icon"></div>
-      </button>
-      <div class="faq-answer">
-        <p>Haan! Complete package mein ad copy, creative direction, aur reel scripts bhi include hain. Aapko sirf record karna hai, baaki sab hum sambhalenge.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- FORM POPUP MODAL -->
-  <div class="form-modal" id="formModal" onclick="closeFormModalOnOverlay(event)">
-    <div class="form-modal-content">
-      <button class="form-close" onclick="closeFormModal()" aria-label="Close">×</button>
-      <div class="form-container">
-        <div class="form-header">
-          <div class="section-tag">Limited Time Offer</div>
-          <h2>Book Your Strategy Call</h2>
-          <p>Fill in your details below. Call ke baad payment link milega.</p>
-        </div>
-
-        <div class="price-highlight">
-          <span class="current">₹49</span>
-          <span class="original">₹2,999</span>
-          <div style="font-size: 14px; color: var(--muted); margin-top: 8px;">100% Refund Guarantee</div>
-        </div>
-
-        <form id="leadForm" onsubmit="handleFormSubmit(event)">
-          <div class="form-grid">
-            <div class="form-group">
-              <label for="platform">Select Your Platform *</label>
-              <select id="platform" name="platform" required>
-                <option value="">Choose Platform</option>
-                <option value="IDP">IDP</option>
-                <option value="Bizgurukul">Bizgurukul</option>
-                <option value="LeadsGuru">LeadsGuru</option>
-                <option value="MillionaireTrack">MillionaireTrack</option>
-                <option value="GyaanGrowth">GyaanGrowth</option>
-                <option value="RichIND">RichIND</option>
-                <option value="Forever">Forever</option>
-                <option value="Starteazy">Starteazy</option>
-                <option value="Other">Other</option>
-              </select>
-            </div>
-            
-            <div class="form-group">
-              <label for="name">Your Name *</label>
-              <input type="text" id="name" name="name" placeholder="Enter your full name" required />
-            </div>
-            
-            <div class="form-group">
-              <label for="phone">Phone Number *</label>
-              <input type="tel" id="phone" name="phone" placeholder="10-digit mobile number" pattern="[0-9]{10}" maxlength="10" required />
-            </div>
-
-            <div class="form-group">
-              <label for="income">Current Monthly Income *</label>
-              <select id="income" name="income" required>
-                <option value="">Select Range</option>
-                <option value="below30k">Below ₹30k</option>
-                <option value="30k-50k">₹30k - ₹50k</option>
-                <option value="50k-1L">₹50k - ₹1 Lakh</option>
-                <option value="above1L">Above ₹1 Lakh</option>
-              </select>
-            </div>
-
-            <input type="hidden" name="plan" value="Strategy Call ₹49" />
-          </div>
-
-          <button type="submit" class="submit-btn" id="submitBtn">
-            <span>🔒</span>
-            Book My Call Now - ₹49 Only
-          </button>
-          
-          <div class="form-security">
-            <span>🔒</span>
-            <span>Secured Payment • 100% Refund Guarantee • Instant WhatsApp Access</span>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-    <div class="footer-grid">
-      <div class="footer-brand">
-        <div class="logo-text">
-          <img src="https://i.postimg.cc/3rVMTKYG/adhabits-logo.png" alt="" width="32" height="32" style="border-radius: 8px;" />
-          AdHabits
-        </div>
-        <p>Professional Meta Ads management for serious affiliate marketers. Scale from ₹30k to ₹3-5 Lakh/month with our Done-For-You system.</p>
-        
-        <div class="footer-address">
-          <strong>Registered Address:</strong>
-          S/O Abdul Bari, Banjaraha, Zama Masjid,<br>
-          Motihari, Bihar, India - PIN 845304<br><br>
-          <strong>Proprietor:</strong> Hifzur Rahman<br>
-          <strong>Phone:</strong> 7258055245<br>
-          <strong>Email:</strong> adhabits5@gmail.com<br>
-          <strong>Hours:</strong> Mon-Sat, 9 AM - 6 PM IST
-        </div>
-      </div>
-      <div class="footer-column">
-        <h4>Services</h4>
-        <a href="#solution">Meta Ads Management</a>
-        <a href="#solution">Funnel Building</a>
-        <a href="#solution">Creative Support</a>
-        <a href="#" onclick="openFormModal(); return false;">Strategy Call</a>
-      </div>
-      <div class="footer-column">
-        <h4>Company</h4>
-        <a href="#authority">About Rahman</a>
-        <a href="#problem">Problems We Solve</a>
-        <a href="#solution">Our Solution</a>
-        <a href="#faq">FAQ</a>
-      </div>
-      <div class="footer-column">
-        <h4>Legal</h4>
-        <a onclick="openPolicyModal('privacy')">Privacy Policy</a>
-        <a onclick="openPolicyModal('terms')">Terms & Conditions</a>
-        <a onclick="openPolicyModal('refund')">Refund Policy</a>
-        <a href="https://instagram.com/adhabits.in" target="_blank" rel="noopener">Instagram</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <p>© 2025 AdHabits. All rights reserved. | GSTIN: Not Applicable (Below Threshold)</p>
-    </div>
-  </footer>
-
-  <!-- Back to Top -->
-  <button class="back-to-top" id="backToTop" onclick="scrollToTop()" aria-label="Back to top">↑</button>
-
-  <!-- Policy Modals -->
-  <div class="policy-modal" id="privacyModal" onclick="closePolicyModalOnOverlay(event, 'privacy')">
-    <div class="policy-content">
-      <div class="policy-header">
-        <h2>Privacy Policy</h2>
-        <button class="policy-close" onclick="closePolicyModal('privacy')" aria-label="Close">×</button>
-      </div>
-      <div class="policy-body">
-        <div class="policy-date">Last updated: January 31, 2025</div>
-        <div class="policy-section">
-          <h3>1. Information We Collect</h3>
-          <p>We collect information you provide directly to us, such as when you fill out our contact form, make a payment, or communicate with us via WhatsApp or email.</p>
-        </div>
-        <div class="policy-section">
-          <h3>2. How We Use Your Information</h3>
-          <p>We use the information we collect to provide, maintain, and improve our services, to communicate with you, and to personalize your experience.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="policy-modal" id="termsModal" onclick="closePolicyModalOnOverlay(event, 'terms')">
-    <div class="policy-content">
-      <div class="policy-header">
-        <h2>Terms & Conditions</h2>
-        <button class="policy-close" onclick="closePolicyModal('terms')" aria-label="Close">×</button>
-      </div>
-      <div class="policy-body">
-        <div class="policy-date">Last updated: January 31, 2025</div>
-        <div class="policy-section">
-          <h3>1. Acceptance of Terms</h3>
-          <p>By accessing and using AdHabits services, you agree to be bound by these Terms & Conditions.</p>
-        </div>
-        <div class="policy-section">
-          <h3>2. Services Description</h3>
-          <p>AdHabits provides Meta Ads management services for affiliate marketers. We do not guarantee specific results as they depend on various factors including market conditions and ad spend.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="policy-modal" id="refundModal" onclick="closePolicyModalOnOverlay(event, 'refund')">
-    <div class="policy-content">
-      <div class="policy-header">
-        <h2>Refund & Cancellation Policy</h2>
-        <button class="policy-close" onclick="closePolicyModal('refund')" aria-label="Close">×</button>
-      </div>
-      <div class="policy-body">
-        <div class="policy-date">Last updated: January 31, 2025</div>
-        <div class="policy-section">
-          <h3>1. Strategy Call Fee (₹49) Refund Policy</h3>
-          <p><strong>100% Money-Back Guarantee:</strong> If after the strategy call you feel you didn't get value, or if we determine we can't help you scale, we offer a 24-hour, no-questions-asked refund.</p>
-        </div>
-        <div class="policy-section">
-          <h3>2. How to Request Refund</h3>
-          <p>Simply message us on WhatsApp with your payment ID within 24 hours of the call. The refund will be processed instantly to your original payment method.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    // ====== CONFIG ======
-    const GOOGLE_SHEET_URL = 'https://script.google.com/macros/s/AKfycbxs6lxCF59dxkUzjmmc_Ix6f7J7sFiHi7XMTIwc9RDXtKXy8rPK-ijsngfKj4Hs5EkgqA/exec';
-    const PAYMENT_LINK = 'https://superprofile.bio/vp/adhabits';
-    
-    // Preloader
-    let progress = 0;
-    const preloader = document.getElementById('preloader');
-    const progressEl = document.getElementById('preloaderProgress');
-    
-    const loadInterval = setInterval(() => {
-      progress += Math.random() * 30; 
-      if (progress >= 100) {
-        progress = 100;
-        clearInterval(loadInterval);
-        setTimeout(() => {
-          preloader.classList.add('hidden');
-        }, 400);
-      }
-      progressEl.textContent = Math.floor(progress) + '%';
-    }, 100);
-
-    // Welcome message hide after 1 second
-    setTimeout(() => {
-      const welcomeMsg = document.getElementById('welcomeMsg');
-      if (welcomeMsg) {
-        welcomeMsg.style.display = 'none';
-      }
-    }, 1600);
-
-    // Countdown Timer
-    function startTimer() {
-      let time = 3 * 60 * 60;
-      const display = document.getElementById('countdown');
-      
-      setInterval(() => {
-        const hrs = Math.floor(time / 3600);
-        const mins = Math.floor((time % 3600) / 60);
-        const secs = time % 60;
-        display.textContent = 
-          String(hrs).padStart(2,'0') + ':' +
-          String(mins).padStart(2,'0') + ':' +
-          String(secs).padStart(2,'0');
-        if (time > 0) time--;
-      }, 1000);
-    }
-    setTimeout(startTimer, 2200);
-
-    // Navigation Scroll
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 100) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-    });
-
-    // Mobile Menu
-    const hamb = document.getElementById('hamb');
-    const navLinks = document.getElementById('navLinks');
-    
-    hamb.addEventListener('click', () => {
-      navLinks.classList.toggle('active');
-    });
-
-    navLinks.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
-      });
-    });
-
-    // Trust Bar Infinite Scroll
-    const trustTrack = document.getElementById('trustTrack');
-    const trustItems = trustTrack.innerHTML;
-    trustTrack.innerHTML = trustItems + trustItems + trustItems;
-
-    // Number Counter Animation
-    const counters = document.querySelectorAll('[data-count]');
-    const counterObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const target = parseInt(entry.target.dataset.count);
-          const step = target / 100;
-          let current = 0;
-          
-          const updateCounter = () => {
-            current += step;
-            if (current < target) {
-              entry.target.textContent = Math.floor(current);
-              requestAnimationFrame(updateCounter);
-            } else {
-              entry.target.textContent = target;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growik - Done For You Affiliate Marketing System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            color: #1e293b;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #0369a1;
+            letter-spacing: -1px;
+        }
+
+        .logo span {
+            color: #0ea5e9;
+        }
+
+        /* Sticky Bottom Bar */
+        .sticky-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            border-top: 2px solid #e0f2fe;
+            padding: 1rem 2rem;
+            z-index: 999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
+        }
+
+        .sticky-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .sticky-text {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .countdown {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: 800;
+            color: #0369a1;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .countdown-separator {
+            color: #94a3b8;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0369a1 0%, #0ea5e9 100%);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(14, 165, 233, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 2rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(14, 165, 233, 0.1);
+            border: 2px solid #0ea5e9;
+            color: #0369a1;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+        }
+
+        .badge strong {
+            color: #0f172a;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: #0f172a;
+        }
+
+        h1 .highlight {
+            color: #0369a1;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            color: #475569;
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.7;
+        }
+
+        .hero-subtitle strong {
+            color: #0f172a;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin-top: 3rem;
+            text-align: left;
+        }
+
+        .hero-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            border: 1px solid rgba(14, 165, 233, 0.1);
+        }
+
+        .hero-image-card {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .founder-img {
+            width: 100%;
+            max-width: 300px;
+            border-radius: 20px;
+            object-fit: cover;
+        }
+
+        .transformation-text {
+            position: absolute;
+            bottom: 2rem;
+            left: 2rem;
+            right: 2rem;
+            background: rgba(255,255,255,0.95);
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+        }
+
+        .transformation-text h3 {
+            font-size: 1.5rem;
+            color: #0f172a;
+            margin-bottom: 0.5rem;
+        }
+
+        .transformation-text .highlight-blue {
+            color: #0369a1;
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .badge-dfy {
+            display: inline-block;
+            background: #0369a1;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 700;
+            margin-top: 0.5rem;
+        }
+
+        .features-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .features-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(14, 165, 233, 0.05);
+            border-radius: 12px;
+            border-left: 4px solid #0ea5e9;
+        }
+
+        .features-list li::before {
+            content: "▪";
+            color: #0369a1;
+            font-size: 1.5rem;
+            line-height: 1;
+        }
+
+        .features-list strong {
+            color: #0f172a;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        .features-list span {
+            color: #475569;
+            font-size: 0.95rem;
+        }
+
+        .cta-section {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .scarcity-text {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Qualification Section */
+        .qualification {
+            background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%);
+            padding: 5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .qualification::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .qualification-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .qualification h2 {
+            text-align: center;
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .qual-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .qual-card {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .qual-card.good {
+            background: rgba(74, 222, 128, 0.15);
+            border-color: rgba(74, 222, 128, 0.3);
+        }
+
+        .qual-card.bad {
+            background: rgba(248, 113, 113, 0.15);
+            border-color: rgba(248, 113, 113, 0.3);
+        }
+
+        .qual-card h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .qual-card.good h3 {
+            color: #86efac;
+        }
+
+        .qual-card.bad h3 {
+            color: #fca5a5;
+        }
+
+        .qual-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .qual-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.6;
+        }
+
+        .qual-list li::before {
+            content: "✓";
+            color: #4ade80;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .qual-card.bad .qual-list li::before {
+            content: "✕";
+            color: #f87171;
+        }
+
+        .qual-list strong {
+            color: white;
+        }
+
+        /* Problems Section */
+        .problems {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .problems-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .problems h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #0f172a;
+        }
+
+        .problems-subtitle {
+            text-align: center;
+            color: #475569;
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .problems-subtitle span {
+            color: #0369a1;
+            font-weight: 700;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .problem-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            border: 1px solid #e2e8f0;
+            transition: transform 0.3s ease;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .problem-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+        }
+
+        .problem-content {
+            padding: 1.5rem;
+        }
+
+        .problem-content h4 {
+            background: #f1f5f9;
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+            color: #0f172a;
+            border: 1px solid #e2e8f0;
+        }
+
+        .problem-content p {
+            color: #475569;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .solution-box {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            border: 2px dashed #0ea5e9;
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .solution-box p {
+            font-size: 1.1rem;
+            color: #334155;
+            line-height: 1.7;
+        }
+
+        .solution-box strong {
+            color: #0369a1;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%);
+            padding: 5rem 2rem;
+            position: relative;
+        }
+
+        .testimonials::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .testimonials-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonials h2 {
+            text-align: center;
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .testimonials-subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 3rem;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+        }
+
+        .testimonial-card {
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .testimonial-card img {
+            width: 100%;
+            border-radius: 12px;
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+
+        /* About Section */
+        .about {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+        }
+
+        .about-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-image {
+            position: relative;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+        }
+
+        .about-badge {
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: white;
+            padding: 1rem 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .about-badge h4 {
+            color: #0f172a;
+            font-size: 1.2rem;
+        }
+
+        .about-badge p {
+            color: #0369a1;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #0f172a;
+        }
+
+        .about-content .subtitle {
+            color: #0369a1;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content p {
+            color: #475569;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-content strong {
+            color: #0f172a;
+        }
+
+        .about-highlights {
+            list-style: none;
+            margin-top: 1.5rem;
+        }
+
+        .about-highlights li {
+            padding: 0.75rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #334155;
+        }
+
+        .about-highlights li::before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #0369a1;
+            font-weight: bold;
+        }
+
+        /* Comparison Table */
+        .comparison {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%);
+            position: relative;
+        }
+
+        .comparison::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .comparison-container {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .comparison h2 {
+            text-align: center;
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .comparison-subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.8);
+            margin-bottom: 3rem;
+        }
+
+        .comparison-table {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+        }
+
+        .comparison-header {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            background: #0369a1;
+            color: white;
+            font-weight: 700;
+        }
+
+        .comparison-header > div {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .comparison-header > div:first-child {
+            text-align: left;
+        }
+
+        .comparison-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .comparison-row:last-child {
+            border-bottom: none;
+        }
+
+        .comparison-row > div {
+            padding: 1.25rem 1.5rem;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .comparison-row > div:first-child {
+            justify-content: flex-start;
+            color: #334155;
+            font-weight: 500;
+        }
+
+        .check {
+            color: #22c55e;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .cross {
+            color: #ef4444;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .growik-col {
+            background: rgba(14, 165, 233, 0.05);
+            font-weight: 600;
+            color: #0369a1;
+        }
+
+        /* Consulting Section */
+        .consulting {
+            padding: 5rem 2rem;
+            background: white;
+        }
+
+        .consulting-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .consulting h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            color: #0f172a;
+        }
+
+        .consulting-subtitle {
+            text-align: center;
+            color: #475569;
+            margin-bottom: 1rem;
+        }
+
+        .consulting-subtitle strong {
+            color: #0369a1;
+        }
+
+        .consulting-desc {
+            text-align: center;
+            color: #64748b;
+            margin-bottom: 3rem;
+        }
+
+        .consulting-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .consulting-card {
+            background: white;
+            border-radius: 24px;
+            padding: 2rem;
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+        }
+
+        .consulting-card:hover {
+            border-color: #0ea5e9;
+            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.1);
+        }
+
+        .consulting-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+        }
+
+        .consulting-card h4 {
+            color: #0f172a;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .consulting-card p {
+            color: #475569;
+            line-height: 1.7;
+        }
+
+        .consulting-card strong {
+            color: #0369a1;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 24px;
+            padding: 3rem;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
             }
-          };
-          updateCounter();
-          counterObserver.unobserve(entry.target);
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-      });
-    }, { threshold: 0.5 });
-    
-    counters.forEach(counter => counterObserver.observe(counter));
 
-    // Scroll Reveal
-    const reveals = document.querySelectorAll('.reveal');
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          revealObserver.unobserve(entry.target);
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #64748b;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
         }
-      });
-    }, { threshold: 0.1 });
-    
-    reveals.forEach(el => revealObserver.observe(el));
 
-    // FORM MODAL FUNCTIONS
-    function openFormModal() {
-      document.getElementById('formModal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-      
-      // Track
-      if (typeof fbq !== 'undefined') {
-        fbq('track', 'InitiateCheckout');
-      }
-    }
-
-    function closeFormModal() {
-      document.getElementById('formModal').classList.remove('active');
-      document.body.style.overflow = '';
-    }
-
-    function closeFormModalOnOverlay(e) {
-      if (e.target === e.currentTarget) {
-        closeFormModal();
-      }
-    }
-
-    // FAQ TOGGLE - ACCORDION STYLE
-    function toggleFaq(btn) {
-      const faqItem = btn.parentElement;
-      const allFaqItems = document.querySelectorAll('.faq-item');
-      
-      // Close all other FAQ items
-      allFaqItems.forEach(item => {
-        if (item !== faqItem && item.classList.contains('active')) {
-          item.classList.remove('active');
+        .modal-close:hover {
+            background: #f1f5f9;
+            color: #0f172a;
         }
-      });
-      
-      // Toggle current item
-      faqItem.classList.toggle('active');
-    }
 
-    // Policy Modals
-    function openPolicyModal(type) {
-      document.getElementById(type + 'Modal').classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
+        .modal h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            color: #0f172a;
+        }
 
-    function closePolicyModal(type) {
-      document.getElementById(type + 'Modal').classList.remove('active');
-      document.body.style.overflow = '';
-    }
+        .modal p {
+            color: #64748b;
+            margin-bottom: 2rem;
+        }
 
-    function closePolicyModalOnOverlay(e, type) {
-      if (e.target === e.currentTarget) {
-        closePolicyModal(type);
-      }
-    }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
 
-    // ====== FORM SUBMIT - GOOGLE SHEETS + PAYMENT + PIXEL ======
-    async function handleFormSubmit(e) {
-      e.preventDefault();
-      
-      const submitBtn = document.getElementById('submitBtn');
-      const platform = document.getElementById('platform').value;
-      const name = document.getElementById('name').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const income = document.getElementById('income').value;
-      
-      // Validation
-      if (!platform || !name || !phone || !income) {
-        alert('Please fill all required fields');
-        return;
-      }
-      
-      if (phone.length !== 10) {
-        alert('Please enter valid 10-digit phone number');
-        return;
-      }
-      
-      // Show loading
-      submitBtn.innerHTML = '<span class="spinner"></span> Processing...';
-      submitBtn.disabled = true;
-      
-      // Prepare data
-      const formData = {
-        platform: platform,
-        name: name,
-        phone: phone,
-        income: income,
-        plan: 'Strategy Call ₹49',
-        timestamp: new Date().toLocaleString('en-IN')
-      };
-      
-      try {
-        // 1. TRACK FACEBOOK PIXEL EVENTS (Lead + Contact)
-        if (typeof fbq !== 'undefined') {
-          // Lead event
-          fbq('track', 'Lead', {
-            content_name: 'Strategy Call Form',
-            content_category: 'Affiliate Marketing',
-            value: 49.00,
-            currency: 'INR',
-            platform: platform,
-            phone: phone,
-            income: income
-          });
-          
-          // Contact event
-          fbq('track', 'Contact', {
-            content_name: 'WhatsApp Strategy Call',
-            content_category: 'Affiliate Marketing',
-            platform: platform
-          });
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #334155;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #0369a1 0%, #0ea5e9 100%);
+            color: white;
+            padding: 1.2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .hero-grid,
+            .qual-grid,
+            .about-container,
+            .consulting-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .problems-grid,
+            .testimonials-grid {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-image {
+                order: -1;
+                max-width: 400px;
+                margin: 0 auto;
+            }
+
+            .sticky-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .countdown {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .comparison-header,
+            .comparison-row {
+                grid-template-columns: 1.5fr 1fr 1fr;
+                font-size: 0.85rem;
+            }
+
+            .comparison-header > div,
+            .comparison-row > div {
+                padding: 1rem 0.75rem;
+            }
+
+            .modal {
+                padding: 2rem 1.5rem;
+            }
+        }
+
+        /* Utility */
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-2 {
+            margin-top: 2rem;
+        }
+
+        .mb-2 {
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Grow<span>ik</span></div>
+        </div>
+    </nav>
+
+    <!-- Sticky Bottom Bar -->
+    <div class="sticky-bar">
+        <div class="sticky-content">
+            <div class="sticky-text">Final call - Take Action Now</div>
+            <div class="countdown" id="countdown">
+                <span id="minutes">11</span>
+                <span class="countdown-separator">:</span>
+                <span id="seconds">26</span>
+            </div>
+            <button class="btn-primary" onclick="openModal()">
+                Book Now <span>➤</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="badge">
+            <strong>Affiliate Marketers</strong> - If you are already making <strong>₹30k-1Lakh/month</strong>, then this is for you
+        </div>
+        
+        <h1>
+            You Promote. <span class="highlight">We Build Your System.</span> Simple.
+        </h1>
+        
+        <p class="hero-subtitle">
+            Get a <strong>Done-For-You</strong> affiliate marketing system built in just <strong>15-20 days</strong>, bringing 30-50 premium qualified buyers every month — <strong>or your money back*</strong>
+        </p>
+
+        <div class="hero-grid">
+            <div class="hero-card hero-image-card">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=500&fit=crop" alt="Gaurav Singh" class="founder-img">
+                <div class="transformation-text">
+                    <h3>FROM ₹30k-1L/Month</h3>
+                    <div class="highlight-blue">To 3-5Lakh/Month</div>
+                    <div style="font-size: 1.2rem; color: #475569; margin: 0.5rem 0;">In Next 90 Days</div>
+                    <div class="badge-dfy">Done - For - You</div>
+                    <div style="margin-top: 0.5rem; font-weight: 700; color: #0f172a;">SYSTEM</div>
+                    <div style="font-size: 0.8rem; color: #64748b; margin-top: 0.5rem;">FOR AFFILIATE MARKETERS</div>
+                </div>
+            </div>
+            
+            <div class="hero-card">
+                <ul class="features-list">
+                    <li>
+                        <div>
+                            <strong>No more low-ticket sales</strong>
+                            <span>We'll help you create & sell high-ticket affiliate offers (₹15K-₹50K commissions)</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <strong>No tech headaches</strong>
+                            <span>We build your entire funnel, landing pages & automation for you</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <strong>No more random traffic</strong>
+                            <span>Get proven strategies & systems for 18-22% conversion rates</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div>
+                            <strong>No more platform hopping</strong>
+                            <span>Get your complete affiliate system launched in 15-20 days</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="cta-section">
+            <button class="btn-primary" onclick="openModal()" style="font-size: 1.3rem; padding: 1.2rem 3rem;">
+                Book Your 1:1 Consultation Call <span>➤</span>
+            </button>
+            <p class="scarcity-text">It is a 1:1 consultation call and we take only handful of people every month !</p>
+        </div>
+    </section>
+
+    <!-- Qualification Section -->
+    <section class="qualification">
+        <div class="qualification-container">
+            <h2>"Most Affiliate Marketers Won't Qualify. Will You?"</h2>
+            
+            <div class="qual-grid">
+                <div class="qual-card good">
+                    <h3>Affiliate Marketer<br>this is perfect for you if :</h3>
+                    <ul class="qual-list">
+                        <li>You're an experienced <strong>Affiliate Marketer</strong> already earning <strong>₹30K-₹1L/month</strong>.</li>
+                        <li>You're good at promoting but terrible at <strong>building systems</strong> (and you're tired of it).</li>
+                        <li>You're sick of <strong>low commissions</strong> that take 100 sales to make real money.</li>
+                        <li>You want to earn <strong>₹20K-₹50K+ per sale</strong> instead of ₹200-₹500.</li>
+                        <li>You're ready to invest in a <strong>proven system</strong> instead of DIY-ing forever.</li>
+                    </ul>
+                </div>
+                
+                <div class="qual-card bad">
+                    <h3>This is <strong>not</strong> for beginners<br>who are still figuring out.<br>It's not for you if :</h3>
+                    <ul class="qual-list">
+                        <li>You're <strong>just starting out</strong> and have made no sales yet (we work with proven marketers only).</li>
+                        <li>You're looking for a <strong>"get rich quick"</strong> scheme or magic pill.</li>
+                        <li>You're <strong>not willing to show up</strong> for strategy calls when we book them for you.</li>
+                        <li>You want to <strong>keep promoting ₹500 products</strong> and stay comfortable.</li>
+                        <li>You're <strong>not serious</strong> about scaling to ₹10L+ per month.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="text-center mt-2">
+                <p style="color: rgba(255,255,255,0.9); font-size: 1.2rem; margin-bottom: 1.5rem;">
+                    If you have proven expertise in <strong>Affiliate Marketing</strong>, this is for you
+                </p>
+                <button class="btn-primary" onclick="openModal()">
+                    Book Your 1:1 Consultation Now <span>➤</span>
+                </button>
+                <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-top: 0.5rem;">
+                    It is a 1:1 consultation call and we take only handful of people every month !
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problems Section -->
+    <section class="problems">
+        <div class="problems-container">
+            <h2>What's really stopping your affiliate business from scaling?</h2>
+            <p class="problems-subtitle">The 6 Silent Killers Keeping You <span>Below ₹1L/Month</span></p>
+            
+            <div class="problems-grid">
+                <div class="problem-card">
+                    <div class="problem-img" style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">🎯</div>
+                    <div class="problem-content">
+                        <h4>No Clear Niche</h4>
+                        <p>You promote "everything." So nobody trusts your recommendations. No authority = No sales.</p>
+                    </div>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-img" style="background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">🧲</div>
+                    <div class="problem-content">
+                        <h4>No irresistible offer</h4>
+                        <p>Your promotions look like everyone else's. Affiliates don't understand why they should buy from YOU.</p>
+                    </div>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-img" style="background: linear-gradient(135deg, #0369a1 0%, #0ea5e9 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">⚖️</div>
+                    <div class="problem-content">
+                        <h4>Low ticket focus</h4>
+                        <p>You chase ₹200 commissions because you're scared no one will buy ₹20K products. Result? 100x more work.</p>
+                    </div>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-img" style="background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">📉</div>
+                    <div class="problem-content">
+                        <h4>Weak conversion systems</h4>
+                        <p>You finally get traffic, but then they bounce. You don't know how to build funnels that convert at 18-22%.</p>
+                    </div>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-img" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">📱</div>
+                    <div class="problem-content">
+                        <h4>Random content</h4>
+                        <p>You post daily. You get likes. You get comments. But zero sales. Why? Because content without a system is just noise.</p>
+                    </div>
+                </div>
+                
+                <div class="problem-card">
+                    <div class="problem-img" style="background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">⚙️</div>
+                    <div class="problem-content">
+                        <h4>Tech confusion</h4>
+                        <p>Funnels, email sequences, automation... it all feels overwhelming. So you do nothing. And stay stuck.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="solution-box">
+                <p>That's why you're stuck at <strong>₹30K-₹1L/month</strong> while affiliates with half your skills are making <strong>₹5L+</strong> because they have a system.</p>
+                <p style="margin-top: 1rem;">You <strong>don't need</strong> to fix all 6 yourself. With <strong>"GROWIK"</strong> We build the entire structure - <strong>funnels, automations, email sequences, landing pages and high-ticket strategy for you.</strong></p>
+            </div>
+
+            <div class="text-center mt-2">
+                <button class="btn-primary" onclick="openModal()">
+                    Book Your 1:1 Consultation Now <span>➤</span>
+                </button>
+                <p class="scarcity-text">It is a 1:1 consultation call and we take only handful of people every month !</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="testimonials-container">
+            <h2>Real Results From Real Affiliate Marketers</h2>
+            <p class="testimonials-subtitle">Don't just take our word for it. Here's what other affiliate marketers achieved after implementing our system.</p>
+            
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <img src="https://i.ibb.co/placeholder1.jpg" alt="Testimonial 1" style="background: #1e293b; min-height: 300px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5);">
+                </div>
+                <div class="testimonial-card">
+                    <img src="https://i.ibb.co/placeholder2.jpg" alt="Testimonial 2" style="background: #1e293b; min-height: 300px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5);">
+                </div>
+                <div class="testimonial-card">
+                    <img src="https://i.ibb.co/placeholder3.jpg" alt="Testimonial 3" style="background: #1e293b; min-height: 300px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5);">
+                </div>
+                <div class="testimonial-card">
+                    <img src="https://i.ibb.co/placeholder4.jpg" alt="Testimonial 4" style="background: #1e293b; min-height: 300px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5);">
+                </div>
+                <div class="testimonial-card">
+                    <img src="https://i.ibb.co/placeholder5.jpg" alt="Testimonial 5" style="background: #1e293b; min-height: 300px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5);">
+                </div>
+                <div class="testimonial-card">
+                    <img src="https://i.ibb.co/placeholder6.jpg" alt="Testimonial 6" style="background: #1e293b; min-height: 300px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5);">
+                </div>
+            </div>
+
+            <div class="text-center mt-2">
+                <button class="btn-primary" onclick="openModal()">
+                    Book Your 1:1 Consultation Now <span>➤</span>
+                </button>
+                <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-top: 0.5rem;">
+                    It is a 1:1 consultation call and we take only handful of people every month !
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="about-container">
+            <div class="about-image">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=500&fit=crop" alt="Gaurav Singh">
+                <div class="about-badge">
+                    <h4>Gaurav Singh</h4>
+                    <p>Founder Of Growik</p>
+                    <small style="color: #64748b;">4+ Years Of Experience In Marketing</small>
+                </div>
+            </div>
+            
+            <div class="about-content">
+                <h2>Meet Gaurav Singh</h2>
+                <p class="subtitle">Helping Affiliate Marketers Build Scalable, Sustainable Businesses</p>
+                
+                <p>Hi, I'm <strong>Gaurav Singh</strong>, a business growth strategist <strong>specializing in the affiliate marketing space.</strong> Over the past few years, I've worked closely with affiliate marketers to transform their practices from <strong>inconsistent income to predictable, scalable systems</strong> - helping them attract premium buyers, streamline their operations, and grow without burnout.</p>
+                
+                <p style="font-weight: 700; color: #0f172a; margin-top: 1.5rem;">I've personally:</p>
+                
+                <ul class="about-highlights">
+                    <li>Designed custom <strong>affiliate acquisition systems</strong> for marketers across digital products, SaaS, and high-ticket offers</li>
+                    <li>Helped affiliates <strong>double and triple their monthly revenue</strong> through optimized funnels and positioning</li>
+                    <li>Built <strong>done-for-you frameworks</strong> that turn promotional efforts into repeatable, profitable commissions</li>
+                </ul>
+                
+                <p style="margin-top: 1.5rem; font-style: italic; color: #475569;">I <strong>specialise in working with affiliate marketers</strong> who are ready to move beyond small commissions - and build a business that supports their lifestyle and impact. My approach is hands-on, strategic, and tailored to the unique challenges affiliate professionals face when scaling.</p>
+            </div>
+        </div>
+
+        <div class="text-center mt-2">
+            <button class="btn-primary" onclick="openModal()">
+                Book Your 1:1 Consultation Call <span>➤</span>
+            </button>
+            <p class="scarcity-text">It is a 1:1 consultation call and we take only handful of people every month !</p>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison">
+        <div class="comparison-container">
+            <h2>Why Choose GROWIK Over Other Agencies?</h2>
+            <p class="comparison-subtitle">See the clear difference between working with us and typical marketing agencies</p>
+            
+            <div class="comparison-table">
+                <div class="comparison-header">
+                    <div>Features</div>
+                    <div>Growik</div>
+                    <div>Other Agencies</div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div>Done-For-You Implementation</div>
+                    <div class="growik-col"><span class="check">✓</span></div>
+                    <div><span class="cross">✕</span></div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div>Affiliate Marketing Specialization</div>
+                    <div class="growik-col"><span class="check">✓</span></div>
+                    <div><span class="cross">✕</span></div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div>30-50 Qualified Buyers Guarantee</div>
+                    <div class="growik-col"><span class="check">✓</span></div>
+                    <div><span class="cross">✕</span></div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div>Complete Funnel Building</div>
+                    <div class="growik-col"><span class="check">✓</span></div>
+                    <div><span class="cross">✕</span></div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div>High-Ticket Strategy (₹15K+ Commissions)</div>
+                    <div class="growik-col"><span class="check">✓</span></div>
+                    <div><span class="cross">✕</span></div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div>Proven Conversion Scripts (18-22%)</div>
+                    <div class="growik-col"><span class="check">✓</span></div>
+                    <div><span class="cross">✕</span></div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div>15-20 Day Setup Timeline</div>
+                    <div class="growik-col"><span class="check">✓</span></div>
+                    <div><span class="cross">✕</span></div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div>Dedicated Support Team</div>
+                    <div class="growik-col"><span class="check">✓</span></div>
+                    <div><span class="cross">✕</span></div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div>₹3L-₹10L Monthly Income Path</div>
+                    <div class="growik-col"><span class="check">✓</span></div>
+                    <div><span class="cross">✕</span></div>
+                </div>
+            </div>
+
+            <div class="text-center mt-2">
+                <button class="btn-primary" onclick="openModal()">
+                    Book Your 1:1 Consultation Call <span>➤</span>
+                </button>
+                <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-top: 0.5rem;">
+                    It is a 1:1 consultation call and we take only handful of people every month !
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Consulting Section -->
+    <section class="consulting">
+        <div class="consulting-container">
+            <h2>What Happens in This 7-Figure Consulting Call?</h2>
+            <p class="consulting-subtitle">This is a comprehensive <strong>Business Audit & Strategy Session</strong> designed to diagnose exactly what's keeping you stuck—and how to fix it</p>
+            <p class="consulting-desc">Here's what we'll cover:</p>
+            
+            <div class="consulting-grid">
+                <div class="consulting-card">
+                    <div style="height: 200px; background: linear-gradient(135deg, #1e293b 0%, #334155 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; flex-direction: column; text-align: center; padding: 2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">📋</div>
+                        <div style="font-weight: 700; font-size: 1.2rem;">Understand Your Business</div>
+                        <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">Niche • Positioning • Offer & Pricing</div>
+                    </div>
+                    <h4>Understand Your Business</h4>
+                    <p>Analyze Your Business Model, <strong>Niche</strong> And <strong>Positioning</strong> To Understand What You Do And <strong>How You Serve.</strong></p>
+                </div>
+                
+                <div class="consulting-card">
+                    <div style="height: 200px; background: linear-gradient(135deg, #0369a1 0%, #0ea5e9 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; flex-direction: column; text-align: center; padding: 2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🚧</div>
+                        <div style="font-weight: 700; font-size: 1.2rem;">Identify Your Growth Blockers</div>
+                        <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">Past Efforts • Existing Assets</div>
+                    </div>
+                    <h4>Identify Your Growth Blockers</h4>
+                    <p>Identify Your <strong>Growth Blockers</strong>, Review Your <strong>Past Efforts</strong>, And Assess The Assets You Already Have In Place.</p>
+                </div>
+                
+                <div class="consulting-card">
+                    <div style="height: 200px; background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; flex-direction: column; text-align: center; padding: 2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🔧</div>
+                        <div style="font-weight: 700; font-size: 1.2rem;">Find & fix What's Stopping Your GROWTH</div>
+                    </div>
+                    <h4>Find & Fix What's Stopping Your Growth</h4>
+                    <p>What's <strong>holding you back</strong> for your growth, will <strong>find and fix</strong> that on this call</p>
+                </div>
+                
+                <div class="consulting-card">
+                    <div style="height: 200px; background: linear-gradient(135deg, #059669 0%, #10b981 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; flex-direction: column; text-align: center; padding: 2rem;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">🎯</div>
+                        <div style="font-weight: 700; font-size: 1.2rem;">We'll Share Our Proven 7 Figure Scaling Blueprint</div>
+                    </div>
+                    <h4>We'll Share Our Proven 7 Figure Scaling Blueprint</h4>
+                    <p>If your data or insights make you the right fit, we'll <strong>reveal a blueprint</strong> we've used to help other <strong>Affiliate marketers build a 7-figure business.</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <h3>Book Your Free Consultation</h3>
+            <p>Fill in your details and we'll get back to you within 24 hours.</p>
+            
+            <form onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>WhatsApp Number</label>
+                    <input type="tel" placeholder="Enter your WhatsApp number" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Age</label>
+                    <input type="number" placeholder="Enter your age" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>City</label>
+                    <input type="text" placeholder="Enter your city" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Current Status</label>
+                    <select required>
+                        <option value="">Select your current status</option>
+                        <option value="beginner">Beginner Affiliate (0-10K/month)</option>
+                        <option value="intermediate">Intermediate (10K-50K/month)</option>
+                        <option value="advanced">Advanced (50K-1L/month)</option>
+                        <option value="expert">Expert (1L+/month)</option>
+                    </select>
+                </div>
+                
+                <button type="submit" class="submit-btn">Book My Consultation Now</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Countdown Timer
+        function updateCountdown() {
+            const minutesEl = document.getElementById('minutes');
+            const secondsEl = document.getElementById('seconds');
+            
+            let minutes = parseInt(minutesEl.textContent);
+            let seconds = parseInt(secondsEl.textContent);
+            
+            if (seconds > 0) {
+                seconds--;
+            } else {
+                if (minutes > 0) {
+                    minutes--;
+                    seconds = 59;
+                } else {
+                    minutes = 11;
+                    seconds = 26;
+                }
+            }
+            
+            minutesEl.textContent = minutes.toString().padStart(2, '0');
+            secondsEl.textContent = seconds.toString().padStart(2, '0');
         }
         
-        // 2. SEND DATA TO GOOGLE SHEETS (using no-cors mode)
-        const params = new URLSearchParams();
-        params.append('platform', formData.platform);
-        params.append('name', formData.name);
-        params.append('phone', formData.phone);
-        params.append('income', formData.income);
-        params.append('plan', formData.plan);
-        
-        fetch(GOOGLE_SHEET_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: params.toString()
-        }).catch(err => {
-          console.log('Sheet update attempted');
+        setInterval(updateCountdown, 1000);
+
+        // Modal Functions
+        function openModal() {
+            document.getElementById('modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal on outside click
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
         });
-        
-        // 3. REDIRECT TO PAYMENT PAGE (immediately)
-        setTimeout(() => {
-          window.location.href = PAYMENT_LINK;
-        }, 500);
-        
-      } catch (error) {
-        console.error('Error:', error);
-        window.location.href = PAYMENT_LINK;
-      }
-    }
 
-    // Back to Top
-    const backToTop = document.getElementById('backToTop');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 500) {
-        backToTop.classList.add('visible');
-      } else {
-        backToTop.classList.remove('visible');
-      }
-    });
-
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // Smooth scroll for nav links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const href = this.getAttribute('href');
-        if (href !== '#') {
-          e.preventDefault();
-          const target = document.querySelector(href);
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
+        // Form Submit
+        function handleSubmit(e) {
+            e.preventDefault();
+            alert('Thank you! We will contact you soon on WhatsApp.');
+            closeModal();
         }
-      });
-    });
 
-    // Close modals on Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
-        closeFormModal();
-        closePolicyModal('privacy');
-        closePolicyModal('terms');
-        closePolicyModal('refund');
-      }
-    });
-
-    // Phone validation
-    document.getElementById('phone').addEventListener('input', function(e) {
-      this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10);
-    });
-  </script>
+        // Smooth scroll for buttons
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>
