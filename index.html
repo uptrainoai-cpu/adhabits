@@ -1,9 +1,13 @@
-<!DOCTYPE html>
+
+# Creating the complete HTML file for the Growik landing page
+# Based on the video provided, with exact same styling and structure
+
+html_content = '''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Growik - Done For You Affiliate Marketing System</title>
+    <title>Growik - Done For You Client Acquisition System for Health Coaches</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * {
@@ -14,41 +18,10 @@
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 50%, #f0f9ff 100%);
             color: #1e293b;
             overflow-x: hidden;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            padding: 1rem 0;
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: #0369a1;
-            letter-spacing: -1px;
-        }
-
-        .logo span {
-            color: #0ea5e9;
+            line-height: 1.6;
         }
 
         /* Sticky Bottom Bar */
@@ -59,22 +32,24 @@
             right: 0;
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(20px);
-            border-top: 2px solid #e0f2fe;
-            padding: 1rem 2rem;
+            border-top: 3px solid #0369a1;
+            padding: 1rem 1.5rem;
             z-index: 999;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 2rem;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.1);
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
         }
 
         .sticky-content {
             display: flex;
             align-items: center;
-            gap: 3rem;
+            gap: 2rem;
             flex-wrap: wrap;
             justify-content: center;
+            max-width: 1200px;
+            width: 100%;
         }
 
         .sticky-text {
@@ -87,10 +62,11 @@
             display: flex;
             gap: 0.5rem;
             align-items: center;
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: 800;
             color: #0369a1;
             font-variant-numeric: tabular-nums;
+            letter-spacing: 2px;
         }
 
         .countdown-separator {
@@ -111,6 +87,8 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .btn-primary:hover {
@@ -120,30 +98,54 @@
 
         /* Hero Section */
         .hero {
-            padding: 8rem 2rem 4rem;
-            max-width: 1200px;
+            padding: 3rem 1.5rem 6rem;
+            max-width: 800px;
             margin: 0 auto;
             text-align: center;
         }
 
-        .badge {
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #0369a1;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #0369a1 0%, #0ea5e9 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .badge-top {
             display: inline-block;
             background: rgba(14, 165, 233, 0.1);
-            border: 2px solid #0ea5e9;
+            border: 2px dotted #0ea5e9;
             color: #0369a1;
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
             font-weight: 600;
             font-size: 0.95rem;
             margin-bottom: 2rem;
+            line-height: 1.5;
         }
 
-        .badge strong {
+        .badge-top strong {
             color: #0f172a;
         }
 
         h1 {
-            font-size: 3.5rem;
+            font-size: 2.8rem;
             font-weight: 800;
             line-height: 1.1;
             margin-bottom: 1.5rem;
@@ -155,10 +157,10 @@
         }
 
         .hero-subtitle {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             color: #475569;
-            max-width: 700px;
-            margin: 0 auto 3rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
             line-height: 1.7;
         }
 
@@ -166,69 +168,111 @@
             color: #0f172a;
         }
 
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin-top: 3rem;
-            text-align: left;
-        }
-
         .hero-card {
             background: white;
             border-radius: 24px;
-            padding: 2rem;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
-            border: 1px solid rgba(14, 165, 233, 0.1);
-        }
-
-        .hero-image-card {
+            padding: 1.5rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            margin-bottom: 2rem;
             position: relative;
             overflow: hidden;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
             background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .founder-img {
             width: 100%;
-            max-width: 300px;
-            border-radius: 20px;
-            object-fit: cover;
+            max-width: 350px;
+            display: block;
+            margin: 0 auto;
         }
 
-        .transformation-text {
+        .transformation-overlay {
             position: absolute;
-            bottom: 2rem;
-            left: 2rem;
-            right: 2rem;
+            bottom: 0;
+            left: 0;
+            right: 0;
             background: rgba(255,255,255,0.95);
             padding: 1.5rem;
-            border-radius: 16px;
             text-align: center;
+            backdrop-filter: blur(10px);
         }
 
-        .transformation-text h3 {
-            font-size: 1.5rem;
-            color: #0f172a;
+        .transformation-overlay h3 {
+            font-size: 1rem;
+            color: #475569;
             margin-bottom: 0.5rem;
         }
 
-        .transformation-text .highlight-blue {
-            color: #0369a1;
-            font-size: 2rem;
+        .transformation-overlay .big-text {
+            font-size: 1.8rem;
             font-weight: 800;
+            color: #0f172a;
+            line-height: 1.2;
+        }
+
+        .transformation-overlay .big-text .blue {
+            color: #0369a1;
+        }
+
+        .transformation-overlay .timeline {
+            font-size: 1rem;
+            color: #0369a1;
+            font-weight: 600;
+            margin: 0.5rem 0;
         }
 
         .badge-dfy {
             display: inline-block;
             background: #0369a1;
             color: white;
-            padding: 0.5rem 1.5rem;
+            padding: 0.6rem 1.5rem;
             border-radius: 8px;
             font-weight: 700;
+            font-size: 1.1rem;
+            margin: 0.5rem 0;
+            letter-spacing: 2px;
+        }
+
+        .system-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #0f172a;
             margin-top: 0.5rem;
+        }
+
+        .target-text {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-top: 0.5rem;
+        }
+
+        .founder-badge {
+            position: absolute;
+            bottom: 120px;
+            left: 1rem;
+            background: rgba(255,255,255,0.95);
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: left;
+        }
+
+        .founder-badge .name {
+            font-weight: 700;
+            color: #0f172a;
+            font-size: 1rem;
+        }
+
+        .founder-badge .title {
+            font-size: 0.8rem;
+            color: #0369a1;
         }
 
         .features-list {
@@ -236,16 +280,18 @@
             display: flex;
             flex-direction: column;
             gap: 1rem;
+            text-align: left;
+            margin-top: 2rem;
         }
 
         .features-list li {
             display: flex;
             align-items: flex-start;
             gap: 1rem;
-            padding: 1rem;
+            padding: 1.2rem;
             background: rgba(14, 165, 233, 0.05);
-            border-radius: 12px;
-            border-left: 4px solid #0ea5e9;
+            border-radius: 16px;
+            border: 2px dashed #cbd5e1;
         }
 
         .features-list li::before {
@@ -253,34 +299,42 @@
             color: #0369a1;
             font-size: 1.5rem;
             line-height: 1;
+            flex-shrink: 0;
         }
 
         .features-list strong {
             color: #0f172a;
             display: block;
             margin-bottom: 0.25rem;
+            font-size: 1.05rem;
         }
 
         .features-list span {
             color: #475569;
             font-size: 0.95rem;
+            line-height: 1.5;
         }
 
         .cta-section {
             text-align: center;
-            margin-top: 3rem;
+            margin-top: 2rem;
+        }
+
+        .btn-large {
+            font-size: 1.2rem;
+            padding: 1.2rem 3rem;
         }
 
         .scarcity-text {
             color: #64748b;
             font-size: 0.9rem;
-            margin-top: 0.5rem;
+            margin-top: 0.75rem;
         }
 
         /* Qualification Section */
         .qualification {
             background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%);
-            padding: 5rem 2rem;
+            padding: 4rem 1.5rem;
             position: relative;
             overflow: hidden;
         }
@@ -296,7 +350,7 @@
         }
 
         .qualification-container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
@@ -305,21 +359,22 @@
         .qualification h2 {
             text-align: center;
             color: white;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
+            font-weight: 700;
         }
 
         .qual-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
         .qual-card {
             background: rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
-            border-radius: 24px;
-            padding: 2.5rem;
+            border-radius: 20px;
+            padding: 1.5rem;
             border: 1px solid rgba(255,255,255,0.2);
         }
 
@@ -335,8 +390,9 @@
 
         .qual-card h3 {
             color: white;
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            line-height: 1.4;
         }
 
         .qual-card.good h3 {
@@ -351,7 +407,7 @@
             list-style: none;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 0.75rem;
         }
 
         .qual-list li {
@@ -360,6 +416,7 @@
             gap: 0.75rem;
             color: rgba(255,255,255,0.9);
             line-height: 1.6;
+            font-size: 0.95rem;
         }
 
         .qual-list li::before {
@@ -378,41 +435,46 @@
             color: white;
         }
 
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-2 {
+            margin-top: 2rem;
+        }
+
+        .text-white {
+            color: rgba(255,255,255,0.9);
+        }
+
         /* Problems Section */
         .problems {
-            padding: 5rem 2rem;
+            padding: 4rem 1.5rem;
             background: white;
         }
 
         .problems-container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
         .problems h2 {
             text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
             color: #0f172a;
         }
 
         .problems-subtitle {
             text-align: center;
             color: #475569;
-            font-size: 1.2rem;
-            margin-bottom: 3rem;
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
         }
 
         .problems-subtitle span {
             color: #0369a1;
             font-weight: 700;
-        }
-
-        .problems-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 3rem;
         }
 
         .problem-card {
@@ -421,18 +483,14 @@
             overflow: hidden;
             box-shadow: 0 10px 40px rgba(0,0,0,0.08);
             border: 1px solid #e2e8f0;
-            transition: transform 0.3s ease;
-        }
-
-        .problem-card:hover {
-            transform: translateY(-5px);
+            margin-bottom: 1.5rem;
         }
 
         .problem-img {
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: cover;
-            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
+            display: block;
         }
 
         .problem-content {
@@ -444,10 +502,11 @@
             display: inline-block;
             padding: 0.5rem 1rem;
             border-radius: 8px;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             margin-bottom: 0.75rem;
-            color: #0f172a;
+            color: #0369a1;
             border: 1px solid #e2e8f0;
+            font-weight: 700;
         }
 
         .problem-content p {
@@ -460,15 +519,16 @@
             background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
             border: 2px dashed #0ea5e9;
             border-radius: 20px;
-            padding: 2rem;
+            padding: 1.5rem;
             text-align: center;
             margin-top: 2rem;
         }
 
         .solution-box p {
-            font-size: 1.1rem;
+            font-size: 1rem;
             color: #334155;
             line-height: 1.7;
+            margin-bottom: 0.5rem;
         }
 
         .solution-box strong {
@@ -478,7 +538,7 @@
         /* Testimonials */
         .testimonials {
             background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%);
-            padding: 5rem 2rem;
+            padding: 4rem 1.5rem;
             position: relative;
         }
 
@@ -493,7 +553,7 @@
         }
 
         .testimonials-container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
@@ -502,19 +562,20 @@
         .testimonials h2 {
             text-align: center;
             color: white;
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             margin-bottom: 0.5rem;
         }
 
         .testimonials-subtitle {
             text-align: center;
             color: rgba(255,255,255,0.8);
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
         }
 
         .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            display: flex;
+            flex-direction: column;
             gap: 1.5rem;
         }
 
@@ -522,7 +583,7 @@
             background: rgba(0,0,0,0.3);
             backdrop-filter: blur(10px);
             border-radius: 20px;
-            padding: 1.5rem;
+            padding: 1rem;
             border: 1px solid rgba(255,255,255,0.1);
         }
 
@@ -530,36 +591,37 @@
             width: 100%;
             border-radius: 12px;
             border: 2px solid rgba(255,255,255,0.1);
+            display: block;
         }
 
         /* About Section */
         .about {
-            padding: 5rem 2rem;
+            padding: 4rem 1.5rem;
             background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
         }
 
         .about-container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
-            display: grid;
-            grid-template-columns: 400px 1fr;
-            gap: 4rem;
-            align-items: center;
+            text-align: center;
         }
 
         .about-image {
             position: relative;
+            max-width: 350px;
+            margin: 0 auto 2rem;
         }
 
         .about-image img {
             width: 100%;
             border-radius: 24px;
             box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+            display: block;
         }
 
         .about-badge {
             position: absolute;
-            bottom: -20px;
+            bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
             background: white;
@@ -567,11 +629,13 @@
             border-radius: 16px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             text-align: center;
+            white-space: nowrap;
         }
 
         .about-badge h4 {
             color: #0f172a;
             font-size: 1.2rem;
+            margin-bottom: 0.25rem;
         }
 
         .about-badge p {
@@ -581,14 +645,14 @@
         }
 
         .about-content h2 {
-            font-size: 2.5rem;
+            font-size: 2rem;
             margin-bottom: 0.5rem;
             color: #0f172a;
         }
 
         .about-content .subtitle {
             color: #0369a1;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 600;
             margin-bottom: 1.5rem;
         }
@@ -596,7 +660,8 @@
         .about-content p {
             color: #475569;
             line-height: 1.8;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1rem;
+            text-align: left;
         }
 
         .about-content strong {
@@ -606,6 +671,7 @@
         .about-highlights {
             list-style: none;
             margin-top: 1.5rem;
+            text-align: left;
         }
 
         .about-highlights li {
@@ -625,7 +691,7 @@
 
         /* Comparison Table */
         .comparison {
-            padding: 5rem 2rem;
+            padding: 4rem 1.5rem;
             background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%);
             position: relative;
         }
@@ -641,7 +707,7 @@
         }
 
         .comparison-container {
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
             position: relative;
             z-index: 1;
@@ -650,19 +716,20 @@
         .comparison h2 {
             text-align: center;
             color: white;
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             margin-bottom: 0.5rem;
         }
 
         .comparison-subtitle {
             text-align: center;
             color: rgba(255,255,255,0.8);
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
         }
 
         .comparison-table {
             background: white;
-            border-radius: 24px;
+            border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 30px 60px rgba(0,0,0,0.2);
         }
@@ -673,10 +740,11 @@
             background: #0369a1;
             color: white;
             font-weight: 700;
+            font-size: 0.9rem;
         }
 
         .comparison-header > div {
-            padding: 1.5rem;
+            padding: 1rem;
             text-align: center;
         }
 
@@ -695,11 +763,12 @@
         }
 
         .comparison-row > div {
-            padding: 1.25rem 1.5rem;
+            padding: 1rem;
             text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 0.9rem;
         }
 
         .comparison-row > div:first-child {
@@ -710,13 +779,13 @@
 
         .check {
             color: #22c55e;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: bold;
         }
 
         .cross {
             color: #ef4444;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: bold;
         }
 
@@ -728,18 +797,18 @@
 
         /* Consulting Section */
         .consulting {
-            padding: 5rem 2rem;
+            padding: 4rem 1.5rem;
             background: white;
         }
 
         .consulting-container {
-            max-width: 1200px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
         .consulting h2 {
             text-align: center;
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             margin-bottom: 0.5rem;
             color: #0f172a;
         }
@@ -747,7 +816,8 @@
         .consulting-subtitle {
             text-align: center;
             color: #475569;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
         }
 
         .consulting-subtitle strong {
@@ -757,19 +827,20 @@
         .consulting-desc {
             text-align: center;
             color: #64748b;
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
         }
 
         .consulting-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
         }
 
         .consulting-card {
             background: white;
-            border-radius: 24px;
-            padding: 2rem;
+            border-radius: 20px;
+            padding: 1.5rem;
             border: 2px solid #e2e8f0;
             transition: all 0.3s ease;
         }
@@ -779,24 +850,29 @@
             box-shadow: 0 20px 40px rgba(14, 165, 233, 0.1);
         }
 
-        .consulting-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
+        .consulting-card-img {
+            height: 180px;
             border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-direction: column;
+            text-align: center;
+            padding: 1.5rem;
             margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
         }
 
         .consulting-card h4 {
             color: #0f172a;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             margin-bottom: 1rem;
         }
 
         .consulting-card p {
             color: #475569;
             line-height: 1.7;
+            font-size: 0.95rem;
         }
 
         .consulting-card strong {
@@ -816,7 +892,7 @@
             z-index: 2000;
             justify-content: center;
             align-items: center;
-            padding: 2rem;
+            padding: 1.5rem;
         }
 
         .modal-overlay.active {
@@ -826,11 +902,13 @@
         .modal {
             background: white;
             border-radius: 24px;
-            padding: 3rem;
-            max-width: 500px;
+            padding: 2rem;
+            max-width: 450px;
             width: 100%;
             position: relative;
             animation: slideUp 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
         }
 
         @keyframes slideUp {
@@ -846,8 +924,8 @@
 
         .modal-close {
             position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
+            top: 1rem;
+            right: 1rem;
             background: none;
             border: none;
             font-size: 1.5rem;
@@ -868,18 +946,19 @@
         }
 
         .modal h3 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             margin-bottom: 0.5rem;
             color: #0f172a;
         }
 
-        .modal p {
+        .modal > p {
             color: #64748b;
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
         }
 
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.2rem;
         }
 
         .form-group label {
@@ -887,13 +966,13 @@
             margin-bottom: 0.5rem;
             color: #334155;
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
         }
 
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 1rem;
+            padding: 0.9rem;
             border: 2px solid #e2e8f0;
             border-radius: 12px;
             font-size: 1rem;
@@ -912,13 +991,14 @@
             width: 100%;
             background: linear-gradient(135deg, #0369a1 0%, #0ea5e9 100%);
             color: white;
-            padding: 1.2rem;
+            padding: 1rem;
             border: none;
             border-radius: 12px;
             font-size: 1.1rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
+            margin-top: 0.5rem;
         }
 
         .submit-btn:hover {
@@ -927,87 +1007,55 @@
         }
 
         /* Responsive */
-        @media (max-width: 968px) {
-            .hero-grid,
-            .qual-grid,
-            .about-container,
-            .consulting-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .problems-grid,
-            .testimonials-grid {
-                grid-template-columns: 1fr;
-            }
-
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            .about-image {
-                order: -1;
-                max-width: 400px;
-                margin: 0 auto;
-            }
-
+        @media (max-width: 640px) {
             .sticky-content {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 0.75rem;
             }
-
+            
+            .sticky-text {
+                font-size: 1rem;
+            }
+            
             .countdown {
-                font-size: 1.5rem;
+                font-size: 1.8rem;
             }
-        }
-
-        @media (max-width: 640px) {
+            
+            .btn-primary {
+                padding: 0.9rem 2rem;
+                font-size: 1rem;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
             .comparison-header,
             .comparison-row {
-                grid-template-columns: 1.5fr 1fr 1fr;
-                font-size: 0.85rem;
+                font-size: 0.8rem;
             }
-
+            
             .comparison-header > div,
             .comparison-row > div {
-                padding: 1rem 0.75rem;
-            }
-
-            .modal {
-                padding: 2rem 1.5rem;
+                padding: 0.75rem 0.5rem;
             }
         }
 
-        /* Utility */
-        .text-center {
-            text-align: center;
-        }
-
-        .mt-2 {
-            margin-top: 2rem;
-        }
-
-        .mb-2 {
-            margin-bottom: 2rem;
+        .spacer {
+            height: 80px;
         }
     </style>
 </head>
 <body>
-
-    <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <div class="logo">Grow<span>ik</span></div>
-        </div>
-    </nav>
 
     <!-- Sticky Bottom Bar -->
     <div class="sticky-bar">
         <div class="sticky-content">
             <div class="sticky-text">Final call - Take Action Now</div>
             <div class="countdown" id="countdown">
-                <span id="minutes">11</span>
+                <span id="minutes">00</span>
                 <span class="countdown-separator">:</span>
-                <span id="seconds">26</span>
+                <span id="seconds">00</span>
             </div>
             <button class="btn-primary" onclick="openModal()">
                 Book Now <span>➤</span>
@@ -1017,63 +1065,70 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="badge">
-            <strong>Affiliate Marketers</strong> - If you are already making <strong>₹30k-1Lakh/month</strong>, then this is for you
+        <div class="logo">
+            <div class="logo-icon">G</div>
+            Growik
+        </div>
+        
+        <div class="badge-top">
+            <strong>Health & Wellness Coaches</strong> - If you are already making <strong>₹40k-1Lakh/month</strong>, then this is for you
         </div>
         
         <h1>
-            You Promote. <span class="highlight">We Build Your System.</span> Simple.
+            You Coach. <span class="highlight">We Get You Clients.</span> Simple.
         </h1>
         
         <p class="hero-subtitle">
-            Get a <strong>Done-For-You</strong> affiliate marketing system built in just <strong>15-20 days</strong>, bringing 30-50 premium qualified buyers every month — <strong>or your money back*</strong>
+            Get a <strong>Done-For-You</strong> client acquisition system built in just <strong>15-20 days</strong>, bringing 30-50 premium qualified leads every month — <strong>or your money back*</strong>
         </p>
 
-        <div class="hero-grid">
-            <div class="hero-card hero-image-card">
-                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=500&fit=crop" alt="Gaurav Singh" class="founder-img">
-                <div class="transformation-text">
-                    <h3>FROM ₹30k-1L/Month</h3>
-                    <div class="highlight-blue">To 3-5Lakh/Month</div>
-                    <div style="font-size: 1.2rem; color: #475569; margin: 0.5rem 0;">In Next 90 Days</div>
+        <div class="hero-card">
+            <div class="hero-image-wrapper">
+                <img src="https://i.ibb.co/ccBXcyrs/Screenshot-2026-02-03-at-10-23-31-PM.png" alt="Gaurav Singh - Founder of Growik" class="founder-img">
+                <div class="founder-badge">
+                    <div class="name">Gaurav Singh</div>
+                    <div class="title">Founder of Growik</div>
+                </div>
+                <div class="transformation-overlay">
+                    <h3>FROM ₹40k-1L/Month</h3>
+                    <div class="big-text">To <span class="blue">3-5Lakh/Month</span></div>
+                    <div class="timeline">In <span style="color:#0369a1;">Next</span> 90 Days</div>
                     <div class="badge-dfy">Done - For - You</div>
-                    <div style="margin-top: 0.5rem; font-weight: 700; color: #0f172a;">SYSTEM</div>
-                    <div style="font-size: 0.8rem; color: #64748b; margin-top: 0.5rem;">FOR AFFILIATE MARKETERS</div>
+                    <div class="system-text">SYSTEM</div>
+                    <div class="target-text">FOR HEALTH COACHES</div>
                 </div>
             </div>
-            
-            <div class="hero-card">
-                <ul class="features-list">
-                    <li>
-                        <div>
-                            <strong>No more low-ticket sales</strong>
-                            <span>We'll help you create & sell high-ticket affiliate offers (₹15K-₹50K commissions)</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div>
-                            <strong>No tech headaches</strong>
-                            <span>We build your entire funnel, landing pages & automation for you</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div>
-                            <strong>No more random traffic</strong>
-                            <span>Get proven strategies & systems for 18-22% conversion rates</span>
-                        </div>
-                    </li>
-                    <li>
-                        <div>
-                            <strong>No more platform hopping</strong>
-                            <span>Get your complete affiliate system launched in 15-20 days</span>
-                        </div>
-                    </li>
-                </ul>
-            </div>
         </div>
+            
+        <ul class="features-list">
+            <li>
+                <div>
+                    <strong>No more undercharging</strong>
+                    <span>We'll help you create & sell premium packages (₹15K-₹50K)</span>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <strong>No tech headaches</strong>
+                    <span>We build your entire funnel, ads & system for you</span>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <strong>No more random content</strong>
+                    <span>Get proven scripts & systems for 18-22% conversion</span>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <strong>No more juggling platforms</strong>
+                    <span>Get your complete business system launched in 15-20 days</span>
+                </div>
+            </li>
+        </ul>
 
         <div class="cta-section">
-            <button class="btn-primary" onclick="openModal()" style="font-size: 1.3rem; padding: 1.2rem 3rem;">
+            <button class="btn-primary btn-large" onclick="openModal()">
                 Book Your 1:1 Consultation Call <span>➤</span>
             </button>
             <p class="scarcity-text">It is a 1:1 consultation call and we take only handful of people every month !</p>
@@ -1083,16 +1138,16 @@
     <!-- Qualification Section -->
     <section class="qualification">
         <div class="qualification-container">
-            <h2>"Most Affiliate Marketers Won't Qualify. Will You?"</h2>
+            <h2>"Most Coaches Won't Qualify. Will You?"</h2>
             
             <div class="qual-grid">
                 <div class="qual-card good">
-                    <h3>Affiliate Marketer<br>this is perfect for you if :</h3>
+                    <h3>Health/Wellness Coach<br>this is perfect for you if :</h3>
                     <ul class="qual-list">
-                        <li>You're an experienced <strong>Affiliate Marketer</strong> already earning <strong>₹30K-₹1L/month</strong>.</li>
-                        <li>You're good at promoting but terrible at <strong>building systems</strong> (and you're tired of it).</li>
-                        <li>You're sick of <strong>low commissions</strong> that take 100 sales to make real money.</li>
-                        <li>You want to earn <strong>₹20K-₹50K+ per sale</strong> instead of ₹200-₹500.</li>
+                        <li>You're a certified <strong>Health/wellness/fitness coach</strong> already earning <strong>₹40K-₹1L/month</strong>.</li>
+                        <li>You're good at coaching but terrible at <strong>marketing</strong> (and you're tired of it).</li>
+                        <li>You're sick of posting content that gets likes but <strong>zero sales calls</strong>.</li>
+                        <li>You want to charge <strong>₹20K-₹50K+ per client</strong> instead of ₹2K-₹5K.</li>
                         <li>You're ready to invest in a <strong>proven system</strong> instead of DIY-ing forever.</li>
                     </ul>
                 </div>
@@ -1100,18 +1155,18 @@
                 <div class="qual-card bad">
                     <h3>This is <strong>not</strong> for beginners<br>who are still figuring out.<br>It's not for you if :</h3>
                     <ul class="qual-list">
-                        <li>You're <strong>just starting out</strong> and have made no sales yet (we work with proven marketers only).</li>
+                        <li>You're <strong>just starting out</strong> and have no clients yet (we work with proven coaches only).</li>
                         <li>You're looking for a <strong>"get rich quick"</strong> scheme or magic pill.</li>
-                        <li>You're <strong>not willing to show up</strong> for strategy calls when we book them for you.</li>
-                        <li>You want to <strong>keep promoting ₹500 products</strong> and stay comfortable.</li>
+                        <li>You're <strong>not willing to show up</strong> for sales calls when we book them for you.</li>
+                        <li>You want to <strong>keep charging ₹2,000</strong> and stay comfortable.</li>
                         <li>You're <strong>not serious</strong> about scaling to ₹10L+ per month.</li>
                     </ul>
                 </div>
             </div>
 
             <div class="text-center mt-2">
-                <p style="color: rgba(255,255,255,0.9); font-size: 1.2rem; margin-bottom: 1.5rem;">
-                    If you have proven expertise in <strong>Affiliate Marketing</strong>, this is for you
+                <p class="text-white" style="font-size: 1.1rem; margin-bottom: 1.5rem;">
+                    If you have proven expertise in <strong>Health coaching</strong>, this is for you
                 </p>
                 <button class="btn-primary" onclick="openModal()">
                     Book Your 1:1 Consultation Now <span>➤</span>
@@ -1126,65 +1181,63 @@
     <!-- Problems Section -->
     <section class="problems">
         <div class="problems-container">
-            <h2>What's really stopping your affiliate business from scaling?</h2>
+            <h2>What's really stopping your coaching business from scaling?</h2>
             <p class="problems-subtitle">The 6 Silent Killers Keeping You <span>Below ₹1L/Month</span></p>
             
-            <div class="problems-grid">
-                <div class="problem-card">
-                    <div class="problem-img" style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">🎯</div>
-                    <div class="problem-content">
-                        <h4>No Clear Niche</h4>
-                        <p>You promote "everything." So nobody trusts your recommendations. No authority = No sales.</p>
-                    </div>
+            <div class="problem-card">
+                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=400&fit=crop" alt="No Clear Niche" class="problem-img" style="object-position: center 30%;">
+                <div class="problem-content">
+                    <h4>No Clear Niche</h4>
+                    <p>You say you <strong>"help everyone."</strong> So nobody feels like you're talking to them.</p>
                 </div>
-                
-                <div class="problem-card">
-                    <div class="problem-img" style="background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">🧲</div>
-                    <div class="problem-content">
-                        <h4>No irresistible offer</h4>
-                        <p>Your promotions look like everyone else's. Affiliates don't understand why they should buy from YOU.</p>
-                    </div>
+            </div>
+            
+            <div class="problem-card">
+                <img src="https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=800&h=400&fit=crop" alt="No irresistible offer" class="problem-img">
+                <div class="problem-content">
+                    <h4>No irresistible offer</h4>
+                    <p>Your packages are confusing. Clients don't understand what they're buying or why it's worth ₹50K. Result?</p>
                 </div>
-                
-                <div class="problem-card">
-                    <div class="problem-img" style="background: linear-gradient(135deg, #0369a1 0%, #0ea5e9 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">⚖️</div>
-                    <div class="problem-content">
-                        <h4>Low ticket focus</h4>
-                        <p>You chase ₹200 commissions because you're scared no one will buy ₹20K products. Result? 100x more work.</p>
-                    </div>
+            </div>
+            
+            <div class="problem-card">
+                <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&h=400&fit=crop" alt="Low pricing" class="problem-img">
+                <div class="problem-content">
+                    <h4>Low pricing</h4>
+                    <p>You charge ₹5K because you're scared no one will pay ₹50K</p>
                 </div>
-                
-                <div class="problem-card">
-                    <div class="problem-img" style="background: linear-gradient(135deg, #7c3aed 0%, #a855f7 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">📉</div>
-                    <div class="problem-content">
-                        <h4>Weak conversion systems</h4>
-                        <p>You finally get traffic, but then they bounce. You don't know how to build funnels that convert at 18-22%.</p>
-                    </div>
+            </div>
+            
+            <div class="problem-card">
+                <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=400&fit=crop" alt="Weak sales conversations" class="problem-img">
+                <div class="problem-content">
+                    <h4>Weak sales conversations</h4>
+                    <p>You finally get someone on a call, but then you freeze. You don't know how to handle <strong>objections</strong> like "I need to think about it" or "It's too expensive." So they say "I'll get back to you"... and never do. Result?</p>
                 </div>
-                
-                <div class="problem-card">
-                    <div class="problem-img" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">📱</div>
-                    <div class="problem-content">
-                        <h4>Random content</h4>
-                        <p>You post daily. You get likes. You get comments. But zero sales. Why? Because content without a system is just noise.</p>
-                    </div>
+            </div>
+            
+            <div class="problem-card">
+                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=400&fit=crop" alt="Random content" class="problem-img">
+                <div class="problem-content">
+                    <h4>Random content</h4>
+                    <p>You post daily. You get likes. You get comments. But zero sales calls. Why? Because content without a system is just noise.</p>
                 </div>
-                
-                <div class="problem-card">
-                    <div class="problem-img" style="background: linear-gradient(135deg, #ea580c 0%, #f97316 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">⚙️</div>
-                    <div class="problem-content">
-                        <h4>Tech confusion</h4>
-                        <p>Funnels, email sequences, automation... it all feels overwhelming. So you do nothing. And stay stuck.</p>
-                    </div>
+            </div>
+            
+            <div class="problem-card">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=400&fit=crop" alt="Tech confusion" class="problem-img">
+                <div class="problem-content">
+                    <h4>Tech confusion</h4>
+                    <p>Funnels, ads, automations... it all feels <strong>overwhelming</strong>. So you do nothing. And stay <strong>stuck</strong></p>
                 </div>
             </div>
 
             <div class="solution-box">
-                <p>That's why you're stuck at <strong>₹30K-₹1L/month</strong> while affiliates with half your skills are making <strong>₹5L+</strong> because they have a system.</p>
-                <p style="margin-top: 1rem;">You <strong>don't need</strong> to fix all 6 yourself. With <strong>"GROWIK"</strong> We build the entire structure - <strong>funnels, automations, email sequences, landing pages and high-ticket strategy for you.</strong></p>
+                <p>That's why you're stuck at <strong>₹40K-₹1L/month</strong> while coaches with half your skills are making <strong>₹5L+</strong> because they have a system.</p>
+                <p style="margin-top: 1rem;">You <strong>don't need</strong> to fix all 6 yourself. With <strong>"GROWIK"</strong> We build the entire structure - <strong>ads, funnels, automations, testing, optimisations and ad graphics for you.</strong></p>
             </div>
 
-            <div class="text-center mt-2">
+            <div class="text-center" style="margin-top: 2rem;">
                 <button class="btn-primary" onclick="openModal()">
                     Book Your 1:1 Consultation Now <span>➤</span>
                 </button>
@@ -1196,31 +1249,31 @@
     <!-- Testimonials -->
     <section class="testimonials">
         <div class="testimonials-container">
-            <h2>Real Results From Real Affiliate Marketers</h2>
-            <p class="testimonials-subtitle">Don't just take our word for it. Here's what other affiliate marketers achieved after implementing our system.</p>
+            <h2>Real Results From Real Health Coaches</h2>
+            <p class="testimonials-subtitle">Don't just take our word for it. Here's what other health coaches achieved after implementing our system.</p>
             
             <div class="testimonials-grid">
                 <div class="testimonial-card">
-                    <img src="https://i.ibb.co/placeholder1.jpg" alt="Testimonial 1" style="background: #1e293b; min-height: 300px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5);">
+                    <img src="https://i.ibb.co/placeholder1.jpg" alt="Testimonial 1" style="background: #1e293b; min-height: 400px; object-fit: cover;">
                 </div>
                 <div class="testimonial-card">
-                    <img src="https://i.ibb.co/placeholder2.jpg" alt="Testimonial 2" style="background: #1e293b; min-height: 300px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5);">
+                    <img src="https://i.ibb.co/placeholder2.jpg" alt="Testimonial 2" style="background: #1e293b; min-height: 400px; object-fit: cover;">
                 </div>
                 <div class="testimonial-card">
-                    <img src="https://i.ibb.co/placeholder3.jpg" alt="Testimonial 3" style="background: #1e293b; min-height: 300px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5);">
+                    <img src="https://i.ibb.co/placeholder3.jpg" alt="Testimonial 3" style="background: #1e293b; min-height: 400px; object-fit: cover;">
                 </div>
                 <div class="testimonial-card">
-                    <img src="https://i.ibb.co/placeholder4.jpg" alt="Testimonial 4" style="background: #1e293b; min-height: 300px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5);">
+                    <img src="https://i.ibb.co/placeholder4.jpg" alt="Testimonial 4" style="background: #1e293b; min-height: 400px; object-fit: cover;">
                 </div>
                 <div class="testimonial-card">
-                    <img src="https://i.ibb.co/placeholder5.jpg" alt="Testimonial 5" style="background: #1e293b; min-height: 300px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5);">
+                    <img src="https://i.ibb.co/placeholder5.jpg" alt="Testimonial 5" style="background: #1e293b; min-height: 400px; object-fit: cover;">
                 </div>
                 <div class="testimonial-card">
-                    <img src="https://i.ibb.co/placeholder6.jpg" alt="Testimonial 6" style="background: #1e293b; min-height: 300px; display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.5);">
+                    <img src="https://i.ibb.co/placeholder6.jpg" alt="Testimonial 6" style="background: #1e293b; min-height: 400px; object-fit: cover;">
                 </div>
             </div>
 
-            <div class="text-center mt-2">
+            <div class="text-center" style="margin-top: 2rem;">
                 <button class="btn-primary" onclick="openModal()">
                     Book Your 1:1 Consultation Now <span>➤</span>
                 </button>
@@ -1235,33 +1288,33 @@
     <section class="about">
         <div class="about-container">
             <div class="about-image">
-                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=500&fit=crop" alt="Gaurav Singh">
+                <img src="https://i.ibb.co/ccBXcyrs/Screenshot-2026-02-03-at-10-23-31-PM.png" alt="Gaurav Singh">
                 <div class="about-badge">
                     <h4>Gaurav Singh</h4>
                     <p>Founder Of Growik</p>
-                    <small style="color: #64748b;">4+ Years Of Experience In Marketing</small>
+                    <small style="color: #64748b; font-size: 0.8rem;">4+ Years Of Experience In Marketing</small>
                 </div>
             </div>
             
             <div class="about-content">
                 <h2>Meet Gaurav Singh</h2>
-                <p class="subtitle">Helping Affiliate Marketers Build Scalable, Sustainable Businesses</p>
+                <p class="subtitle">Helping Health Coaches Build Scalable, Sustainable Practices</p>
                 
-                <p>Hi, I'm <strong>Gaurav Singh</strong>, a business growth strategist <strong>specializing in the affiliate marketing space.</strong> Over the past few years, I've worked closely with affiliate marketers to transform their practices from <strong>inconsistent income to predictable, scalable systems</strong> - helping them attract premium buyers, streamline their operations, and grow without burnout.</p>
+                <p>Hi, I'm <strong>Gaurav Singh</strong>, a business growth strategist <strong>specializing in the health and wellness space.</strong> Over the past few years, I've worked closely with health coaches to transform their practices from <strong>inconsistent income to predictable, scalable systems</strong> - helping them attract premium clients, streamline their operations, and grow without burnout.</p>
                 
                 <p style="font-weight: 700; color: #0f172a; margin-top: 1.5rem;">I've personally:</p>
                 
                 <ul class="about-highlights">
-                    <li>Designed custom <strong>affiliate acquisition systems</strong> for marketers across digital products, SaaS, and high-ticket offers</li>
-                    <li>Helped affiliates <strong>double and triple their monthly revenue</strong> through optimized funnels and positioning</li>
-                    <li>Built <strong>done-for-you frameworks</strong> that turn promotional efforts into repeatable, profitable commissions</li>
+                    <li>Designed custom <strong>client acquisition systems</strong> for health coaches across nutrition, fitness, and holistic wellness</li>
+                    <li>Helped coaches <strong>double and triple their monthly revenue</strong> through optimized funnels and positioning</li>
+                    <li>Built <strong>done-for-you frameworks</strong> that turn expertise into repeatable, profitable offers</li>
                 </ul>
                 
-                <p style="margin-top: 1.5rem; font-style: italic; color: #475569;">I <strong>specialise in working with affiliate marketers</strong> who are ready to move beyond small commissions - and build a business that supports their lifestyle and impact. My approach is hands-on, strategic, and tailored to the unique challenges affiliate professionals face when scaling.</p>
+                <p style="margin-top: 1.5rem; font-style: italic; color: #475569;">I <strong>specialise in working with health coaches</strong> who are ready to move beyond trading time for money - and build a business that supports their lifestyle and impact. My approach is hands-on, strategic, and tailored to the unique challenges health professionals face when scaling.</p>
             </div>
         </div>
 
-        <div class="text-center mt-2">
+        <div class="text-center" style="margin-top: 3rem;">
             <button class="btn-primary" onclick="openModal()">
                 Book Your 1:1 Consultation Call <span>➤</span>
             </button>
@@ -1289,13 +1342,13 @@
                 </div>
                 
                 <div class="comparison-row">
-                    <div>Affiliate Marketing Specialization</div>
+                    <div>Health Coach Specialization</div>
                     <div class="growik-col"><span class="check">✓</span></div>
                     <div><span class="cross">✕</span></div>
                 </div>
                 
                 <div class="comparison-row">
-                    <div>30-50 Qualified Buyers Guarantee</div>
+                    <div>30-50 Qualified Leads Guarantee</div>
                     <div class="growik-col"><span class="check">✓</span></div>
                     <div><span class="cross">✕</span></div>
                 </div>
@@ -1307,13 +1360,13 @@
                 </div>
                 
                 <div class="comparison-row">
-                    <div>High-Ticket Strategy (₹15K+ Commissions)</div>
+                    <div>Premium Positioning Strategy</div>
                     <div class="growik-col"><span class="check">✓</span></div>
                     <div><span class="cross">✕</span></div>
                 </div>
                 
                 <div class="comparison-row">
-                    <div>Proven Conversion Scripts (18-22%)</div>
+                    <div>Proven Sales Scripts (18-22% Conversion)</div>
                     <div class="growik-col"><span class="check">✓</span></div>
                     <div><span class="cross">✕</span></div>
                 </div>
@@ -1331,13 +1384,25 @@
                 </div>
                 
                 <div class="comparison-row">
+                    <div>Money-Back Guarantee</div>
+                    <div class="growik-col"><span class="check">✓</span></div>
+                    <div><span class="cross">✕</span></div>
+                </div>
+                
+                <div class="comparison-row">
+                    <div>Exclusive Focus (8-10 Clients/Month)</div>
+                    <div class="growik-col"><span class="check">✓</span></div>
+                    <div><span class="cross">✕</span></div>
+                </div>
+                
+                <div class="comparison-row">
                     <div>₹3L-₹10L Monthly Income Path</div>
                     <div class="growik-col"><span class="check">✓</span></div>
                     <div><span class="cross">✕</span></div>
                 </div>
             </div>
 
-            <div class="text-center mt-2">
+            <div class="text-center" style="margin-top: 2rem;">
                 <button class="btn-primary" onclick="openModal()">
                     Book Your 1:1 Consultation Call <span>➤</span>
                 </button>
@@ -1357,45 +1422,47 @@
             
             <div class="consulting-grid">
                 <div class="consulting-card">
-                    <div style="height: 200px; background: linear-gradient(135deg, #1e293b 0%, #334155 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; flex-direction: column; text-align: center; padding: 2rem;">
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">📋</div>
-                        <div style="font-weight: 700; font-size: 1.2rem;">Understand Your Business</div>
-                        <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">Niche • Positioning • Offer & Pricing</div>
+                    <div class="consulting-card-img" style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%);">
+                        <div style="font-size: 3rem; margin-bottom: 0.5rem;">📋</div>
+                        <div style="font-weight: 700; font-size: 1.1rem;">Understand Your Business</div>
+                        <div style="font-size: 0.85rem; opacity: 0.8; margin-top: 0.5rem;">Niche • Positioning • Offer & Pricing</div>
                     </div>
                     <h4>Understand Your Business</h4>
                     <p>Analyze Your Business Model, <strong>Niche</strong> And <strong>Positioning</strong> To Understand What You Do And <strong>How You Serve.</strong></p>
                 </div>
                 
                 <div class="consulting-card">
-                    <div style="height: 200px; background: linear-gradient(135deg, #0369a1 0%, #0ea5e9 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; flex-direction: column; text-align: center; padding: 2rem;">
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">🚧</div>
-                        <div style="font-weight: 700; font-size: 1.2rem;">Identify Your Growth Blockers</div>
-                        <div style="font-size: 0.9rem; opacity: 0.8; margin-top: 0.5rem;">Past Efforts • Existing Assets</div>
+                    <div class="consulting-card-img" style="background: linear-gradient(135deg, #0369a1 0%, #0ea5e9 100%);">
+                        <div style="font-size: 3rem; margin-bottom: 0.5rem;">🚧</div>
+                        <div style="font-weight: 700; font-size: 1.1rem;">Identify Your Growth Blockers</div>
+                        <div style="font-size: 0.85rem; opacity: 0.8; margin-top: 0.5rem;">Past Efforts • Existing Assets</div>
                     </div>
                     <h4>Identify Your Growth Blockers</h4>
                     <p>Identify Your <strong>Growth Blockers</strong>, Review Your <strong>Past Efforts</strong>, And Assess The Assets You Already Have In Place.</p>
                 </div>
                 
                 <div class="consulting-card">
-                    <div style="height: 200px; background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; flex-direction: column; text-align: center; padding: 2rem;">
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">🔧</div>
-                        <div style="font-weight: 700; font-size: 1.2rem;">Find & fix What's Stopping Your GROWTH</div>
+                    <div class="consulting-card-img" style="background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);">
+                        <div style="font-size: 3rem; margin-bottom: 0.5rem;">🔧</div>
+                        <div style="font-weight: 700; font-size: 1.1rem;">Find & fix What's Stopping Your GROWTH</div>
                     </div>
                     <h4>Find & Fix What's Stopping Your Growth</h4>
                     <p>What's <strong>holding you back</strong> for your growth, will <strong>find and fix</strong> that on this call</p>
                 </div>
                 
                 <div class="consulting-card">
-                    <div style="height: 200px; background: linear-gradient(135deg, #059669 0%, #10b981 100%); border-radius: 16px; display: flex; align-items: center; justify-content: center; color: white; flex-direction: column; text-align: center; padding: 2rem;">
-                        <div style="font-size: 3rem; margin-bottom: 1rem;">🎯</div>
-                        <div style="font-weight: 700; font-size: 1.2rem;">We'll Share Our Proven 7 Figure Scaling Blueprint</div>
+                    <div class="consulting-card-img" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
+                        <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎯</div>
+                        <div style="font-weight: 700; font-size: 1.1rem;">We'll Share Our Proven 7 Figure Scaling Blueprint</div>
                     </div>
                     <h4>We'll Share Our Proven 7 Figure Scaling Blueprint</h4>
-                    <p>If your data or insights make you the right fit, we'll <strong>reveal a blueprint</strong> we've used to help other <strong>Affiliate marketers build a 7-figure business.</strong></p>
+                    <p>If your data or insights make you the right fit, we'll <strong>reveal a blueprint</strong> we've used to help other <strong>Health coaches build a 7-figure business.</strong></p>
                 </div>
             </div>
         </div>
     </section>
+
+    <div class="spacer"></div>
 
     <!-- Modal -->
     <div class="modal-overlay" id="modal">
@@ -1426,13 +1493,13 @@
                 </div>
                 
                 <div class="form-group">
-                    <label>Current Status</label>
+                    <label>Current Monthly Revenue</label>
                     <select required>
-                        <option value="">Select your current status</option>
-                        <option value="beginner">Beginner Affiliate (0-10K/month)</option>
-                        <option value="intermediate">Intermediate (10K-50K/month)</option>
-                        <option value="advanced">Advanced (50K-1L/month)</option>
-                        <option value="expert">Expert (1L+/month)</option>
+                        <option value="">Select your current revenue</option>
+                        <option value="40k-60k">₹40K - ₹60K</option>
+                        <option value="60k-1l">₹60K - ₹1L</option>
+                        <option value="1l-2l">₹1L - ₹2L</option>
+                        <option value="2l+">₹2L+</option>
                     </select>
                 </div>
                 
@@ -1442,31 +1509,33 @@
     </div>
 
     <script>
-        // Countdown Timer
-        function updateCountdown() {
+        // Countdown Timer - 15 minutes from now
+        function startCountdown() {
+            let minutes = 15;
+            let seconds = 0;
+            
             const minutesEl = document.getElementById('minutes');
             const secondsEl = document.getElementById('seconds');
             
-            let minutes = parseInt(minutesEl.textContent);
-            let seconds = parseInt(secondsEl.textContent);
-            
-            if (seconds > 0) {
-                seconds--;
-            } else {
-                if (minutes > 0) {
-                    minutes--;
-                    seconds = 59;
+            setInterval(() => {
+                if (seconds > 0) {
+                    seconds--;
                 } else {
-                    minutes = 11;
-                    seconds = 26;
+                    if (minutes > 0) {
+                        minutes--;
+                        seconds = 59;
+                    } else {
+                        minutes = 15;
+                        seconds = 0;
+                    }
                 }
-            }
-            
-            minutesEl.textContent = minutes.toString().padStart(2, '0');
-            secondsEl.textContent = seconds.toString().padStart(2, '0');
+                
+                minutesEl.textContent = minutes.toString().padStart(2, '0');
+                secondsEl.textContent = seconds.toString().padStart(2, '0');
+            }, 1000);
         }
         
-        setInterval(updateCountdown, 1000);
+        startCountdown();
 
         // Modal Functions
         function openModal() {
@@ -1493,7 +1562,7 @@
             closeModal();
         }
 
-        // Smooth scroll for buttons
+        // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -1505,4 +1574,19 @@
         });
     </script>
 </body>
-</html>
+</html>'''
+
+# Save to file
+with open('/mnt/kimi/output/growik_landing_page.html', 'w', encoding='utf-8') as f:
+    f.write(html_content)
+
+print("✅ Landing page created successfully!")
+print("📁 File saved to: /mnt/kimi/output/growik_landing_page.html")
+print("\n🎯 Features included:")
+print("   - Exact same UI as the video")
+print("   - Your mentor image (Gaurav Singh) integrated")
+print("   - Sticky bottom bar with countdown timer")
+print("   - All sections: Hero, Qualification, Problems, Testimonials, About, Comparison, Consulting")
+print("   - Modal popup form")
+print("   - Mobile responsive design")
+print("   - Blue gradient theme matching the video")
