@@ -1,1592 +1,812 @@
-
-# Creating the complete HTML file for the Growik landing page
-# Based on the video provided, with exact same styling and structure
-
-html_content = '''<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Growik - Done For You Client Acquisition System for Health Coaches</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Growik - Done For You Systems for Health Coaches</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --primary: #0369a1;
+            --primary-light: #0ea5e9;
+            --primary-bg: #e0f2fe;
+            --text-dark: #0f172a;
+            --text-gray: #475569;
+            --white: #ffffff;
+            --success: #22c55e;
+            --error: #ef4444;
+            --shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(180deg, #f0f9ff 0%, #e0f2fe 50%, #f0f9ff 100%);
-            color: #1e293b;
-            overflow-x: hidden;
-            line-height: 1.6;
+            background-color: #f8fafc;
+            color: var(--text-dark);
+            line-height: 1.5;
+            padding-bottom: 80px; /* Space for sticky bar */
         }
 
-        /* Sticky Bottom Bar */
-        .sticky-bar {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(20px);
-            border-top: 3px solid #0369a1;
-            padding: 1rem 1.5rem;
-            z-index: 999;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 2rem;
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.15);
-        }
-
-        .sticky-content {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-            max-width: 1200px;
-            width: 100%;
-        }
-
-        .sticky-text {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #0f172a;
-        }
-
-        .countdown {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: #0369a1;
-            font-variant-numeric: tabular-nums;
-            letter-spacing: 2px;
-        }
-
-        .countdown-separator {
-            color: #94a3b8;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #0369a1 0%, #0ea5e9 100%);
-            color: white;
-            padding: 1rem 2.5rem;
-            border-radius: 50px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(14, 165, 233, 0.4);
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 3rem 1.5rem 6rem;
-            max-width: 800px;
+        /* --- Components --- */
+        .container {
+            max-width: 600px; /* Constrained width for App-like feel */
             margin: 0 auto;
+            background: #fff;
+            min-height: 100vh;
+            box-shadow: 0 0 50px rgba(0,0,0,0.05);
+            overflow-x: hidden;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 16px;
+            width: 100%;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(3, 105, 161, 0.3);
+            transition: transform 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        /* --- Header --- */
+        header {
+            padding: 16px 20px;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #f1f5f9;
             text-align: center;
         }
 
         .logo {
-            font-size: 2.5rem;
+            font-size: 24px;
             font-weight: 800;
-            color: #0369a1;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
+            color: var(--primary);
+            letter-spacing: -0.5px;
         }
 
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #0369a1 0%, #0ea5e9 100%);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
+        .logo span { color: var(--primary-light); }
+
+        /* --- Hero Section --- */
+        .hero {
+            padding: 24px 20px;
+            text-align: center;
         }
 
-        .badge-top {
-            display: inline-block;
-            background: rgba(14, 165, 233, 0.1);
-            border: 2px dotted #0ea5e9;
-            color: #0369a1;
-            padding: 1rem 1.5rem;
-            border-radius: 16px;
+        .badge {
+            background: #f0f9ff;
+            color: var(--primary);
+            font-size: 13px;
             font-weight: 600;
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
-            line-height: 1.5;
-        }
-
-        .badge-top strong {
-            color: #0f172a;
+            padding: 8px 16px;
+            border-radius: 50px;
+            border: 1px solid #bae6fd;
+            display: inline-block;
+            margin-bottom: 20px;
         }
 
         h1 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            color: #0f172a;
-        }
-
-        h1 .highlight {
-            color: #0369a1;
-        }
-
-        .hero-subtitle {
-            font-size: 1.15rem;
-            color: #475569;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-            line-height: 1.7;
-        }
-
-        .hero-subtitle strong {
-            color: #0f172a;
-        }
-
-        .hero-card {
-            background: white;
-            border-radius: 24px;
-            padding: 1.5rem;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-            border: 1px solid rgba(14, 165, 233, 0.2);
-            margin-bottom: 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-image-wrapper {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            background: linear-gradient(135deg, #e0f2fe 0%, #f0f9ff 100%);
-        }
-
-        .founder-img {
-            width: 100%;
-            max-width: 350px;
-            display: block;
-            margin: 0 auto;
-        }
-
-        .transformation-overlay {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255,255,255,0.95);
-            padding: 1.5rem;
-            text-align: center;
-            backdrop-filter: blur(10px);
-        }
-
-        .transformation-overlay h3 {
-            font-size: 1rem;
-            color: #475569;
-            margin-bottom: 0.5rem;
-        }
-
-        .transformation-overlay .big-text {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: #0f172a;
+            font-size: 32px;
             line-height: 1.2;
+            margin-bottom: 16px;
+            color: var(--text-dark);
         }
 
-        .transformation-overlay .big-text .blue {
-            color: #0369a1;
+        h1 span { color: var(--primary); }
+
+        .hero-sub {
+            color: var(--text-gray);
+            font-size: 16px;
+            margin-bottom: 24px;
         }
 
-        .transformation-overlay .timeline {
-            font-size: 1rem;
-            color: #0369a1;
-            font-weight: 600;
-            margin: 0.5rem 0;
-        }
-
-        .badge-dfy {
-            display: inline-block;
-            background: #0369a1;
-            color: white;
-            padding: 0.6rem 1.5rem;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin: 0.5rem 0;
-            letter-spacing: 2px;
-        }
-
-        .system-text {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: #0f172a;
-            margin-top: 0.5rem;
-        }
-
-        .target-text {
-            font-size: 0.9rem;
-            color: #64748b;
-            margin-top: 0.5rem;
-        }
-
-        .founder-badge {
-            position: absolute;
-            bottom: 120px;
-            left: 1rem;
-            background: rgba(255,255,255,0.95);
-            padding: 0.75rem 1rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            text-align: left;
-        }
-
-        .founder-badge .name {
-            font-weight: 700;
-            color: #0f172a;
-            font-size: 1rem;
-        }
-
-        .founder-badge .title {
-            font-size: 0.8rem;
-            color: #0369a1;
-        }
-
-        .features-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            text-align: left;
-            margin-top: 2rem;
-        }
-
-        .features-list li {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            padding: 1.2rem;
-            background: rgba(14, 165, 233, 0.05);
+        /* The Provided Screenshot as Main Hero Image */
+        .hero-main-img {
+            width: 100%;
             border-radius: 16px;
-            border: 2px dashed #cbd5e1;
+            box-shadow: var(--shadow);
+            margin-bottom: 24px;
+            border: 1px solid #e2e8f0;
         }
 
-        .features-list li::before {
-            content: "▪";
-            color: #0369a1;
-            font-size: 1.5rem;
-            line-height: 1;
-            flex-shrink: 0;
+        .hero-features {
+            text-align: left;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
         }
 
-        .features-list strong {
-            color: #0f172a;
-            display: block;
-            margin-bottom: 0.25rem;
-            font-size: 1.05rem;
-        }
-
-        .features-list span {
-            color: #475569;
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-
-        .cta-section {
-            text-align: center;
-            margin-top: 2rem;
-        }
-
-        .btn-large {
-            font-size: 1.2rem;
-            padding: 1.2rem 3rem;
-        }
-
-        .scarcity-text {
-            color: #64748b;
-            font-size: 0.9rem;
-            margin-top: 0.75rem;
-        }
-
-        /* Qualification Section */
-        .qualification {
-            background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%);
-            padding: 4rem 1.5rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .qualification::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-
-        .qualification-container {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .qualification h2 {
-            text-align: center;
-            color: white;
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            font-weight: 700;
-        }
-
-        .qual-grid {
+        .feature-item {
             display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+
+        .feature-item:last-child { margin-bottom: 0; }
+
+        .feature-bullet {
+            font-size: 18px;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .feature-text strong {
+            display: block;
+            color: var(--text-dark);
+            font-size: 14px;
+        }
+
+        .feature-text span {
+            font-size: 13px;
+            color: var(--text-gray);
+        }
+
+        /* --- Qualification Section --- */
+        .qual-section {
+            padding: 40px 20px;
+            background: #0f172a; /* Dark Blue */
+            color: white;
+        }
+
+        .qual-section h2 {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 30px;
         }
 
         .qual-card {
             background: rgba(255,255,255,0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 1.5rem;
-            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .qual-card.good {
-            background: rgba(74, 222, 128, 0.15);
-            border-color: rgba(74, 222, 128, 0.3);
+            background: rgba(34, 197, 94, 0.1);
+            border-color: rgba(34, 197, 94, 0.3);
         }
 
         .qual-card.bad {
-            background: rgba(248, 113, 113, 0.15);
-            border-color: rgba(248, 113, 113, 0.3);
+            background: rgba(239, 68, 68, 0.1);
+            border-color: rgba(239, 68, 68, 0.3);
         }
 
-        .qual-card h3 {
-            color: white;
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
-            line-height: 1.4;
-        }
-
-        .qual-card.good h3 {
-            color: #86efac;
-        }
-
-        .qual-card.bad h3 {
-            color: #fca5a5;
-        }
-
-        .qual-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
+        .qual-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 16px;
         }
 
         .qual-list li {
+            list-style: none;
             display: flex;
-            align-items: flex-start;
-            gap: 0.75rem;
-            color: rgba(255,255,255,0.9);
-            line-height: 1.6;
-            font-size: 0.95rem;
+            gap: 10px;
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: #cbd5e1;
         }
 
         .qual-list li::before {
             content: "✓";
             color: #4ade80;
             font-weight: bold;
-            flex-shrink: 0;
         }
 
-        .qual-card.bad .qual-list li::before {
+        .qual-card.bad li::before {
             content: "✕";
             color: #f87171;
         }
 
-        .qual-list strong {
-            color: white;
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-        .mt-2 {
-            margin-top: 2rem;
-        }
-
-        .text-white {
-            color: rgba(255,255,255,0.9);
-        }
-
-        /* Problems Section */
+        /* --- Problems Grid --- */
         .problems {
-            padding: 4rem 1.5rem;
-            background: white;
-        }
-
-        .problems-container {
-            max-width: 800px;
-            margin: 0 auto;
+            padding: 40px 20px;
         }
 
         .problems h2 {
+            font-size: 24px;
             text-align: center;
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-            color: #0f172a;
+            margin-bottom: 10px;
         }
 
-        .problems-subtitle {
+        .prob-sub {
             text-align: center;
-            color: #475569;
-            font-size: 1.1rem;
-            margin-bottom: 2rem;
+            color: var(--text-gray);
+            margin-bottom: 30px;
+            font-size: 14px;
         }
 
-        .problems-subtitle span {
-            color: #0369a1;
-            font-weight: 700;
+        .prob-sub span { color: var(--error); font-weight: 700; }
+
+        .prob-grid {
+            display: grid;
+            gap: 16px;
         }
 
-        .problem-card {
+        .prob-card {
             background: white;
-            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
-            border: 1px solid #e2e8f0;
-            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
         }
 
-        .problem-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .problem-content {
-            padding: 1.5rem;
-        }
-
-        .problem-content h4 {
+        .prob-img-header {
+            height: 120px;
             background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+        }
+
+        .prob-content {
+            padding: 16px;
+        }
+
+        .prob-content h4 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            background: #f8fafc;
             display: inline-block;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-size: 0.95rem;
-            margin-bottom: 0.75rem;
-            color: #0369a1;
-            border: 1px solid #e2e8f0;
-            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 6px;
         }
 
-        .problem-content p {
-            color: #475569;
-            font-size: 0.95rem;
-            line-height: 1.6;
+        .prob-content p {
+            font-size: 13px;
+            color: var(--text-gray);
         }
 
+        /* --- Solution Box --- */
         .solution-box {
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-            border: 2px dashed #0ea5e9;
-            border-radius: 20px;
-            padding: 1.5rem;
+            background: #f0f9ff;
+            border: 2px dashed var(--primary-light);
+            border-radius: 16px;
+            padding: 24px;
             text-align: center;
-            margin-top: 2rem;
+            margin: 30px 0;
         }
 
         .solution-box p {
-            font-size: 1rem;
-            color: #334155;
-            line-height: 1.7;
-            margin-bottom: 0.5rem;
+            font-size: 15px;
+            color: var(--text-dark);
         }
 
-        .solution-box strong {
-            color: #0369a1;
-        }
-
-        /* Testimonials */
+        /* --- Testimonials (Using AdHabits Pics) --- */
         .testimonials {
-            background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%);
-            padding: 4rem 1.5rem;
-            position: relative;
+            padding: 40px 20px;
+            background: #f8fafc;
         }
 
-        .testimonials::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-
-        .testimonials-container {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .testimonials h2 {
+        .section-title {
             text-align: center;
-            color: white;
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 24px;
         }
 
-        .testimonials-subtitle {
-            text-align: center;
-            color: rgba(255,255,255,0.8);
-            margin-bottom: 2rem;
-            font-size: 0.95rem;
+        .testi-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
         }
 
-        .testimonials-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .testimonial-card {
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(10px);
-            border-radius: 20px;
-            padding: 1rem;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .testimonial-card img {
+        .testi-card img {
             width: 100%;
             border-radius: 12px;
-            border: 2px solid rgba(255,255,255,0.1);
-            display: block;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
-        /* About Section */
-        .about {
-            padding: 4rem 1.5rem;
-            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-        }
-
-        .about-container {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .about-image {
-            position: relative;
-            max-width: 350px;
-            margin: 0 auto 2rem;
-        }
-
-        .about-image img {
-            width: 100%;
-            border-radius: 24px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.15);
-            display: block;
-        }
-
-        .about-badge {
-            position: absolute;
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
+        /* --- Mentor Section (Using AdHabits Pic) --- */
+        .mentor-section {
+            padding: 40px 20px;
             background: white;
-            padding: 1rem 2rem;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            text-align: center;
-            white-space: nowrap;
         }
 
-        .about-badge h4 {
-            color: #0f172a;
-            font-size: 1.2rem;
-            margin-bottom: 0.25rem;
-        }
-
-        .about-badge p {
-            color: #0369a1;
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .about-content h2 {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-            color: #0f172a;
-        }
-
-        .about-content .subtitle {
-            color: #0369a1;
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-        }
-
-        .about-content p {
-            color: #475569;
-            line-height: 1.8;
-            margin-bottom: 1rem;
-            text-align: left;
-        }
-
-        .about-content strong {
-            color: #0f172a;
-        }
-
-        .about-highlights {
-            list-style: none;
-            margin-top: 1.5rem;
-            text-align: left;
-        }
-
-        .about-highlights li {
-            padding: 0.75rem 0;
-            padding-left: 1.5rem;
-            position: relative;
-            color: #334155;
-        }
-
-        .about-highlights li::before {
-            content: "▸";
-            position: absolute;
-            left: 0;
-            color: #0369a1;
-            font-weight: bold;
-        }
-
-        /* Comparison Table */
-        .comparison {
-            padding: 4rem 1.5rem;
-            background: linear-gradient(135deg, #0c4a6e 0%, #0369a1 100%);
-            position: relative;
-        }
-
-        .comparison::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        }
-
-        .comparison-container {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .comparison h2 {
-            text-align: center;
-            color: white;
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .comparison-subtitle {
-            text-align: center;
-            color: rgba(255,255,255,0.8);
-            margin-bottom: 2rem;
-            font-size: 0.95rem;
-        }
-
-        .comparison-table {
-            background: white;
+        .mentor-card {
+            border: 1px solid #e2e8f0;
             border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            padding: 24px;
+            text-align: center;
+            box-shadow: var(--shadow);
         }
 
-        .comparison-header {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            background: #0369a1;
-            color: white;
+        .mentor-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 16px;
+            border: 4px solid #f0f9ff;
+        }
+
+        .mentor-name {
+            font-size: 20px;
             font-weight: 700;
-            font-size: 0.9rem;
+            margin-bottom: 4px;
         }
 
-        .comparison-header > div {
-            padding: 1rem;
-            text-align: center;
+        .mentor-role {
+            font-size: 14px;
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 16px;
         }
 
-        .comparison-header > div:first-child {
+        .mentor-desc {
+            font-size: 14px;
+            color: var(--text-gray);
+            line-height: 1.6;
             text-align: left;
         }
 
-        .comparison-row {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            border-bottom: 1px solid #e2e8f0;
+        .mentor-desc li {
+            margin-bottom: 8px;
+            margin-left: 16px;
         }
 
-        .comparison-row:last-child {
-            border-bottom: none;
-        }
-
-        .comparison-row > div {
-            padding: 1rem;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.9rem;
-        }
-
-        .comparison-row > div:first-child {
-            justify-content: flex-start;
-            color: #334155;
-            font-weight: 500;
-        }
-
-        .check {
-            color: #22c55e;
-            font-size: 1.3rem;
-            font-weight: bold;
-        }
-
-        .cross {
-            color: #ef4444;
-            font-size: 1.3rem;
-            font-weight: bold;
-        }
-
-        .growik-col {
-            background: rgba(14, 165, 233, 0.05);
-            font-weight: 600;
-            color: #0369a1;
-        }
-
-        /* Consulting Section */
-        .consulting {
-            padding: 4rem 1.5rem;
-            background: white;
-        }
-
-        .consulting-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .consulting h2 {
-            text-align: center;
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
-            color: #0f172a;
-        }
-
-        .consulting-subtitle {
-            text-align: center;
-            color: #475569;
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-        }
-
-        .consulting-subtitle strong {
-            color: #0369a1;
-        }
-
-        .consulting-desc {
-            text-align: center;
-            color: #64748b;
-            margin-bottom: 2rem;
-            font-size: 0.95rem;
-        }
-
-        .consulting-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .consulting-card {
-            background: white;
-            border-radius: 20px;
-            padding: 1.5rem;
-            border: 2px solid #e2e8f0;
-            transition: all 0.3s ease;
-        }
-
-        .consulting-card:hover {
-            border-color: #0ea5e9;
-            box-shadow: 0 20px 40px rgba(14, 165, 233, 0.1);
-        }
-
-        .consulting-card-img {
-            height: 180px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        /* --- Comparison Table --- */
+        .comparison {
+            padding: 40px 20px;
+            background: #0f172a;
             color: white;
-            flex-direction: column;
-            text-align: center;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
         }
 
-        .consulting-card h4 {
+        .comp-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
             color: #0f172a;
-            font-size: 1.2rem;
-            margin-bottom: 1rem;
+            border-radius: 12px;
+            overflow: hidden;
+            font-size: 13px;
         }
 
-        .consulting-card p {
-            color: #475569;
-            line-height: 1.7;
-            font-size: 0.95rem;
+        .comp-table th {
+            background: var(--primary);
+            color: white;
+            padding: 12px;
+            text-align: center;
         }
 
-        .consulting-card strong {
-            color: #0369a1;
+        .comp-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: center;
         }
 
-        /* Modal */
-        .modal-overlay {
-            display: none;
+        .comp-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+            width: 50%;
+        }
+
+        .check { color: var(--success); font-weight: 800; font-size: 16px; }
+        .cross { color: var(--error); font-weight: 800; font-size: 16px; }
+        .bg-highlight { background: #f0f9ff; }
+
+        /* --- Sticky Bottom Bar --- */
+        .sticky-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: white;
+            padding: 12px 20px;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .sticky-info {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .sticky-timer {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-dark);
+            font-family: monospace;
+        }
+
+        .sticky-btn {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        /* --- Modal --- */
+        .modal {
             position: fixed;
             top: 0;
             left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(5px);
-            z-index: 2000;
-            justify-content: center;
-            align-items: center;
-            padding: 1.5rem;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal {
-            background: white;
-            border-radius: 24px;
-            padding: 2rem;
-            max-width: 450px;
             width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal.active { display: flex; }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 400px;
+            padding: 24px;
+            border-radius: 20px;
             position: relative;
             animation: slideUp 0.3s ease;
-            max-height: 90vh;
-            overflow-y: auto;
         }
 
         @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
 
-        .modal-close {
+        .close-modal {
             position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #64748b;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .modal-close:hover {
+            top: 16px;
+            right: 16px;
             background: #f1f5f9;
-            color: #0f172a;
-        }
-
-        .modal h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: #0f172a;
-        }
-
-        .modal > p {
-            color: #64748b;
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-        }
-
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #334155;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .form-group input,
-        .form-group select {
-            width: 100%;
-            padding: 0.9rem;
-            border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-            outline: none;
-            border-color: #0ea5e9;
-            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
-        }
-
-        .submit-btn {
-            width: 100%;
-            background: linear-gradient(135deg, #0369a1 0%, #0ea5e9 100%);
-            color: white;
-            padding: 1rem;
             border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 700;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 20px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: 0.5rem;
         }
 
-        .submit-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+        .form-group { margin-bottom: 16px; }
+        .form-group label { display: block; font-size: 14px; margin-bottom: 6px; font-weight: 600; }
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 16px;
         }
 
-        /* Responsive */
-        @media (max-width: 640px) {
-            .sticky-content {
-                flex-direction: column;
-                gap: 0.75rem;
-            }
-            
-            .sticky-text {
-                font-size: 1rem;
-            }
-            
-            .countdown {
-                font-size: 1.8rem;
-            }
-            
-            .btn-primary {
-                padding: 0.9rem 2rem;
-                font-size: 1rem;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            .comparison-header,
-            .comparison-row {
-                font-size: 0.8rem;
-            }
-            
-            .comparison-header > div,
-            .comparison-row > div {
-                padding: 0.75rem 0.5rem;
-            }
-        }
-
-        .spacer {
-            height: 80px;
-        }
     </style>
 </head>
 <body>
 
-    <!-- Sticky Bottom Bar -->
-    <div class="sticky-bar">
-        <div class="sticky-content">
-            <div class="sticky-text">Final call - Take Action Now</div>
-            <div class="countdown" id="countdown">
-                <span id="minutes">00</span>
-                <span class="countdown-separator">:</span>
-                <span id="seconds">00</span>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">Grow<span>ik</span></div>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="badge">Health & Wellness Coaches - Earn ₹1L+/Month</div>
+            
+            <h1>You Coach. We Get You <span style="color:var(--primary)">Clients.</span> Simple.</h1>
+            <p class="hero-sub">Get a <strong>Done-For-You</strong> client acquisition system built in just <strong>15-20 days</strong>.</p>
+
+            <!-- FIRST PIC (HERO IMAGE FROM SCREENSHOT) -->
+            <img src="https://i.ibb.co/ccBXcyrs/Screenshot-2026-02-03-at-10-23-31-PM.png" alt="Growik System" class="hero-main-img">
+
+            <div class="hero-features">
+                <div class="feature-item">
+                    <div class="feature-bullet">●</div>
+                    <div class="feature-text"><strong>No more undercharging</strong><span>Create & sell premium packages (₹15K-₹50K)</span></div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-bullet">●</div>
+                    <div class="feature-text"><strong>No tech headaches</strong><span>We build entire funnel & ads system</span></div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-bullet">●</div>
+                    <div class="feature-text"><strong>No random content</strong><span>Proven scripts for 18-22% conversion</span></div>
+                </div>
             </div>
-            <button class="btn-primary" onclick="openModal()">
-                Book Now <span>➤</span>
+
+            <button class="btn" style="margin-top: 24px;" onclick="openModal()">
+                Book Your 1:1 Consultation Call →
             </button>
-        </div>
-    </div>
+            <p style="font-size: 12px; color: #94a3b8; margin-top: 10px;">Limited spots available for this month</p>
+        </section>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="logo">
-            <div class="logo-icon">G</div>
-            Growik
-        </div>
-        
-        <div class="badge-top">
-            <strong>Health & Wellness Coaches</strong> - If you are already making <strong>₹40k-1Lakh/month</strong>, then this is for you
-        </div>
-        
-        <h1>
-            You Coach. <span class="highlight">We Get You Clients.</span> Simple.
-        </h1>
-        
-        <p class="hero-subtitle">
-            Get a <strong>Done-For-You</strong> client acquisition system built in just <strong>15-20 days</strong>, bringing 30-50 premium qualified leads every month — <strong>or your money back*</strong>
-        </p>
-
-        <div class="hero-card">
-            <div class="hero-image-wrapper">
-                <img src="https://i.ibb.co/ccBXcyrs/Screenshot-2026-02-03-at-10-23-31-PM.png" alt="Gaurav Singh - Founder of Growik" class="founder-img">
-                <div class="founder-badge">
-                    <div class="name">Gaurav Singh</div>
-                    <div class="title">Founder of Growik</div>
-                </div>
-                <div class="transformation-overlay">
-                    <h3>FROM ₹40k-1L/Month</h3>
-                    <div class="big-text">To <span class="blue">3-5Lakh/Month</span></div>
-                    <div class="timeline">In <span style="color:#0369a1;">Next</span> 90 Days</div>
-                    <div class="badge-dfy">Done - For - You</div>
-                    <div class="system-text">SYSTEM</div>
-                    <div class="target-text">FOR HEALTH COACHES</div>
-                </div>
-            </div>
-        </div>
+        <!-- Qualification Section -->
+        <section class="qual-section">
+            <h2>Most Coaches Won't Qualify. Will You?</h2>
             
-        <ul class="features-list">
-            <li>
-                <div>
-                    <strong>No more undercharging</strong>
-                    <span>We'll help you create & sell premium packages (₹15K-₹50K)</span>
-                </div>
-            </li>
-            <li>
-                <div>
-                    <strong>No tech headaches</strong>
-                    <span>We build your entire funnel, ads & system for you</span>
-                </div>
-            </li>
-            <li>
-                <div>
-                    <strong>No more random content</strong>
-                    <span>Get proven scripts & systems for 18-22% conversion</span>
-                </div>
-            </li>
-            <li>
-                <div>
-                    <strong>No more juggling platforms</strong>
-                    <span>Get your complete business system launched in 15-20 days</span>
-                </div>
-            </li>
-        </ul>
-
-        <div class="cta-section">
-            <button class="btn-primary btn-large" onclick="openModal()">
-                Book Your 1:1 Consultation Call <span>➤</span>
-            </button>
-            <p class="scarcity-text">It is a 1:1 consultation call and we take only handful of people every month !</p>
-        </div>
-    </section>
-
-    <!-- Qualification Section -->
-    <section class="qualification">
-        <div class="qualification-container">
-            <h2>"Most Coaches Won't Qualify. Will You?"</h2>
-            
-            <div class="qual-grid">
-                <div class="qual-card good">
-                    <h3>Health/Wellness Coach<br>this is perfect for you if :</h3>
-                    <ul class="qual-list">
-                        <li>You're a certified <strong>Health/wellness/fitness coach</strong> already earning <strong>₹40K-₹1L/month</strong>.</li>
-                        <li>You're good at coaching but terrible at <strong>marketing</strong> (and you're tired of it).</li>
-                        <li>You're sick of posting content that gets likes but <strong>zero sales calls</strong>.</li>
-                        <li>You want to charge <strong>₹20K-₹50K+ per client</strong> instead of ₹2K-₹5K.</li>
-                        <li>You're ready to invest in a <strong>proven system</strong> instead of DIY-ing forever.</li>
-                    </ul>
-                </div>
-                
-                <div class="qual-card bad">
-                    <h3>This is <strong>not</strong> for beginners<br>who are still figuring out.<br>It's not for you if :</h3>
-                    <ul class="qual-list">
-                        <li>You're <strong>just starting out</strong> and have no clients yet (we work with proven coaches only).</li>
-                        <li>You're looking for a <strong>"get rich quick"</strong> scheme or magic pill.</li>
-                        <li>You're <strong>not willing to show up</strong> for sales calls when we book them for you.</li>
-                        <li>You want to <strong>keep charging ₹2,000</strong> and stay comfortable.</li>
-                        <li>You're <strong>not serious</strong> about scaling to ₹10L+ per month.</li>
-                    </ul>
-                </div>
+            <div class="qual-card good">
+                <div class="qual-title" style="color:#86efac;">Perfect For You If:</div>
+                <ul class="qual-list">
+                    <li>Certified Health/Wellness Coach</li>
+                    <li>Already earning ₹40K-₹1L/month</li>
+                    <li>Good at coaching but terrible at marketing</li>
+                    <li>Ready to invest in a proven system</li>
+                </ul>
             </div>
 
-            <div class="text-center mt-2">
-                <p class="text-white" style="font-size: 1.1rem; margin-bottom: 1.5rem;">
-                    If you have proven expertise in <strong>Health coaching</strong>, this is for you
-                </p>
-                <button class="btn-primary" onclick="openModal()">
-                    Book Your 1:1 Consultation Now <span>➤</span>
-                </button>
-                <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-top: 0.5rem;">
-                    It is a 1:1 consultation call and we take only handful of people every month !
-                </p>
+            <div class="qual-card bad">
+                <div class="qual-title" style="color:#fca5a5;">NOT For You If:</div>
+                <ul class="qual-list">
+                    <li>Just starting out (No clients yet)</li>
+                    <li>Looking for "Get Rich Quick"</li>
+                    <li>Not willing to show up for sales calls</li>
+                    <li>Want to charge ₹2,000 forever</li>
+                </ul>
             </div>
-        </div>
-    </section>
+            
+            <button class="btn" onclick="openModal()">Check Eligibility Now</button>
+        </section>
 
-    <!-- Problems Section -->
-    <section class="problems">
-        <div class="problems-container">
-            <h2>What's really stopping your coaching business from scaling?</h2>
-            <p class="problems-subtitle">The 6 Silent Killers Keeping You <span>Below ₹1L/Month</span></p>
-            
-            <div class="problem-card">
-                <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&h=400&fit=crop" alt="No Clear Niche" class="problem-img" style="object-position: center 30%;">
-                <div class="problem-content">
-                    <h4>No Clear Niche</h4>
-                    <p>You say you <strong>"help everyone."</strong> So nobody feels like you're talking to them.</p>
+        <!-- Problems Section -->
+        <section class="problems">
+            <h2>What's stopping your scale?</h2>
+            <p class="prob-sub">The 6 Silent Killers Keeping You <span>Below ₹1L/Month</span></p>
+
+            <div class="prob-grid">
+                <div class="prob-card">
+                    <div class="prob-img-header">🎯</div>
+                    <div class="prob-content">
+                        <h4>No Clear Niche</h4>
+                        <p>You say you "help everyone". So nobody feels you are talking to them.</p>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="problem-card">
-                <img src="https://images.unsplash.com/photo-1596526131083-e8c633c948d2?w=800&h=400&fit=crop" alt="No irresistible offer" class="problem-img">
-                <div class="problem-content">
-                    <h4>No irresistible offer</h4>
-                    <p>Your packages are confusing. Clients don't understand what they're buying or why it's worth ₹50K. Result?</p>
+                <div class="prob-card">
+                    <div class="prob-img-header">🧲</div>
+                    <div class="prob-content">
+                        <h4>No Irresistible Offer</h4>
+                        <p>Clients don't understand why they should pay ₹50K. Confusing packages.</p>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="problem-card">
-                <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=800&h=400&fit=crop" alt="Low pricing" class="problem-img">
-                <div class="problem-content">
-                    <h4>Low pricing</h4>
-                    <p>You charge ₹5K because you're scared no one will pay ₹50K</p>
+                <div class="prob-card">
+                    <div class="prob-img-header">📉</div>
+                    <div class="prob-content">
+                        <h4>Weak Sales Process</h4>
+                        <p>You get on a call but freeze when they say "It's too expensive".</p>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="problem-card">
-                <img src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=400&fit=crop" alt="Weak sales conversations" class="problem-img">
-                <div class="problem-content">
-                    <h4>Weak sales conversations</h4>
-                    <p>You finally get someone on a call, but then you freeze. You don't know how to handle <strong>objections</strong> like "I need to think about it" or "It's too expensive." So they say "I'll get back to you"... and never do. Result?</p>
-                </div>
-            </div>
-            
-            <div class="problem-card">
-                <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=800&h=400&fit=crop" alt="Random content" class="problem-img">
-                <div class="problem-content">
-                    <h4>Random content</h4>
-                    <p>You post daily. You get likes. You get comments. But zero sales calls. Why? Because content without a system is just noise.</p>
-                </div>
-            </div>
-            
-            <div class="problem-card">
-                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800&h=400&fit=crop" alt="Tech confusion" class="problem-img">
-                <div class="problem-content">
-                    <h4>Tech confusion</h4>
-                    <p>Funnels, ads, automations... it all feels <strong>overwhelming</strong>. So you do nothing. And stay <strong>stuck</strong></p>
+                <div class="prob-card">
+                    <div class="prob-img-header">⚙️</div>
+                    <div class="prob-content">
+                        <h4>Tech Confusion</h4>
+                        <p>Funnels, ads, automations... it all feels overwhelming. So you stay stuck.</p>
+                    </div>
                 </div>
             </div>
 
             <div class="solution-box">
-                <p>That's why you're stuck at <strong>₹40K-₹1L/month</strong> while coaches with half your skills are making <strong>₹5L+</strong> because they have a system.</p>
-                <p style="margin-top: 1rem;">You <strong>don't need</strong> to fix all 6 yourself. With <strong>"GROWIK"</strong> We build the entire structure - <strong>ads, funnels, automations, testing, optimisations and ad graphics for you.</strong></p>
-            </div>
-
-            <div class="text-center" style="margin-top: 2rem;">
-                <button class="btn-primary" onclick="openModal()">
-                    Book Your 1:1 Consultation Now <span>➤</span>
-                </button>
-                <p class="scarcity-text">It is a 1:1 consultation call and we take only handful of people every month !</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials">
-        <div class="testimonials-container">
-            <h2>Real Results From Real Health Coaches</h2>
-            <p class="testimonials-subtitle">Don't just take our word for it. Here's what other health coaches achieved after implementing our system.</p>
-            
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <img src="https://i.ibb.co/placeholder1.jpg" alt="Testimonial 1" style="background: #1e293b; min-height: 400px; object-fit: cover;">
-                </div>
-                <div class="testimonial-card">
-                    <img src="https://i.ibb.co/placeholder2.jpg" alt="Testimonial 2" style="background: #1e293b; min-height: 400px; object-fit: cover;">
-                </div>
-                <div class="testimonial-card">
-                    <img src="https://i.ibb.co/placeholder3.jpg" alt="Testimonial 3" style="background: #1e293b; min-height: 400px; object-fit: cover;">
-                </div>
-                <div class="testimonial-card">
-                    <img src="https://i.ibb.co/placeholder4.jpg" alt="Testimonial 4" style="background: #1e293b; min-height: 400px; object-fit: cover;">
-                </div>
-                <div class="testimonial-card">
-                    <img src="https://i.ibb.co/placeholder5.jpg" alt="Testimonial 5" style="background: #1e293b; min-height: 400px; object-fit: cover;">
-                </div>
-                <div class="testimonial-card">
-                    <img src="https://i.ibb.co/placeholder6.jpg" alt="Testimonial 6" style="background: #1e293b; min-height: 400px; object-fit: cover;">
-                </div>
-            </div>
-
-            <div class="text-center" style="margin-top: 2rem;">
-                <button class="btn-primary" onclick="openModal()">
-                    Book Your 1:1 Consultation Now <span>➤</span>
-                </button>
-                <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-top: 0.5rem;">
-                    It is a 1:1 consultation call and we take only handful of people every month !
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about">
-        <div class="about-container">
-            <div class="about-image">
-                <img src="https://i.ibb.co/ccBXcyrs/Screenshot-2026-02-03-at-10-23-31-PM.png" alt="Gaurav Singh">
-                <div class="about-badge">
-                    <h4>Gaurav Singh</h4>
-                    <p>Founder Of Growik</p>
-                    <small style="color: #64748b; font-size: 0.8rem;">4+ Years Of Experience In Marketing</small>
-                </div>
+                <p>You <strong>don't need</strong> to fix all 6 yourself. With <strong>"GROWIK"</strong> We build the entire structure - <strong>ads, funnels, automations, testing</strong> for you.</p>
             </div>
             
-            <div class="about-content">
-                <h2>Meet Gaurav Singh</h2>
-                <p class="subtitle">Helping Health Coaches Build Scalable, Sustainable Practices</p>
-                
-                <p>Hi, I'm <strong>Gaurav Singh</strong>, a business growth strategist <strong>specializing in the health and wellness space.</strong> Over the past few years, I've worked closely with health coaches to transform their practices from <strong>inconsistent income to predictable, scalable systems</strong> - helping them attract premium clients, streamline their operations, and grow without burnout.</p>
-                
-                <p style="font-weight: 700; color: #0f172a; margin-top: 1.5rem;">I've personally:</p>
-                
-                <ul class="about-highlights">
-                    <li>Designed custom <strong>client acquisition systems</strong> for health coaches across nutrition, fitness, and holistic wellness</li>
-                    <li>Helped coaches <strong>double and triple their monthly revenue</strong> through optimized funnels and positioning</li>
-                    <li>Built <strong>done-for-you frameworks</strong> that turn expertise into repeatable, profitable offers</li>
-                </ul>
-                
-                <p style="margin-top: 1.5rem; font-style: italic; color: #475569;">I <strong>specialise in working with health coaches</strong> who are ready to move beyond trading time for money - and build a business that supports their lifestyle and impact. My approach is hands-on, strategic, and tailored to the unique challenges health professionals face when scaling.</p>
+            <button class="btn" onclick="openModal()">Get The System →</button>
+        </section>
+
+        <!-- Testimonials (USING ADHABITS PICS) -->
+        <section class="testimonials">
+            <h2 class="section-title">Real Results</h2>
+            <div class="testi-grid">
+                <div class="testi-card"><img src="https://i.postimg.cc/PJtN2tcP/nasreen-mam-finel.jpg" alt="Result 1"></div>
+                <div class="testi-card"><img src="https://i.postimg.cc/G3qpbnVx/Rukkaya-appi-finel.jpg" alt="Result 2"></div>
+                <div class="testi-card"><img src="https://i.postimg.cc/LXSzFFwM/Farheen-mam.jpg" alt="Result 3"></div>
+                <div class="testi-card"><img src="https://i.postimg.cc/vBDGBcp7/Firdous-finel.jpg" alt="Result 4"></div>
+                <div class="testi-card"><img src="https://i.postimg.cc/CxF50LL7/Ahemadi-mam-finel.jpg" alt="Result 5"></div>
+                <div class="testi-card"><img src="https://i.postimg.cc/nhcF5R0w/balvinder-finel.jpg" alt="Result 6"></div>
             </div>
-        </div>
+        </section>
 
-        <div class="text-center" style="margin-top: 3rem;">
-            <button class="btn-primary" onclick="openModal()">
-                Book Your 1:1 Consultation Call <span>➤</span>
-            </button>
-            <p class="scarcity-text">It is a 1:1 consultation call and we take only handful of people every month !</p>
-        </div>
-    </section>
+        <!-- Mentor Section (USING ADHABITS MENTOR PIC) -->
+        <section class="mentor-section">
+            <div class="mentor-card">
+                <!-- Swapped Image as requested -->
+                <img src="https://i.postimg.cc/cC2f5c0G/IMG-5862-2.avif" alt="Mentor" class="mentor-img">
+                <h3 class="mentor-name">Meet Gaurav Singh</h3>
+                <p class="mentor-role">Founder of Growik</p>
+                
+                <div class="mentor-desc">
+                    <p style="margin-bottom: 16px;">Hi, I'm a business growth strategist specializing in the health & wellness space. I've worked closely with health coaches to transform their practices.</p>
+                    <ul>
+                        <li>Designed custom client acquisition systems</li>
+                        <li>Helped coaches triple their revenue</li>
+                        <li>Built done-for-you frameworks</li>
+                    </ul>
+                </div>
+                
+                <button class="btn" style="margin-top: 20px;" onclick="openModal()">Book 1:1 Consultation</button>
+            </div>
+        </section>
 
-    <!-- Comparison Section -->
-    <section class="comparison">
-        <div class="comparison-container">
-            <h2>Why Choose GROWIK Over Other Agencies?</h2>
-            <p class="comparison-subtitle">See the clear difference between working with us and typical marketing agencies</p>
+        <!-- Comparison Section -->
+        <section class="comparison">
+            <h2 class="section-title" style="color:white; margin-bottom: 10px;">Why Growik?</h2>
+            <p style="text-align:center; color:#94a3b8; margin-bottom: 30px; font-size: 14px;">See the clear difference</p>
             
-            <div class="comparison-table">
-                <div class="comparison-header">
-                    <div>Features</div>
-                    <div>Growik</div>
-                    <div>Other Agencies</div>
-                </div>
-                
-                <div class="comparison-row">
-                    <div>Done-For-You Implementation</div>
-                    <div class="growik-col"><span class="check">✓</span></div>
-                    <div><span class="cross">✕</span></div>
-                </div>
-                
-                <div class="comparison-row">
-                    <div>Health Coach Specialization</div>
-                    <div class="growik-col"><span class="check">✓</span></div>
-                    <div><span class="cross">✕</span></div>
-                </div>
-                
-                <div class="comparison-row">
-                    <div>30-50 Qualified Leads Guarantee</div>
-                    <div class="growik-col"><span class="check">✓</span></div>
-                    <div><span class="cross">✕</span></div>
-                </div>
-                
-                <div class="comparison-row">
-                    <div>Complete Funnel Building</div>
-                    <div class="growik-col"><span class="check">✓</span></div>
-                    <div><span class="cross">✕</span></div>
-                </div>
-                
-                <div class="comparison-row">
-                    <div>Premium Positioning Strategy</div>
-                    <div class="growik-col"><span class="check">✓</span></div>
-                    <div><span class="cross">✕</span></div>
-                </div>
-                
-                <div class="comparison-row">
-                    <div>Proven Sales Scripts (18-22% Conversion)</div>
-                    <div class="growik-col"><span class="check">✓</span></div>
-                    <div><span class="cross">✕</span></div>
-                </div>
-                
-                <div class="comparison-row">
-                    <div>15-20 Day Setup Timeline</div>
-                    <div class="growik-col"><span class="check">✓</span></div>
-                    <div><span class="cross">✕</span></div>
-                </div>
-                
-                <div class="comparison-row">
-                    <div>Dedicated Support Team</div>
-                    <div class="growik-col"><span class="check">✓</span></div>
-                    <div><span class="cross">✕</span></div>
-                </div>
-                
-                <div class="comparison-row">
-                    <div>Money-Back Guarantee</div>
-                    <div class="growik-col"><span class="check">✓</span></div>
-                    <div><span class="cross">✕</span></div>
-                </div>
-                
-                <div class="comparison-row">
-                    <div>Exclusive Focus (8-10 Clients/Month)</div>
-                    <div class="growik-col"><span class="check">✓</span></div>
-                    <div><span class="cross">✕</span></div>
-                </div>
-                
-                <div class="comparison-row">
-                    <div>₹3L-₹10L Monthly Income Path</div>
-                    <div class="growik-col"><span class="check">✓</span></div>
-                    <div><span class="cross">✕</span></div>
-                </div>
-            </div>
+            <table class="comp-table">
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Growik</th>
+                        <th style="background:#334155;">Others</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Done-For-You Impl.</td>
+                        <td class="bg-highlight"><span class="check">✓</span></td>
+                        <td><span class="cross">✕</span></td>
+                    </tr>
+                    <tr>
+                        <td>Health Coach Focus</td>
+                        <td class="bg-highlight"><span class="check">✓</span></td>
+                        <td><span class="cross">✕</span></td>
+                    </tr>
+                    <tr>
+                        <td>30-50 Leads Guarantee</td>
+                        <td class="bg-highlight"><span class="check">✓</span></td>
+                        <td><span class="cross">✕</span></td>
+                    </tr>
+                    <tr>
+                        <td>Premium Positioning</td>
+                        <td class="bg-highlight"><span class="check">✓</span></td>
+                        <td><span class="cross">✕</span></td>
+                    </tr>
+                    <tr>
+                        <td>15-20 Day Setup</td>
+                        <td class="bg-highlight"><span class="check">✓</span></td>
+                        <td><span class="cross">✕</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
 
-            <div class="text-center" style="margin-top: 2rem;">
-                <button class="btn-primary" onclick="openModal()">
-                    Book Your 1:1 Consultation Call <span>➤</span>
-                </button>
-                <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin-top: 0.5rem;">
-                    It is a 1:1 consultation call and we take only handful of people every month !
-                </p>
+        <!-- Consulting Details -->
+        <section class="problems">
+            <h2 style="margin-bottom: 20px;">What Happens in This Call?</h2>
+            <div class="prob-grid">
+                <div class="prob-card">
+                    <div class="prob-content" style="text-align:center;">
+                        <div style="font-size:30px; margin-bottom:10px;">📋</div>
+                        <h4>Business Audit</h4>
+                        <p>Analyze your niche, positioning, offer & pricing.</p>
+                    </div>
+                </div>
+                <div class="prob-card">
+                    <div class="prob-content" style="text-align:center;">
+                        <div style="font-size:30px; margin-bottom:10px;">🚧</div>
+                        <h4>Identify Blockers</h4>
+                        <p>Find & fix exactly what's stopping your growth.</p>
+                    </div>
+                </div>
+                <div class="prob-card">
+                    <div class="prob-content" style="text-align:center;">
+                        <div style="font-size:30px; margin-bottom:10px;">💻</div>
+                        <h4>Scaling Blueprint</h4>
+                        <p>We'll reveal the exact blueprint to build a 7-figure coaching biz.</p>
+                    </div>
+                </div>
             </div>
+        </section>
+        
+        <div style="text-align: center; padding: 40px 20px; font-size: 12px; color: #94a3b8;">
+            © 2025 Growik. All rights reserved.<br>
+            Designed for Health Professionals.
         </div>
-    </section>
 
-    <!-- Consulting Section -->
-    <section class="consulting">
-        <div class="consulting-container">
-            <h2>What Happens in This 7-Figure Consulting Call?</h2>
-            <p class="consulting-subtitle">This is a comprehensive <strong>Business Audit & Strategy Session</strong> designed to diagnose exactly what's keeping you stuck—and how to fix it</p>
-            <p class="consulting-desc">Here's what we'll cover:</p>
-            
-            <div class="consulting-grid">
-                <div class="consulting-card">
-                    <div class="consulting-card-img" style="background: linear-gradient(135deg, #1e293b 0%, #334155 100%);">
-                        <div style="font-size: 3rem; margin-bottom: 0.5rem;">📋</div>
-                        <div style="font-weight: 700; font-size: 1.1rem;">Understand Your Business</div>
-                        <div style="font-size: 0.85rem; opacity: 0.8; margin-top: 0.5rem;">Niche • Positioning • Offer & Pricing</div>
-                    </div>
-                    <h4>Understand Your Business</h4>
-                    <p>Analyze Your Business Model, <strong>Niche</strong> And <strong>Positioning</strong> To Understand What You Do And <strong>How You Serve.</strong></p>
-                </div>
-                
-                <div class="consulting-card">
-                    <div class="consulting-card-img" style="background: linear-gradient(135deg, #0369a1 0%, #0ea5e9 100%);">
-                        <div style="font-size: 3rem; margin-bottom: 0.5rem;">🚧</div>
-                        <div style="font-weight: 700; font-size: 1.1rem;">Identify Your Growth Blockers</div>
-                        <div style="font-size: 0.85rem; opacity: 0.8; margin-top: 0.5rem;">Past Efforts • Existing Assets</div>
-                    </div>
-                    <h4>Identify Your Growth Blockers</h4>
-                    <p>Identify Your <strong>Growth Blockers</strong>, Review Your <strong>Past Efforts</strong>, And Assess The Assets You Already Have In Place.</p>
-                </div>
-                
-                <div class="consulting-card">
-                    <div class="consulting-card-img" style="background: linear-gradient(135deg, #dc2626 0%, #ef4444 100%);">
-                        <div style="font-size: 3rem; margin-bottom: 0.5rem;">🔧</div>
-                        <div style="font-weight: 700; font-size: 1.1rem;">Find & fix What's Stopping Your GROWTH</div>
-                    </div>
-                    <h4>Find & Fix What's Stopping Your Growth</h4>
-                    <p>What's <strong>holding you back</strong> for your growth, will <strong>find and fix</strong> that on this call</p>
-                </div>
-                
-                <div class="consulting-card">
-                    <div class="consulting-card-img" style="background: linear-gradient(135deg, #059669 0%, #10b981 100%);">
-                        <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎯</div>
-                        <div style="font-weight: 700; font-size: 1.1rem;">We'll Share Our Proven 7 Figure Scaling Blueprint</div>
-                    </div>
-                    <h4>We'll Share Our Proven 7 Figure Scaling Blueprint</h4>
-                    <p>If your data or insights make you the right fit, we'll <strong>reveal a blueprint</strong> we've used to help other <strong>Health coaches build a 7-figure business.</strong></p>
-                </div>
-            </div>
+    </div>
+
+    <!-- Sticky Bottom Bar -->
+    <div class="sticky-bar">
+        <div class="sticky-info">
+            Final call - Take Action Now<br>
+            <span class="sticky-timer" id="countdown">00:11:26</span>
         </div>
-    </section>
+        <button class="sticky-btn" onclick="openModal()">BOOK NOW →</button>
+    </div>
 
-    <div class="spacer"></div>
-
-    <!-- Modal -->
-    <div class="modal-overlay" id="modal">
-        <div class="modal">
-            <button class="modal-close" onclick="closeModal()">✕</button>
-            <h3>Book Your Free Consultation</h3>
-            <p>Fill in your details and we'll get back to you within 24 hours.</p>
+    <!-- Modal Form -->
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <button class="close-modal" onclick="closeModal()">×</button>
+            <h3 style="margin-bottom: 20px; font-size: 20px;">Book Consultation</h3>
             
             <form onsubmit="handleSubmit(event)">
                 <div class="form-group">
-                    <label>Your Name</label>
-                    <input type="text" placeholder="Enter your full name" required>
+                    <label>Full Name</label>
+                    <input type="text" placeholder="Your Name" required>
                 </div>
-                
                 <div class="form-group">
                     <label>WhatsApp Number</label>
-                    <input type="tel" placeholder="Enter your WhatsApp number" required>
+                    <input type="tel" placeholder="10-digit Number" required>
                 </div>
-                
                 <div class="form-group">
-                    <label>Age</label>
-                    <input type="number" placeholder="Enter your age" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>City</label>
-                    <input type="text" placeholder="Enter your city" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Current Monthly Revenue</label>
+                    <label>Current Monthly Income</label>
                     <select required>
-                        <option value="">Select your current revenue</option>
-                        <option value="40k-60k">₹40K - ₹60K</option>
-                        <option value="60k-1l">₹60K - ₹1L</option>
-                        <option value="1l-2l">₹1L - ₹2L</option>
-                        <option value="2l+">₹2L+</option>
+                        <option value="">Select Range</option>
+                        <option value="40k-1L">₹40k - ₹1L</option>
+                        <option value="1L-3L">₹1L - ₹3L</option>
+                        <option value="3L+">₹3L+</option>
                     </select>
                 </div>
-                
-                <button type="submit" class="submit-btn">Book My Consultation Now</button>
+                <button type="submit" class="btn">Confirm Booking</button>
             </form>
         </div>
     </div>
 
     <script>
-        // Countdown Timer - 15 minutes from now
-        function startCountdown() {
-            let minutes = 15;
-            let seconds = 0;
-            
-            const minutesEl = document.getElementById('minutes');
-            const secondsEl = document.getElementById('seconds');
-            
-            setInterval(() => {
-                if (seconds > 0) {
-                    seconds--;
-                } else {
-                    if (minutes > 0) {
-                        minutes--;
-                        seconds = 59;
-                    } else {
-                        minutes = 15;
-                        seconds = 0;
-                    }
+        // Countdown Logic
+        function startTimer(duration, display) {
+            var timer = duration, minutes, seconds, hours;
+            setInterval(function () {
+                hours = Math.floor(timer / 3600);
+                minutes = Math.floor((timer % 3600) / 60);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = "00:" + minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    timer = duration;
                 }
-                
-                minutesEl.textContent = minutes.toString().padStart(2, '0');
-                secondsEl.textContent = seconds.toString().padStart(2, '0');
             }, 1000);
         }
-        
-        startCountdown();
 
-        // Modal Functions
+        window.onload = function () {
+            var time = 60 * 11 + 26; // 11 minutes 26 seconds
+            var display = document.querySelector('#countdown');
+            startTimer(time, display);
+        };
+
+        // Modal Logic
         function openModal() {
             document.getElementById('modal').classList.add('active');
-            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
             document.getElementById('modal').classList.remove('active');
-            document.body.style.overflow = 'auto';
         }
 
-        // Close modal on outside click
-        document.getElementById('modal').addEventListener('click', function(e) {
-            if (e.target === this) {
-                closeModal();
-            }
-        });
-
-        // Form Submit
         function handleSubmit(e) {
             e.preventDefault();
-            alert('Thank you! We will contact you soon on WhatsApp.');
+            alert("Thanks! We will contact you shortly.");
             closeModal();
         }
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
-            });
-        });
     </script>
 </body>
-</html>'''
-
-# Save to file
-with open('/mnt/kimi/output/growik_landing_page.html', 'w', encoding='utf-8') as f:
-    f.write(html_content)
-
-print("✅ Landing page created successfully!")
-print("📁 File saved to: /mnt/kimi/output/growik_landing_page.html")
-print("\n🎯 Features included:")
-print("   - Exact same UI as the video")
-print("   - Your mentor image (Gaurav Singh) integrated")
-print("   - Sticky bottom bar with countdown timer")
-print("   - All sections: Hero, Qualification, Problems, Testimonials, About, Comparison, Consulting")
-print("   - Modal popup form")
-print("   - Mobile responsive design")
-print("   - Blue gradient theme matching the video")
+</html>
